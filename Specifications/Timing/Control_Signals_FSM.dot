@@ -1,0 +1,83 @@
+digraph G {
+   
+  start -> FETCH
+ 
+  //NOTICE!!! Instructions are numbered by OPCODE
+ 
+  //Reg - Reg
+  FETCH -> DECRA [label = "op 0, 4-B (to ALU)"]
+  DECRA -> WRITEREG [label= "op 0, 5, A (unary)"]
+  WRITEREG -> PCUPDATE
+ 
+  //Reg - Imm
+  FETCH -> IMMUPDATE [label="op 1"]
+  IMMUPDATE -> WRITEIR
+  WRITEIR -> PCUPDATE
+ 
+  //Reg - Mem
+  FETCH -> WRITEMAR2 [label = "op 2"]
+  WRITEMAR2 -> WRITEMBR
+  WRITEMBR -> WRITEMEM [label = "op 2"]
+  WRITEMEM -> PCUPDATE
+ 
+  //Mem - Reg
+  FETCH -> WRITEMAR3[label="op 3"]
+  WRITEMAR3 -> READMEM
+  READMEM -> PCUPDATE
+ 
+  //Arithmetic
+  //Decode Ra and Rb
+  DECRA -> DECRB [label="op 4, 6-9, B"]
+  DECRB -> WRITEREG
+ 
+  //Push
+  FETCH -> WRITEMBR [label="op C, op2 = 0"]
+  WRITEMBR -> WRITESTACK [label = "op = C"]
+  FETCH -> PUSHPC [label="op C, op2 = 1"]
+  PUSHPC -> WRITESTACK
+  WRITESTACK -> RSPINC [label = "op C"]
+  RSPINC -> PCUPDATE
+ 
+  //Pop
+  FETCH -> RSPDEC [label = "op D"]
+  RSPDEC -> READMBR
+  READMBR -> WRITERA [label = "op2 = 0"]
+  READMBR -> WRITEPC [label = "op2 = 1"]
+  WRITERA -> PCUPDATE
+ 
+  FETCH -> JMP [label = "op E"]
+ 
+  FETCH -> CMP [label = "op F"]
+  CMP -> JMP [label = "jmp flag"]
+  CMP -> PCUPDATE [label = "~(jmp flag)"]
+ 
+  JMP -> end
+  PCUPDATE -> end
+  WRITEPC -> end
+ 
+  FETCH -> INT [label = "int = 1"]
+  INT -> end
+ 
+
+  FETCH[label="FETCH\nEpc = 1\n Cir = 1"]
+  WRITEREG[label="WRITEREG\nEalu = 1\nCry = 1"]
+  PCUPDATE[label="PCUPDATE\n"]
+  WRITEIR[label="WRITEIR\nEir = 1\nCry = 1"]
+  WRITEMAR2[label="WRITEMAR2\nErb = 1\nCmar = 1"]
+  WRITEMAR3[label="WRITEMAR3\nEra = 1\nCmar = 1"]
+  WRITEMBR[label="WRITEMBR\nEra = 1\nCmbr = 1"]
+  WRITEMEM[label="WRITEMEM\nEmbr = 1\nCmem = 1"]
+  WRITESTACK[label="WRITESTACK\nEmbr = 1\nCstack = 1"]
+  READMEM[label="READMEM\nEdata = 1\nCry = 1"]
+  DECRA[label="DECODE RA\nEra = 1\nCalu(p0) = 1"]
+  DECRB[label="DECODE RB\nErb = 1\nCalu(p1) = 1"]
+  //READRSP[label="READ SP\nErsp = 1\nCmar = 1"]
+  RSPINC[label = "INC RSP\nCrsp = 1"]
+  READMBR[label= "READ MBR\nErsp = 1\nCmbr = 1"]
+  PUSHPC[label="PUSH PC\nEpc = 1\nCmbr = 1"]
+  WRITEPC[label="POP TO PC\nEmbr = 1\nCpc = 1"]
+  WRITERA[label="POP TO RA\nEmbr = 1\nCry = 1"]
+ 
+  CMP[label="COMPARE RA\nEra = 1"]
+  JMP[label="JUMP\nEra = 1\nCpc = 1"]
+}
