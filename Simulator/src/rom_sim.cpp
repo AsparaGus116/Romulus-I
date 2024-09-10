@@ -257,8 +257,8 @@ int main(int argc, char* argv[])
 				else
 				{
 					regs[rY] = stack[rsp];
+					++pc;
 				}
-				++pc;
 				break;
 			case 0xE: // Unconditional Jump
 				pc = regs[rA];
