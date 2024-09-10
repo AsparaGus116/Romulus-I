@@ -330,7 +330,7 @@ void printState()
 			format::resetTextColor();
 			std::cout << " ";
 		}
-		std::cout << "\n\n";
+		std::cout << "\n";
 		//print first line 
 	}
 	start = pc & 0xfff0;
