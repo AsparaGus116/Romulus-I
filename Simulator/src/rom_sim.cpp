@@ -241,7 +241,7 @@ int main(int argc, char* argv[])
 				break;
 			case 0xC: // Push
 				flag = (bool)((instr & 0x0080) >> 7);
-				stack[rsp] = flag ? pc : regs[rA];
+				stack[rsp] = flag ? pc + 2 : regs[rA];
 				stackUpdated = true;
 				++rsp;
 				++pc;
@@ -326,8 +326,9 @@ void printState()
 		for (int i = 0; i < 16; i++)
 		{
 			highlightInstr(start + i);
-			std::cout << utils::toHex(instructions[start + i], 4, false) << " ";
+			std::cout << utils::toHex(instructions[start + i], 4, false);
 			format::resetTextColor();
+			std::cout << " ";
 		}
 		std::cout << "\n\n";
 		//print first line 
@@ -351,8 +352,9 @@ void printState()
 		for (int i = 0; i < 16; i++)
 		{
 			highlightInstr(start + i);
-			std::cout << utils::toHex(instructions[start + i], 4, false) << " ";
+			std::cout << utils::toHex(instructions[start + i], 4, false);
 			format::resetTextColor();
+			std::cout << " ";
 		}
 		std::cout << '\n';
 	}
@@ -369,8 +371,9 @@ void printState()
 		for (int i = 0; i < 16; i++)
 		{
 			highlightData(start + i);
-			std::cout << utils::toHex(data[start + i], 4, false) << " ";
+			std::cout << utils::toHex(data[start + i], 4, false);
 			format::resetTextColor();
+			std::cout << " ";
 		}
 		std::cout << "\n";
 		//print first line 
@@ -394,8 +397,9 @@ void printState()
 		for (int i = 0; i < 16; i++)
 		{
 			highlightData(start + i);
-			std::cout << utils::toHex(data[start + i], 4, false) << " ";
+			std::cout << utils::toHex(data[start + i], 4, false);
 			format::resetTextColor();
+			std::cout << " ";
 		}
 		std::cout << '\n';
 	}
@@ -412,8 +416,9 @@ void printState()
 		for (int i = 0; i < 16; i++)
 		{
 			highlightStack(start + i);
-			std::cout << utils::toHex(stack[start + i], 4, false) << " ";
+			std::cout << utils::toHex(stack[start + i], 4, false);
 			format::resetTextColor();
+			std::cout << " ";
 		}
 		std::cout << "\n";
 		//print first line 
@@ -437,8 +442,9 @@ void printState()
 		for (int i = 0; i < 16; i++)
 		{
 			highlightStack(start + i);
-			std::cout << utils::toHex(stack[start + i], 4, false) << " ";
+			std::cout << utils::toHex(stack[start + i], 4, false);
 			format::resetTextColor();
+			std::cout << " ";
 		}
 		std::cout << '\n';
 	}
