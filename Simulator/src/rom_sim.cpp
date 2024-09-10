@@ -247,7 +247,7 @@ int main(int argc, char* argv[])
 				++pc;
 				break;
 			case 0xD: // Pop
-				flag = (bool)((instr & 0x0010) >> 7);
+				flag = (bool)((instr & 0x0080) >> 7);
 				stackUpdated = true;
 				--rsp;
 				if (flag)
