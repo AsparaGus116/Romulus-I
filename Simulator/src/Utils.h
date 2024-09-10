@@ -11,7 +11,7 @@ namespace utils
 #endif
 	}
 
-	std::string toHex(int x, int fill)
+	std::string toHex(int x, int fill, bool header)
 	{
 		std::string result = "";
 		while (x != 0 && result.size() < fill)
@@ -31,7 +31,10 @@ namespace utils
 		{
 			result += '0';
 		}
-		result += "x0";
+		if (header)
+		{
+			result += "x0";
+		}
 		std::reverse(result.begin(), result.end());
 		return result;
 	}
@@ -70,5 +73,4 @@ namespace utils
 		}
 		return static_cast<int>(x);
 	}
-
 }

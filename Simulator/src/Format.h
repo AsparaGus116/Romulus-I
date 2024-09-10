@@ -15,9 +15,29 @@ enum Color
 
 namespace format
 {
-	void setTextColor(Color c)
+	void blink()
 	{
-		std::cout << "\033[" << c + 30 << ";1m";
+		std::cout << "\033[5m";
+	}
+
+	void setTextColorNB(Color c, bool fg)
+	{
+		int x = 30;
+		if (!fg)
+		{
+			x += 10;
+		}
+		std::cout << "\033[" << c + x << "m";
+	}
+
+	void setTextColor(Color c, bool fg)
+	{
+		int x = 30;
+		if (!fg)
+		{
+			x += 10;
+		}
+		std::cout << "\033[" << c + x << ";1m";
 	}
 
 	void resetTextColor()
