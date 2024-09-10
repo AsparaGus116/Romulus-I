@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 #include "Format.h"
 #include "Utils.h"
@@ -89,11 +90,43 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	int curPtr = 0;
+	std::string fileStr = "";
 	while (file.good())
 	{
+
+		char c = file.get();
+		if (c == '/')
+		{
+			c = file.get();
+			if (c == '/')
+			{
+				while ((c != '\n' && c != 0xff && c != 0) && file.good())
+				{
+					c = file.get();
+				}
+			}
+			else
+			{
+				fileStr += c;
+			}
+		}
+		else if (c == 'ÿ')
+		{
+			break;
+		}
+		else
+		{
+			fileStr += c;
+		}
+
+	}
+
+	int curPtr = 0;
+	std::stringstream fStr{ fileStr };
+	while (fStr.good())
+	{
 		std::string instr;
-		file >> instr;
+		fStr >> instr;
 		if (instr.size() == 0)
 			break;
 		int x = utils::fromHex(instr);
@@ -280,7 +313,7 @@ void printState()
 
 	std::cout << "pc:  " << utils::toHex(pc, 4, true) << '\t';
 	std::cout << "rsp: " << utils::toHex(rsp, 4, true) << '\t';
-	std::cout << "\n\n";
+	std::cout << "\n";
 
 	std::cout << "Instruction RAM: \n";
 	std::cout << "       |  0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xA  0xB  0xC  0xD  0xE  0xF\n";
