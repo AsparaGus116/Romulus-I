@@ -329,9 +329,9 @@ void printState()
 	std::cout << "       |  0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xA  0xB  0xC  0xD  0xE  0xF\n";
 	std::cout << "-------+--------------------------------------------------------------------------------\n";
 
-	if (pc >= 0x0010)
+	if (mar >= 0x0010)
 	{
-		int start = (pc - 16 & 0xfff0);
+		int start = (mar - 16 & 0xfff0);
 		std::cout << utils::toHex((start), 4, true) << " | ";
 		for (int i = 0; i < 16; i++)
 		{
@@ -339,10 +339,10 @@ void printState()
 			std::cout << utils::toHex(data[start + i], 4, false) << " ";
 			format::resetTextColor();
 		}
-		std::cout << "\n\n";
+		std::cout << "\n";
 		//print first line 
 	}
-	start = pc & 0xfff0;
+	start = mar & 0xfff0;
 	std::cout << utils::toHex((start), 4, true) << " | ";
 	for (int i = 0; i < 16; i++)
 	{
@@ -354,9 +354,9 @@ void printState()
 	}
 	std::cout << '\n';
 	//always print second line
-	if (pc < 0xfff0)
+	if (mar < 0xfff0)
 	{
-		int start = (pc + 16) & 0xfff0;
+		int start = (mar + 16) & 0xfff0;
 		std::cout << utils::toHex((start), 4, true) << " | ";
 		for (int i = 0; i < 16; i++)
 		{
@@ -372,9 +372,9 @@ void printState()
 	std::cout << "       |  0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xA  0xB  0xC  0xD  0xE  0xF\n";
 	std::cout << "-------+--------------------------------------------------------------------------------\n";
 
-	if (pc >= 0x0010)
+	if (rsp >= 0x0010)
 	{
-		int start = (pc - 16 & 0xfff0);
+		int start = (rsp - 16 & 0xfff0);
 		std::cout << utils::toHex((start), 4, true) << " | ";
 		for (int i = 0; i < 16; i++)
 		{
@@ -382,10 +382,10 @@ void printState()
 			std::cout << utils::toHex(stack[start + i], 4, false) << " ";
 			format::resetTextColor();
 		}
-		std::cout << "\n\n";
+		std::cout << "\n";
 		//print first line 
 	}
-	start = pc & 0xfff0;
+	start = rsp & 0xfff0;
 	std::cout << utils::toHex((start), 4, true) << " | ";
 	for (int i = 0; i < 16; i++)
 	{
@@ -397,9 +397,9 @@ void printState()
 	}
 	std::cout << '\n';
 	//always print second line
-	if (pc < 0xfff0)
+	if (rsp < 0xfff0)
 	{
-		int start = (pc + 16) & 0xfff0;
+		int start = (rsp + 16) & 0xfff0;
 		std::cout << utils::toHex((start), 4, true) << " | ";
 		for (int i = 0; i < 16; i++)
 		{
