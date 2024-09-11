@@ -34,6 +34,11 @@ uint16_t mar = 0;
 bool dataUpdated = false;
 bool stackUpdated = false;
 
+int raUsed = -1;
+int rbUsed = -1;
+int ryUsed = -1;
+int ryUpdated = -1;
+
 std::string filename;
 std::ifstream file;
 
@@ -210,10 +215,13 @@ int main(int argc, char* argv[])
 			{
 			case 0x0: // Register - Register
 				regs[rY] = regs[rA];
+				raUsed = rA;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0x1: // Immediate - Register
 				regs[rY] = instructions[pc + 1];
+				ryUpdated = rY;
 				pc += 2;
 				break;
 			case 0x2: // Register - Memory
@@ -225,45 +233,73 @@ int main(int argc, char* argv[])
 			case 0x3: // Memory - Register
 				regs[rY] = data[regs[rA]];
 				dataUpdated = true;
+				raUsed = rA;
+				rbUsed = rB;
+				ryUpdated = rY;
 				mar = regs[rB];
 				++pc;
 				break;
 			case 0x4: // Bitwise OR
 				regs[rY] = regs[rA] | regs[rB];
+				raUsed = rA;
+				rbUsed = rB;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0x5: // Bitwise NOT
 				regs[rY] = ~regs[rA];
+				raUsed = rA;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0x6: // Bitwise AND
 				regs[rY] = regs[rA] & regs[rB];
+				raUsed = rA;
+				rbUsed = rB;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0x7: // Bitwise XOR
 				regs[rY] = regs[rA] ^ regs[rB];
+				raUsed = rA;
+				rbUsed = rB;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0x8: // Addition
 				regs[rY] = regs[rA] + regs[rB];
+				raUsed = rA;
+				rbUsed = rB;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0x9: // Subtraction
 				regs[rY] = regs[rA] - regs[rB];
+				raUsed = rA;
+				rbUsed = rB;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0xA: // Logical NOT
 				regs[rY] = (regs[rA] == 0) ? 1 : 0;
+				raUsed = rA;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0xB: // Logical Right Shift
 				regs[rY] = regs[rA] >> 1;
+				raUsed = rA;
+				ryUpdated = rY;
 				++pc;
 				break;
 			case 0xC: // Push
 				flag = (bool)((instr & 0x0080) >> 7);
 				stack[rsp] = flag ? pc + 2 : regs[rA];
 				stackUpdated = true;
+				if (flag)
+				{
+					raUsed = rA;
+				}
 				++rsp;
 				++pc;
 				break;
@@ -277,16 +313,20 @@ int main(int argc, char* argv[])
 				}
 				else
 				{
+					ryUpdated = rY;
+					stack[rsp] = 0x0000;
 					regs[rY] = stack[rsp];
 					++pc;
 				}
 				break;
 			case 0xE: // Unconditional Jump
 				pc = regs[rA];
+				raUsed = rA;
 				break; // note: PC does NOT increment after jumps
 			case 0xF: // Conditional Jump
 				bool jump = false;
-
+				rbUsed = rB;
+				ryUsed = rY;
 				if (rY >= 0b1000)
 				{
 					if (regs[rB] != 0 && ((regs[rB] & 0x8000) == 0)) jump = true; // check if rB > 0
@@ -306,6 +346,7 @@ int main(int argc, char* argv[])
 				if (jump)
 				{
 					pc = regs[rA];
+					raUsed = rA;
 				}
 				else
 				{
@@ -329,7 +370,32 @@ void printState()
 		{
 			int num = (4 * j) + i;
 			std::cout << "r" << num << ": " << ((num < 10) ? " " : "");
+			if (num == raUsed)
+			{
+				raUsed = -1;
+				format::setTextColorNB(Color::CYAN, false);
+				format::setTextColorNB(Color::BLACK, true);
+			}
+			else if (num == rbUsed)
+			{
+				rbUsed = -1;
+				format::setTextColorNB(Color::CYAN, false);
+				format::setTextColorNB(Color::BLACK, true);
+			}
+			else if (num == ryUsed)
+			{
+				ryUsed = -1;
+				format::setTextColorNB(Color::CYAN, false);
+				format::setTextColorNB(Color::BLACK, true);
+			}
+			else if (num == ryUpdated)
+			{
+				ryUpdated = -1;
+				format::setTextColorNB(Color::WHITE, false);
+				format::setTextColorNB(Color::BLACK, true);
+			}
 			std::cout << utils::toHex(regs[num], 4, true);
+			format::resetTextColor();
 			std::cout << '\t';
 		}
 		std::cout << '\n';
