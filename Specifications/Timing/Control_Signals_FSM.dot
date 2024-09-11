@@ -1,83 +1,90 @@
 digraph G {
-   
-  start -> FETCH
- 
-  //NOTICE!!! Instructions are numbered by OPCODE
- 
-  //Reg - Reg
-  FETCH -> DECRA [label = "op 0, 4-B (to ALU)"]
-  DECRA -> WRITEREG [label= "op 0, 5, A (unary)"]
-  WRITEREG -> PCUPDATE
- 
-  //Reg - Imm
-  FETCH -> IMMUPDATE [label="op 1"]
-  IMMUPDATE -> WRITEIR
-  WRITEIR -> PCUPDATE
- 
-  //Reg - Mem
-  FETCH -> WRITEMAR2 [label = "op 2"]
-  WRITEMAR2 -> WRITEMBR
-  WRITEMBR -> WRITEMEM [label = "op 2"]
-  WRITEMEM -> PCUPDATE
- 
-  //Mem - Reg
-  FETCH -> WRITEMAR3[label="op 3"]
-  WRITEMAR3 -> READMEM
-  READMEM -> PCUPDATE
- 
-  //Arithmetic
-  //Decode Ra and Rb
-  DECRA -> DECRB [label="op 4, 6-9, B"]
-  DECRB -> WRITEREG
- 
-  //Push
-  FETCH -> WRITEMBR [label="op C, op2 = 0"]
-  WRITEMBR -> WRITESTACK [label = "op = C"]
-  FETCH -> PUSHPC [label="op C, op2 = 1"]
-  PUSHPC -> WRITESTACK
-  WRITESTACK -> RSPINC [label = "op C"]
-  RSPINC -> PCUPDATE
- 
-  //Pop
-  FETCH -> RSPDEC [label = "op D"]
-  RSPDEC -> READMBR
-  READMBR -> WRITERA [label = "op2 = 0"]
-  READMBR -> WRITEPC [label = "op2 = 1"]
-  WRITERA -> PCUPDATE
- 
-  FETCH -> JMP [label = "op E"]
- 
-  FETCH -> CMP [label = "op F"]
-  CMP -> JMP [label = "jmp flag"]
-  CMP -> PCUPDATE [label = "~(jmp flag)"]
- 
-  JMP -> end
-  PCUPDATE -> end
-  WRITEPC -> end
- 
-  FETCH -> INT [label = "int = 1"]
-  INT -> end
- 
-
-  FETCH[label="FETCH\nEpc = 1\n Cir = 1"]
-  WRITEREG[label="WRITEREG\nEalu = 1\nCry = 1"]
-  PCUPDATE[label="PCUPDATE\n"]
-  WRITEIR[label="WRITEIR\nEir = 1\nCry = 1"]
-  WRITEMAR2[label="WRITEMAR2\nErb = 1\nCmar = 1"]
-  WRITEMAR3[label="WRITEMAR3\nEra = 1\nCmar = 1"]
-  WRITEMBR[label="WRITEMBR\nEra = 1\nCmbr = 1"]
-  WRITEMEM[label="WRITEMEM\nEmbr = 1\nCmem = 1"]
-  WRITESTACK[label="WRITESTACK\nEmbr = 1\nCstack = 1"]
-  READMEM[label="READMEM\nEdata = 1\nCry = 1"]
-  DECRA[label="DECODE RA\nEra = 1\nCalu(p0) = 1"]
-  DECRB[label="DECODE RB\nErb = 1\nCalu(p1) = 1"]
-  //READRSP[label="READ SP\nErsp = 1\nCmar = 1"]
-  RSPINC[label = "INC RSP\nCrsp = 1"]
-  READMBR[label= "READ MBR\nErsp = 1\nCmbr = 1"]
-  PUSHPC[label="PUSH PC\nEpc = 1\nCmbr = 1"]
-  WRITEPC[label="POP TO PC\nEmbr = 1\nCpc = 1"]
-  WRITERA[label="POP TO RA\nEmbr = 1\nCry = 1"]
- 
-  CMP[label="COMPARE RA\nEra = 1"]
-  JMP[label="JUMP\nEra = 1\nCpc = 1"]
+    START -> n00[label="int, res=0"]
+    
+    START -> I0[label="int=1, res=0"]
+    I0 -> I1;
+    I1 -> I2;
+    I2 -> I3;
+    
+    START -> R0[label="res=1"]
+    R0 -> I3;
+    
+    //These take the form n{opcode of first appearance},
+    //{Clock cycle of first appearance} 
+    
+    n00 -> n01[label="op=0,4-B"]
+    n01 -> n02[label="op=0,5,A,B"]
+    n02 -> n03;
+    
+    n00 -> n11[label="op=1"]
+    n11 -> n12;
+    n12 -> n03;
+    
+    n00 -> n21[label="op=2"]
+    n21 -> n22;
+    n22 -> n03;
+    
+    n00 -> n31[label="op=3"]
+    n31 -> n32;
+    n32 -> n03;
+    
+    n01 -> n42[label="op=4, 6-9"]
+    n42 -> n02;
+    
+    n00 -> nc11[label="op=C,op2=0"]
+    nc11 -> nc2;
+    n00 -> nc12[label="op=C,op2=1"]
+    nc12 -> nc2;
+    nc2 -> n03;
+    
+    n00 -> nd1[label="op=D"]
+    nd1 -> nd21[label="op2=0"]
+    nd21 -> n03
+    nd1 -> nd22[label="op2=1"]
+    nd22 -> I3[style="dotted"]
+    
+    n00 -> ne1[label="op=E"]
+    ne1 -> I3;
+    
+    n00 -> nf1;
+    nf1 -> n03[label="op=F,cmp=0"];
+    n00 -> nf1;
+    nf1 -> ne1[label="op=F,cmp=1"];
+    
+    n00[label="Einstr\nCir"]
+    n01[label="Erx\nCp0"]
+    n02[label="Ealu\nCrx\nSel1"]
+    n03[label="Pcinc\nSetsub"]
+    
+    I0[label="Epc\nCstack"]
+    I1[label="Csp++"]
+    I2[label="Edip\nCpc"]
+    I3[label="Setsub"]
+    
+    R0[label="Cir\nCmar\nCpc\nCcpall\nCrall"]
+    
+    n11[label="Pcinc"]
+    n12[label="Einstr\nCrx\nSel1"]
+    
+    n21[label="Erx\nSel0\nCmar"]
+    n22[label="Erx\nCdata"]
+    
+    n31[label="Erx\nCmar"]
+    n32[label="Edata\nCrx\nSel1"]
+    
+    n42[label="Erx\nSel0\nCp1"]
+    
+    nc11[label="Erx\nCstack"]
+    nc12[label="Epc\nCstack"]
+    nc2[label="Csp++"]
+    
+    nd1[label="Csp--"]
+    nd21[label="Estack\nCrx\nSel1"]
+    nd22[label="Estack\nCpc"]
+    
+    ne1[label="Erx\nCpc"]
+    
+    nf1[label="Erx\nSel0\nCcmp"]
+    
+    //STATES[label="SIGNALS\nCir\nCmar\nCpc\nCdata\nCcpall\nCp0\nCp1\nCrx\nCsp++\nCsp--\nCstack\nCcmp\nEdip\nEpc\nEdata\nEalu\nErx\nEinstr\nEstack\nSel0\nSel1\nSetsub\nPcinc"]
 }
