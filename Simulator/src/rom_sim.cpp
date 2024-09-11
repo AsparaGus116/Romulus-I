@@ -268,16 +268,16 @@ int main(int argc, char* argv[])
 
 				switch (rY)
 				{
-				case 0:
+				case 0x0001:
 					if (regs[rB] == 0) jump = true;
 					break; // check if rB == 0
-				case 1:
+				case 0x0010:
 					if (regs[rB] != 0) jump = true;
 					break; // check if rB != 0
-				case 2:
+				case 0x0100:
 					if (regs[rB] & 0x1000) jump = true;
 					break; // check if rB < 0
-				case 3:
+				case 0x1000:
 					if (regs[rB] != 0 && ((regs[rB] & 0x1000) == 0)) jump = true;
 					break; // check if rB > 0
 				}
@@ -306,14 +306,30 @@ void printState()
 		for (int i = 0; i < 4; i++)
 		{
 			int num = (4 * j) + i;
-			std::cout << "r" << num << ": " << ((num < 10) ? " " : "") << utils::toHex(regs[num], 4, true) << '\t';
+			std::cout << "r" << num << ": " << ((num < 10) ? " " : "");
+			std::cout << utils::toHex(regs[num], 4, true);
+			std::cout << '\t';
 		}
 		std::cout << '\n';
 	}
-
-	std::cout << "pc:  " << utils::toHex(pc, 4, true) << '\t';
-	std::cout << "rsp: " << utils::toHex(rsp, 4, true) << '\t';
 	std::cout << "\n";
+
+	std::cout << "pc:  ";
+	format::setTextColorNB(Color::WHITE, false);
+	format::setTextColorNB(Color::BLACK, true);
+	std::cout << utils::toHex(pc, 4, true);
+	format::resetTextColor();
+	std::cout << '\t';
+	std::cout << "rsp: ";
+	if (stackUpdated)
+	{
+		format::setTextColorNB(Color::WHITE, false);
+		format::setTextColorNB(Color::BLACK, true);
+	}
+	std::cout << utils::toHex(rsp, 4, true);
+	format::resetTextColor();
+	std::cout << '\t';
+	std::cout << "\n\n";
 
 	std::cout << "Instruction RAM: \n";
 	std::cout << "       |  0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xA  0xB  0xC  0xD  0xE  0xF\n";
@@ -448,6 +464,7 @@ void printState()
 		}
 		std::cout << '\n';
 	}
+	std::cout << "\n";
 }
 
 void highlightInstr(int curPtr)
@@ -484,7 +501,13 @@ void highlightData(int curPtr)
 
 void highlightStack(int curPtr)
 {
-	if (stackUpdated && curPtr == rsp)
+	if (stackUpdated && curPtr == (rsp - 1) && ((instructions[pc - 1] & 0xf000) >> 12) == 0xC)
+	{
+		stackUpdated = false;
+		format::setTextColorNB(Color::WHITE, false);
+		format::setTextColorNB(Color::BLACK, true);
+	}
+	else if (stackUpdated && curPtr == (rsp) && ((instructions[pc - 1] & 0xf000) >> 12) == 0xD)
 	{
 		stackUpdated = false;
 		format::setTextColorNB(Color::WHITE, false);
