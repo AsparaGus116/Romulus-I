@@ -370,7 +370,13 @@ void printState()
 		{
 			int num = (4 * j) + i;
 			std::cout << "r" << num << ": " << ((num < 10) ? " " : "");
-			if (num == raUsed)
+			if (num == ryUpdated)
+			{
+				ryUpdated = -1;
+				format::setTextColorNB(Color::WHITE, false);
+				format::setTextColorNB(Color::BLACK, true);
+			}
+			else if (num == raUsed)
 			{
 				raUsed = -1;
 				format::setTextColorNB(Color::CYAN, false);
@@ -388,12 +394,7 @@ void printState()
 				format::setTextColorNB(Color::CYAN, false);
 				format::setTextColorNB(Color::BLACK, true);
 			}
-			else if (num == ryUpdated)
-			{
-				ryUpdated = -1;
-				format::setTextColorNB(Color::WHITE, false);
-				format::setTextColorNB(Color::BLACK, true);
-			}
+			
 			std::cout << utils::toHex(regs[num], 4, true);
 			format::resetTextColor();
 			std::cout << '\t';
