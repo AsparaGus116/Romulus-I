@@ -375,6 +375,14 @@ void printState()
 				ryUpdated = -1;
 				format::setTextColorNB(Color::WHITE, false);
 				format::setTextColorNB(Color::BLACK, true);
+				if (num == raUsed)
+				{
+					raUsed = -1;
+				}
+				if (num == rbUsed)
+				{
+					rbUsed = -1;
+				}
 			}
 			else if (num == raUsed)
 			{
