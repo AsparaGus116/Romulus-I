@@ -147,8 +147,8 @@ int main(int argc, char* argv[])
 	{
 		std::string menuStr = "";
 		int steps = 0;
-		std::cout << "Type a number to step that many times, (v) to view the CPU's state, or (q) to quit.\n>> ";
-		std::cin >> menuStr;
+		std::cout << "Type a number to step that many times, (v) to view the CPU's state, (r) to restart, or (q) to quit.\n>> ";
+		std::getline(std::cin, menuStr);
 		for (int i = 0; i < menuStr.size(); i++)
 		{
 			menuStr[i] = tolower(menuStr[i]);
@@ -163,16 +163,37 @@ int main(int argc, char* argv[])
 			std::cout << "Exiting...\n";
 			return 0;
 		}
+		else if (menuStr.find('r') != std::string::npos)
+		{
+			std::cout << "Restarting...\n";
+			data.clear();
+			stack.clear();
+			regs.clear();
+			pc = 0;
+			mar = 0;
+			rsp = 0;
+			data.resize(DATA_RAM_SIZE);
+			stack.resize(STACK_RAM_SIZE);
+			regs.resize(NUM_REGS);
+			continue;
+		}
 		else
 		{
-			try
+			if (menuStr.size() == 0)
 			{
-				steps = std::stoi(menuStr);
+				steps = 1;
 			}
-			catch (std::invalid_argument)
+			else
 			{
-				std::cout << "Invalid step number. Please try again.\n";
-				continue;
+				try
+				{
+					steps = std::stoi(menuStr);
+				}
+				catch (std::invalid_argument)
+				{
+					std::cout << "Invalid step number. Please try again.\n";
+					continue;
+				}
 			}
 		}
 
@@ -266,20 +287,21 @@ int main(int argc, char* argv[])
 			case 0xF: // Conditional Jump
 				bool jump = false;
 
-				switch (rY)
+				if (rY >= 0b1000)
 				{
-				case 0x0001:
-					if (regs[rB] == 0) jump = true;
-					break; // check if rB == 0
-				case 0x0010:
-					if (regs[rB] != 0) jump = true;
-					break; // check if rB != 0
-				case 0x0100:
-					if (regs[rB] & 0x1000) jump = true;
-					break; // check if rB < 0
-				case 0x1000:
-					if (regs[rB] != 0 && ((regs[rB] & 0x1000) == 0)) jump = true;
-					break; // check if rB > 0
+					if (regs[rB] != 0 && ((regs[rB] & 0x8000) == 0)) jump = true; // check if rB > 0
+				}
+				else if (rY >= 0b0100)
+				{
+					if (regs[rB] & 0x8000) jump = true; // check if rB < 0
+				}
+				else if (rY >= 0b0010)
+				{
+					if (regs[rB] != 0) jump = true; // check if rB != 0
+				}
+				else if (rY >= 0b0001)
+				{
+					if (regs[rB] == 0) jump = true; // check if rB == 0
 				}
 				if (jump)
 				{
