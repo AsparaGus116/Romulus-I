@@ -314,10 +314,10 @@ int main(int argc, char* argv[])
 				else
 				{
 					ryUpdated = rY;
-					stack[rsp] = 0x0000;
 					regs[rY] = stack[rsp];
 					++pc;
 				}
+				stack[rsp] = 0x0000;
 				break;
 			case 0xE: // Unconditional Jump
 				pc = regs[rA];
