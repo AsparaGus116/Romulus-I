@@ -51,21 +51,170 @@ void setWrite(int arr[], int pinCount)
 
 uint8_t readByte(uint32_t addr)
 {
+  setWrite(a, 17);
+  digitalWrite(CE, HIGH);
+  digitalWrite(OE, HIGH);
+  digitalWrite(WE, HIGH);
+
+  setAddr(addr);
   digitalWrite(CE, LOW);
   digitalWrite(OE, LOW);
+
+  for(int i = 0; i < 2; i++)
+  {
+    tinyDelay();
+  }
+
+  int res = 0;
+
+  setRead(d, 8);
+
+  for(int i = 7; i >= 0; i--)
+  {
+    res += digitalRead(d[i]);
+    if(res != 0)
+    {
+      res <<= 1;
+    }
+  }
+  return res;
+}
+
+void setAddr(uint32_t addr)
+{
+  for(int i = 0; i < 17; i++)
+  {
+    a[i] = addr % 2;
+    addr >>= 1;
+  }
+}
+
+void setData(uint8_t data)
+{
+  for(int i = 0; i < 8; i++)
+  {
+    d[i] = data % 2;
+    data >>= 1;
+  }
+}
+
+void chipErase()
+{
+  digitalWrite(CE, HIGH);
+  digitalWrite(OE, HIGH);
+  digitalWrite(WE, LOW);
+  setAddr(0x5555);
+  setData(0xaa); // SW0
+  digitalWrite(CE, LOW);
+  digitalWrite(OE, HIGH);
+  digitalWrite(WE, LOW);
+  delayMicroseconds(1);
+  setAddr(0x2aaa);
+  digitalWrite(WE, HIGH);
+  setData(0x55);
+  delayMicroseconds(1); // SW1
+  digitalWrite(WE, LOW);
+  delayMicroseconds(1);
+  setAddr(0x5555);
+  digitalWrite(WE, HIGH);
+  setData(0x80);
+  delayMicroseconds(1); // SW2
+  digitalWrite(WE, LOW);
+  delayMicroseconds(1);
+  setAddr(0x5555);
+  digitalWrite(WE, HIGH);
+  setData(0xAA);
+  delayMicroseconds(1); // SW3
+  digitalWrite(WE, LOW);
+  delayMicroseconds(1);
+  setAddr(0x2aaa);
+  digitalWrite(WE, HIGH);
+  setData(0x55);
+  delayMicroseconds(1); // SW4
+  digitalWrite(WE, LOW);
+  delayMicroseconds(1);
+  setAddr(0x5555);
+  digitalWrite(WE, HIGH);
+  setData(0x10);
+  delayMicroseconds(1); // SW5
+  digitalWrite(WE, LOW);
+  delayMicroseconds(1);
   digitalWrite(WE, HIGH);
 
 }
 
+void writeByte(uint32_t addr, uint8_t data)
+{
+  setWrite(a, 17);
+  setWrite(d, 8);
+
+  setAddr(0x5555);
+  setData(0xaa);
+  digitalWrite(OE, HIGH);
+  digitalWrite(CE, LOW);
+  digitalWrite(WE, LOW);
+  
+  tinyDelay();
+  digitalWrite(WE, HIGH);
+
+  setAddr(0x2aaa);
+  setData(0x55);
+  tinyDelay();
+
+  digitalWrite(WE, LOW);
+  tinyDelay();
+
+  digitalWrite(WE, HIGH);
+  setAddr(0x5555);
+  setData(0xa0);
+  tinyDelay();
+
+  digitalWrite(WE, LOW);
+  tinyDelay();
+
+  digitalWrite(WE, HIGH);
+  setAddr(addr);
+  setData(data);
+  tinyDelay();
+
+  digitalWrite(WE, LOW);
+  tinyDelay();
+  digitalWrite(WE, HIGH);
+  delayMicroseconds(25);
+  digitalWrite(WE, LOW);
+  digitalWrite(OE, HIGH);
+  digitalWrite(CE, LOW);
+
+}
+
+void tinyDelay() // delays ~62.5 ns
+{
+  asm volatile("nop");
+}
+
 void setup() {
+  pinMode(21, OUTPUT);
+  pinMode(41, OUTPUT);
+
+  setWrite(d, 8);
+  setWrite(a, 17);
+
   pinMode(WE, OUTPUT); // WARNING: ACTIVE LOW
   pinMode(OE, OUTPUT); // WARNING: ACTIVE LOW
   pinMode(CE, OUTPUT); // WARNING: ACTIVE LOW
   // put your setup code here, to run once:
+  digitalWrite(CE, HIGH);
+  digitalWrite(OE, LOW);
+  digitalWrite(WE, HIGH);
+  Serial.begin(115200);
+  writeByte(0x0, 0x55);
+  Serial.println(readByte(0x0));
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
+  //Serial.println(digitalRead(12));
+  // put your main code here, to run repeatedly:
+  
 }

@@ -1,0 +1,17 @@
+// Fibonacci
+
+1000 0001 // Load 1 into r0
+C000 // Push r0
+1001 0001 // Load 1 into r1
+C100 // Push r1
+
+C080 // Push PC+2 to stack
+D00F // Pop PC+2 from stack to r15
+
+8012 // r2 = r0 + r1
+C200 // Push r2
+0200 // r0 = r2
+8012 // r2 = r0 + r1
+C200 // Push r2
+0201 // r1 = r2
+EF00 // Jump to the address stored in r15 (which is the beginning of the loop)
