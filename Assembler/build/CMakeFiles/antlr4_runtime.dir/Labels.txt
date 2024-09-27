@@ -1,0 +1,13 @@
+# Target labels
+ antlr4_runtime
+# Source files and their labels
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-complete.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-configure.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-download.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-install.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-mkdir.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-patch.rule
+/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-update.rule

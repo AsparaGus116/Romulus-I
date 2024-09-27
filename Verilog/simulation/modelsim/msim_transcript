@@ -1,0 +1,57 @@
+# Reading pref.tcl
+# do Romulus-I_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog {C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/SN74LS573.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:03:02 on Sep 21,2024
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog" C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/SN74LS573.v 
+# -- Compiling module SN74LS573
+# 
+# Top level modules:
+# 	SN74LS573
+# End time: 23:03:02 on Sep 21,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog {C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/testbench.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:03:03 on Sep 21,2024
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog" C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/testbench.v 
+# -- Compiling module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 23:03:03 on Sep 21,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vsim work.testbench
+# vsim work.testbench 
+# Start time: 23:03:12 on Sep 21,2024
+# Loading work.testbench
+# Loading work.SN74LS573
+add wave -position insertpoint sim:/testbench/*
+run 100 ns
+#############  Autofindloop Analysis  ###############
+#############  Loop found at time 20 ps ###############
+#   Active process: /testbench/r1/#ALWAYS#12 @ sub-iteration 0
+#     Source: C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/testbench.v:8
+#   Active process: /testbench/r1/#ALWAYS#12 @ sub-iteration 1
+#     Source: C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/testbench.v:8
+#   Active process: /testbench/r1/#ALWAYS#12 @ sub-iteration 2
+#     Source: C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/testbench.v:8
+################# END OF LOOP #################
+# ** Error (suppressible): (vsim-3601) Iteration limit 5000 reached at time 20 ps.
+######## Additional Loop Analysis Started ##########
+##############  Autofindloop Step ##################
+#   Active process: /testbench/r1/#ALWAYS#12
+#     Source: C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Verilog/testbench.v:8
+###################################################
+# End time: 23:03:35 on Sep 21,2024, Elapsed time: 0:00:23
+# Errors: 1, Warnings: 0

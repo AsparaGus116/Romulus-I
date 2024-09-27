@@ -26,24 +26,24 @@ include_directories(${ANTLR4_INCLUDE_DIRS})
 
 # set variable pointing to the antlr tool that supports C++
 # this is not required if the jar file can be found under PATH environment
-set(ANTLR_EXECUTABLE /home/user/antlr-4.13.2-complete.jar)
+set(ANTLR_EXECUTABLE C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr-4.13.2-complete.jar)
 # add macros to generate ANTLR Cpp code from grammar
 find_package(ANTLR REQUIRED)
 
 # Call macro to add lexer and grammar to your build dependencies.
-antlr_target(SampleGrammarLexer romASMLexer.g4 LEXER
-             PACKAGE antlrcpptest)
-antlr_target(SampleGrammarParser romASMParser.g4 PARSER
-             PACKAGE antlrcpptest
-             DEPENDS_ANTLR SampleGrammarLexer
-             COMPILE_FLAGS -lib ${ANTLR_SampleGrammarLexer_OUTPUT_DIR})
+antlr_target(romASMLexer romASMLexer.g4 LEXER
+             PACKAGE romASM)
+antlr_target(romASMParser romASMParser.g4 PARSER
+             PACKAGE romASM
+             DEPENDS_ANTLR romASMLexer
+             COMPILE_FLAGS -lib ${ANTLR_romASMLexer_OUTPUT_DIR})
 
 # include generated files in project environment
-include_directories(${ANTLR_SampleGrammarLexer_OUTPUT_DIR})
-include_directories(${ANTLR_SampleGrammarParser_OUTPUT_DIR})
+include_directories(${ANTLR_romASMLexer_OUTPUT_DIR})
+include_directories(${ANTLR_romASMParser_OUTPUT_DIR})
 
 # add generated grammar to demo binary target
 add_executable(demo main.cpp
-               ${ANTLR_SampleGrammarLexer_CXX_OUTPUTS}
-               ${ANTLR_SampleGrammarParser_CXX_OUTPUTS})
+               ${ANTLR_romASMLexer_CXX_OUTPUTS}
+               ${ANTLR_romASMParser_CXX_OUTPUTS})
 target_link_libraries(demo antlr4_static)

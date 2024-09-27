@@ -1,0 +1,7 @@
+
+input[15:0] D;
+input LE;
+input OE;
+output[15:0] Q;
+
+SN74LS573 r1

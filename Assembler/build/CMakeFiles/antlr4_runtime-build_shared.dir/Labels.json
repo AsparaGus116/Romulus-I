@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-build_shared"
+		},
+		{
+			"file" : "/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-build_shared.rule"
+		},
+		{
+			"file" : "/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_shared.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"antlr4_runtime"
+		],
+		"name" : "antlr4_runtime-build_shared"
+	}
+}
