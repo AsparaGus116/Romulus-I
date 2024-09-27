@@ -156,24 +156,24 @@ antlr4_runtime-build_shared/fast:
 .PHONY : antlr4_runtime-build_shared/fast
 
 #=============================================================================
-# Target rules for targets named demo
+# Target rules for targets named romASM
 
 # Build rule for target.
-demo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 demo
-.PHONY : demo
+romASM: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 romASM
+.PHONY : romASM
 
 # fast build rule for target.
-demo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
-.PHONY : demo/fast
+romASM/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/build
+.PHONY : romASM/fast
 
 antlr4cpp_generated_src/romASMLexer/romASMLexer.o: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o
 .PHONY : antlr4cpp_generated_src/romASMLexer/romASMLexer.o
 
 # target to build an object file
 antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o
 .PHONY : antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o
 
 antlr4cpp_generated_src/romASMLexer/romASMLexer.i: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.i
@@ -181,7 +181,7 @@ antlr4cpp_generated_src/romASMLexer/romASMLexer.i: antlr4cpp_generated_src/romAS
 
 # target to preprocess a source file
 antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.i
 .PHONY : antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.i
 
 antlr4cpp_generated_src/romASMLexer/romASMLexer.s: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.s
@@ -189,7 +189,7 @@ antlr4cpp_generated_src/romASMLexer/romASMLexer.s: antlr4cpp_generated_src/romAS
 
 # target to generate assembly for a file
 antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.s
 .PHONY : antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.s
 
 antlr4cpp_generated_src/romASMParser/romASMParser.o: antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o
@@ -197,7 +197,7 @@ antlr4cpp_generated_src/romASMParser/romASMParser.o: antlr4cpp_generated_src/rom
 
 # target to build an object file
 antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o
 .PHONY : antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o
 
 antlr4cpp_generated_src/romASMParser/romASMParser.i: antlr4cpp_generated_src/romASMParser/romASMParser.cpp.i
@@ -205,7 +205,7 @@ antlr4cpp_generated_src/romASMParser/romASMParser.i: antlr4cpp_generated_src/rom
 
 # target to preprocess a source file
 antlr4cpp_generated_src/romASMParser/romASMParser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.i
 .PHONY : antlr4cpp_generated_src/romASMParser/romASMParser.cpp.i
 
 antlr4cpp_generated_src/romASMParser/romASMParser.s: antlr4cpp_generated_src/romASMParser/romASMParser.cpp.s
@@ -213,7 +213,7 @@ antlr4cpp_generated_src/romASMParser/romASMParser.s: antlr4cpp_generated_src/rom
 
 # target to generate assembly for a file
 antlr4cpp_generated_src/romASMParser/romASMParser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.s
 .PHONY : antlr4cpp_generated_src/romASMParser/romASMParser.cpp.s
 
 main.o: main.cpp.o
@@ -221,7 +221,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -229,7 +229,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -237,7 +237,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -251,7 +251,7 @@ help:
 	@echo "... antlr4_runtime"
 	@echo "... antlr4_runtime-build_shared"
 	@echo "... antlr4_runtime-build_static"
-	@echo "... demo"
+	@echo "... romASM"
 	@echo "... antlr4cpp_generated_src/romASMLexer/romASMLexer.o"
 	@echo "... antlr4cpp_generated_src/romASMLexer/romASMLexer.i"
 	@echo "... antlr4cpp_generated_src/romASMLexer/romASMLexer.s"

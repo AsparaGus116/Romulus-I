@@ -89,7 +89,7 @@ antlr4cpp_generated_src/romASMParser/romASMParser.interp: antlr4cpp_generated_sr
 antlr4cpp_generated_src/romASMParser/romASMParser.interp: antlr4cpp_generated_src/romASMLexer/romASMLexer.h
 antlr4cpp_generated_src/romASMParser/romASMParser.interp: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building romASMParser with ANTLR 4.13.2"
-	cd /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler && "/c/Program Files/Common Files/Oracle/Java/javapath/java.exe" -jar C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr-4.13.2-complete.jar romASMParser.g4 -o /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMParser -no-listener -Dlanguage=Cpp -lib /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMLexer -package romASM
+	cd /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler && "/c/Program Files/Common Files/Oracle/Java/javapath/java.exe" -jar C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr-4.13.2-complete.jar romASMParser.g4 -o /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMParser -no-listener -Dlanguage=Cpp -lib /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMLexer -visitor -package romASM
 
 antlr4cpp_generated_src/romASMParser/romASMParser.tokens: antlr4cpp_generated_src/romASMParser/romASMParser.interp
 	@$(CMAKE_COMMAND) -E touch_nocreate antlr4cpp_generated_src/romASMParser/romASMParser.tokens

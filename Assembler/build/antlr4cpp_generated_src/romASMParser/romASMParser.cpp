@@ -2,6 +2,7 @@
 // Generated from romASMParser.g4 by ANTLR 4.13.2
 
 
+#include "romASMParserVisitor.h"
 
 #include "romASMParser.h"
 
@@ -200,6 +201,13 @@ size_t romASMParser::ProgramContext::getRuleIndex() const {
 }
 
 
+std::any romASMParser::ProgramContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<romASMParserVisitor*>(visitor))
+    return parserVisitor->visitProgram(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 romASMParser::ProgramContext* romASMParser::program() {
   ProgramContext *_localctx = _tracker.createInstance<ProgramContext>(_ctx, getState());
   enterRule(_localctx, 0, romASMParser::RuleProgram);
@@ -361,6 +369,13 @@ size_t romASMParser::ExprContext::getRuleIndex() const {
   return romASMParser::RuleExpr;
 }
 
+
+std::any romASMParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<romASMParserVisitor*>(visitor))
+    return parserVisitor->visitExpr(this);
+  else
+    return visitor->visitChildren(this);
+}
 
 romASMParser::ExprContext* romASMParser::expr() {
   ExprContext *_localctx = _tracker.createInstance<ExprContext>(_ctx, getState());

@@ -80,5 +80,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/antlr4_runtime.dir/DependInfo.cmake"
   "CMakeFiles/antlr4_runtime-build_static.dir/DependInfo.cmake"
   "CMakeFiles/antlr4_runtime-build_shared.dir/DependInfo.cmake"
-  "CMakeFiles/demo.dir/DependInfo.cmake"
+  "CMakeFiles/romASM.dir/DependInfo.cmake"
   )

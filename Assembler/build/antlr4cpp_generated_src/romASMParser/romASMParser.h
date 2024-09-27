@@ -51,6 +51,8 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
 
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -89,6 +91,8 @@ public:
     antlr4::tree::TerminalNode *JLZ();
     antlr4::tree::TerminalNode *COMMENT();
 
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 

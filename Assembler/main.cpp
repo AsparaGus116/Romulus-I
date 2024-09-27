@@ -15,6 +15,7 @@
 #include "antlr4-runtime.h"
 #include "romASMLexer.h"
 #include "romASMParser.h"
+#include "romASMParserBaseVisitor.h"
 
 #include <Windows.h>
 
