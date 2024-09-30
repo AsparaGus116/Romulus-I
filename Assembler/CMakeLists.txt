@@ -30,6 +30,9 @@ set(ANTLR_EXECUTABLE C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr
 # add macros to generate ANTLR Cpp code from grammar
 find_package(ANTLR REQUIRED)
 
+set(BUILD_SHARED_LIBS OFF)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
+
 # Call macro to add lexer and grammar to your build dependencies.
 antlr_target(romASMLexer romASMLexer.g4 LEXER
              PACKAGE romASM)
