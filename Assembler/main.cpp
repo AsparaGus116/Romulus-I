@@ -11,11 +11,13 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #include "antlr4-runtime.h"
 #include "romASMLexer.h"
 #include "romASMParser.h"
-#include "romASMParserBaseVisitor.h"
+#include "Listener.h"
 
 #include <Windows.h>
 
@@ -26,15 +28,46 @@ using namespace antlr4;
 
 int main(int argc, const char * argv[]) {
 
-  ANTLRInputStream input("MOV r1, r2\nSUB r3, r2, r15\nlda R0 R5");
-  romASMLexer lexer(&input);
-  CommonTokenStream tokens(&lexer);
+  std::string outfname = "a.txt";
 
-  romASMParser parser(&tokens);
-  tree::ParseTree *tree = parser.program();
+  std::ifstream file;
+  if(argc >= 2)
+  {
+	file.open(argv[1], std::ios::in);
+	if(!file.good())
+	{
+		std::cout << "ERROR OPENING FILE\n";
+		return 0;
+	}
+	ANTLRInputStream input(file);
+	romASMLexer lexer(&input);
+	CommonTokenStream tokens(&lexer);
 
-  auto s = tree->toStringTree(&parser);
-  std::cout << "Parse Tree: " << s << std::endl;
+	romASMParser parser(&tokens);
+	tree::ParseTree *tree = parser.program();
+
+	auto s = tree->toStringTree(&parser);
+	
+	if (lexer.getNumberOfSyntaxErrors() > 0) {
+        std::cerr << "Lexer failed with " << lexer.getNumberOfSyntaxErrors() << " error(s)." << std::endl;
+        return -1; // Stop the program
+    }
+	
+	if (parser.getNumberOfSyntaxErrors() > 0) {
+        std::cerr << "Parsing failed with " << parser.getNumberOfSyntaxErrors() << " error(s)." << std::endl;
+        return -1; // Stop the program
+    }
+	std::cout << "Parse Tree: " << s << std::endl;
+	
+	Listener listener{outfname};
+	
+	antlr4::tree::ParseTreeWalker walker;
+	
+	walker.walk(&listener, tree);
+	
+    walker.walk(&listener, tree);
+  }
+  
 
   return 0;
 }

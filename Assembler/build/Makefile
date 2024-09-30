@@ -168,6 +168,30 @@ romASM/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/build
 .PHONY : romASM/fast
 
+Listener.o: Listener.cpp.o
+.PHONY : Listener.o
+
+# target to build an object file
+Listener.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/Listener.cpp.o
+.PHONY : Listener.cpp.o
+
+Listener.i: Listener.cpp.i
+.PHONY : Listener.i
+
+# target to preprocess a source file
+Listener.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/Listener.cpp.i
+.PHONY : Listener.cpp.i
+
+Listener.s: Listener.cpp.s
+.PHONY : Listener.s
+
+# target to generate assembly for a file
+Listener.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/romASM.dir/build.make CMakeFiles/romASM.dir/Listener.cpp.s
+.PHONY : Listener.cpp.s
+
 antlr4cpp_generated_src/romASMLexer/romASMLexer.o: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o
 .PHONY : antlr4cpp_generated_src/romASMLexer/romASMLexer.o
 
@@ -252,6 +276,9 @@ help:
 	@echo "... antlr4_runtime-build_shared"
 	@echo "... antlr4_runtime-build_static"
 	@echo "... romASM"
+	@echo "... Listener.o"
+	@echo "... Listener.i"
+	@echo "... Listener.s"
 	@echo "... antlr4cpp_generated_src/romASMLexer/romASMLexer.o"
 	@echo "... antlr4cpp_generated_src/romASMLexer/romASMLexer.i"
 	@echo "... antlr4cpp_generated_src/romASMLexer/romASMLexer.s"

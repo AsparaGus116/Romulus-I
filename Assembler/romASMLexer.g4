@@ -23,6 +23,8 @@ JNZ : 'jnz' | 'JNZ' ;
 JGZ : 'jgz' | 'JGZ' ;
 JLZ : 'jlz' | 'JLZ' ;
 
+LABEL : [0-9a-zA-Z_\-^:]+?(':') ;
+
 COMMA : ',' ;
 
 COMMENT : ('//'|'#')(.)*?('\n'|EOF) -> skip;

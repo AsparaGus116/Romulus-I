@@ -30,4 +30,5 @@ expr
     | JGZ REG ','? REG
     | JLZ REG ','? REG
     | COMMENT
+    | LABEL
     ;

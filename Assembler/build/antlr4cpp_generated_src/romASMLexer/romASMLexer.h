@@ -15,8 +15,8 @@ public:
   enum {
     MOV = 1, STR = 2, LDA = 3, OR = 4, INV = 5, AND = 6, XOR = 7, ADD = 8, 
     SUB = 9, NOT = 10, SHR = 11, SHL = 12, PUSH = 13, CALL = 14, POP = 15, 
-    RET = 16, JMP = 17, JEZ = 18, JNZ = 19, JGZ = 20, JLZ = 21, COMMA = 22, 
-    COMMENT = 23, IMM = 24, HEX = 25, REG = 26, WS = 27
+    RET = 16, JMP = 17, JEZ = 18, JNZ = 19, JGZ = 20, JLZ = 21, LABEL = 22, 
+    COMMA = 23, COMMENT = 24, IMM = 25, HEX = 26, REG = 27, WS = 28
   };
 
   explicit romASMLexer(antlr4::CharStream *input);

@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/romASM.dir/Listener.cpp.o"
+  "CMakeFiles/romASM.dir/Listener.cpp.o.d"
   "CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o"
   "CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o.d"
   "CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o"

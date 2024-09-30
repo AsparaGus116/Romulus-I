@@ -36,14 +36,14 @@ antlr_target(romASMLexer romASMLexer.g4 LEXER
 antlr_target(romASMParser romASMParser.g4 PARSER
              PACKAGE romASM
              DEPENDS_ANTLR romASMLexer
-             COMPILE_FLAGS -lib ${ANTLR_romASMLexer_OUTPUT_DIR} -visitor)
+             COMPILE_FLAGS -lib ${ANTLR_romASMLexer_OUTPUT_DIR} -listener)
 
 # include generated files in project environment
 include_directories(${ANTLR_romASMLexer_OUTPUT_DIR})
 include_directories(${ANTLR_romASMParser_OUTPUT_DIR})
 
 # add generated grammar to demo binary target
-add_executable(romASM main.cpp
+add_executable(romASM main.cpp Listener.h Listener.cpp
                ${ANTLR_romASMLexer_CXX_OUTPUTS}
                ${ANTLR_romASMParser_CXX_OUTPUTS})
 target_link_libraries(romASM antlr4_static)

@@ -89,7 +89,7 @@ antlr4cpp_generated_src/romASMParser/romASMParser.interp: antlr4cpp_generated_sr
 antlr4cpp_generated_src/romASMParser/romASMParser.interp: antlr4cpp_generated_src/romASMLexer/romASMLexer.h
 antlr4cpp_generated_src/romASMParser/romASMParser.interp: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building romASMParser with ANTLR 4.13.2"
-	cd /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler && "/c/Program Files/Common Files/Oracle/Java/javapath/java.exe" -jar C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr-4.13.2-complete.jar romASMParser.g4 -o /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMParser -no-listener -Dlanguage=Cpp -lib /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMLexer -visitor -package romASM
+	cd /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler && "/c/Program Files/Common Files/Oracle/Java/javapath/java.exe" -jar C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr-4.13.2-complete.jar romASMParser.g4 -o /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMParser -no-listener -Dlanguage=Cpp -lib /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMLexer -listener -package romASM
 
 antlr4cpp_generated_src/romASMParser/romASMParser.tokens: antlr4cpp_generated_src/romASMParser/romASMParser.interp
 	@$(CMAKE_COMMAND) -E touch_nocreate antlr4cpp_generated_src/romASMParser/romASMParser.tokens
@@ -114,10 +114,24 @@ CMakeFiles/romASM.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/romASM.dir/main.cpp.s"
 	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/main.cpp -o CMakeFiles/romASM.dir/main.cpp.s
 
+CMakeFiles/romASM.dir/Listener.cpp.o: CMakeFiles/romASM.dir/flags.make
+CMakeFiles/romASM.dir/Listener.cpp.o: /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/Listener.cpp
+CMakeFiles/romASM.dir/Listener.cpp.o: CMakeFiles/romASM.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/romASM.dir/Listener.cpp.o"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/romASM.dir/Listener.cpp.o -MF CMakeFiles/romASM.dir/Listener.cpp.o.d -o CMakeFiles/romASM.dir/Listener.cpp.o -c /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/Listener.cpp
+
+CMakeFiles/romASM.dir/Listener.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/romASM.dir/Listener.cpp.i"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/Listener.cpp > CMakeFiles/romASM.dir/Listener.cpp.i
+
+CMakeFiles/romASM.dir/Listener.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/romASM.dir/Listener.cpp.s"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/Listener.cpp -o CMakeFiles/romASM.dir/Listener.cpp.s
+
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o: CMakeFiles/romASM.dir/flags.make
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o: antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o: CMakeFiles/romASM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o"
 	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o -MF CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o.d -o CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o -c /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp
 
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.i: cmake_force
@@ -131,7 +145,7 @@ CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.s: cma
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o: CMakeFiles/romASM.dir/flags.make
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o: antlr4cpp_generated_src/romASMParser/romASMParser.cpp
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o: CMakeFiles/romASM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o"
 	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o -MF CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o.d -o CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o -c /c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4cpp_generated_src/romASMParser/romASMParser.cpp
 
 CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.i: cmake_force
@@ -145,6 +159,7 @@ CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.s: c
 # Object files for target romASM
 romASM_OBJECTS = \
 "CMakeFiles/romASM.dir/main.cpp.o" \
+"CMakeFiles/romASM.dir/Listener.cpp.o" \
 "CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o" \
 "CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o"
 
@@ -152,12 +167,13 @@ romASM_OBJECTS = \
 romASM_EXTERNAL_OBJECTS =
 
 romASM.exe: CMakeFiles/romASM.dir/main.cpp.o
+romASM.exe: CMakeFiles/romASM.dir/Listener.cpp.o
 romASM.exe: CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMLexer/romASMLexer.cpp.o
 romASM.exe: CMakeFiles/romASM.dir/antlr4cpp_generated_src/romASMParser/romASMParser.cpp.o
 romASM.exe: CMakeFiles/romASM.dir/build.make
 romASM.exe: antlr4_runtime/src/antlr4_runtime/runtime/Cpp/runtime/libantlr4-runtime.a
 romASM.exe: CMakeFiles/romASM.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable romASM.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable romASM.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/romASM.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
