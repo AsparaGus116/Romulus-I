@@ -31,9 +31,8 @@ set(ANTLR_EXECUTABLE C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr
 find_package(ANTLR REQUIRED)
 
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
-target_compile_options(romASM [PUBLIC|PRIVATE] /MT)
-target_link_options(romASM [PUBLIC|PRIVATE] /INCREMENTAL:NO /NODEFAULTLIB:MSVCRT)
-target_link_libraries(romASM -static)
+set(BUILD_SHARED_LIBS OFF)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 # Call macro to add lexer and grammar to your build dependencies.
 antlr_target(romASMLexer romASMLexer.g4 LEXER
