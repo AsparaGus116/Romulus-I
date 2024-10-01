@@ -31,8 +31,6 @@ set(ANTLR_EXECUTABLE C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr
 find_package(ANTLR REQUIRED)
 
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
-set(BUILD_SHARED_LIBS OFF)
-set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 # Call macro to add lexer and grammar to your build dependencies.
 antlr_target(romASMLexer romASMLexer.g4 LEXER
@@ -46,8 +44,16 @@ antlr_target(romASMParser romASMParser.g4 PARSER
 include_directories(${ANTLR_romASMLexer_OUTPUT_DIR})
 include_directories(${ANTLR_romASMParser_OUTPUT_DIR})
 
+
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MT")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MT")
+
 # add generated grammar to demo binary target
 add_executable(romASM main.cpp Listener.h Listener.cpp
                ${ANTLR_romASMLexer_CXX_OUTPUTS}
                ${ANTLR_romASMParser_CXX_OUTPUTS})
 target_link_libraries(romASM antlr4_static)
+
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MT")

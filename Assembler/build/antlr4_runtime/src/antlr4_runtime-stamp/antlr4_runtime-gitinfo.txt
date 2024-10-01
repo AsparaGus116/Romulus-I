@@ -3,9 +3,9 @@
 # No other meaning or use of this file is supported.
 
 method=git
-command=/usr/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/tmp/antlr4_runtime-gitclone.cmake
-source_dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime
-work_dir=/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/tmp/antlr4_runtime-gitclone.cmake
+source_dir=C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src/antlr4_runtime
+work_dir=C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/antlr4_runtime/src
 repository=https://github.com/antlr/antlr4.git
 remote=origin
 init_submodules=TRUE

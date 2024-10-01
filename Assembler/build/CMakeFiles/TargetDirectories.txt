@@ -1,6 +1,6 @@
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-build_static.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-build_shared.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/romASM.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/edit_cache.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/rebuild_cache.dir
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime.dir
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-build_static.dir
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/antlr4_runtime-build_shared.dir
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/romASM.dir
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/build/CMakeFiles/ZERO_CHECK.dir

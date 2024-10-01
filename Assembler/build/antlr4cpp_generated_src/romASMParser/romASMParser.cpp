@@ -57,78 +57,82 @@ void romasmparserParserInitialize() {
     },
     std::vector<std::string>{
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
-      "", "", "", "", "", "", "','"
+      "", "", "", "", "", "','"
     },
     std::vector<std::string>{
       "", "MOV", "STR", "LDA", "OR", "INV", "AND", "XOR", "ADD", "SUB", 
       "NOT", "SHR", "SHL", "PUSH", "CALL", "POP", "RET", "JMP", "JEZ", "JNZ", 
-      "JGZ", "JLZ", "LABEL", "COMMA", "COMMENT", "IMM", "HEX", "REG", "WS"
+      "JGZ", "JLZ", "COMMA", "LABELID", "LABEL", "COMMENT", "IMM", "HEX", 
+      "REG", "WS"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,28,172,2,0,7,0,2,1,7,1,1,0,5,0,6,8,0,10,0,12,0,9,9,0,1,0,1,0,1,1,
+  	4,1,29,178,2,0,7,0,2,1,7,1,1,0,5,0,6,8,0,10,0,12,0,9,9,0,1,0,1,0,1,1,
   	1,1,1,1,3,1,16,8,1,1,1,1,1,1,1,1,1,3,1,22,8,1,1,1,1,1,1,1,1,1,3,1,28,
   	8,1,1,1,1,1,1,1,1,1,3,1,34,8,1,1,1,1,1,1,1,1,1,3,1,40,8,1,1,1,1,1,1,1,
-  	1,1,3,1,46,8,1,1,1,1,1,3,1,50,8,1,1,1,3,1,53,8,1,1,1,1,1,1,1,3,1,58,8,
-  	1,1,1,3,1,61,8,1,1,1,1,1,1,1,3,1,66,8,1,1,1,1,1,3,1,70,8,1,1,1,3,1,73,
-  	8,1,1,1,1,1,1,1,3,1,78,8,1,1,1,1,1,3,1,82,8,1,1,1,3,1,85,8,1,1,1,1,1,
-  	1,1,3,1,90,8,1,1,1,1,1,3,1,94,8,1,1,1,3,1,97,8,1,1,1,1,1,1,1,3,1,102,
-  	8,1,1,1,1,1,3,1,106,8,1,1,1,3,1,109,8,1,1,1,1,1,1,1,3,1,114,8,1,1,1,3,
-  	1,117,8,1,1,1,1,1,1,1,3,1,122,8,1,1,1,3,1,125,8,1,1,1,1,1,1,1,3,1,130,
-  	8,1,1,1,3,1,133,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
-  	1,147,8,1,1,1,1,1,1,1,1,1,3,1,153,8,1,1,1,1,1,1,1,1,1,3,1,159,8,1,1,1,
-  	1,1,1,1,1,1,3,1,165,8,1,1,1,1,1,1,1,3,1,170,8,1,1,1,0,0,2,0,2,0,0,226,
-  	0,7,1,0,0,0,2,169,1,0,0,0,4,6,3,2,1,0,5,4,1,0,0,0,6,9,1,0,0,0,7,5,1,0,
-  	0,0,7,8,1,0,0,0,8,10,1,0,0,0,9,7,1,0,0,0,10,11,5,0,0,1,11,1,1,0,0,0,12,
-  	13,5,1,0,0,13,15,5,27,0,0,14,16,5,23,0,0,15,14,1,0,0,0,15,16,1,0,0,0,
-  	16,17,1,0,0,0,17,170,5,27,0,0,18,19,5,1,0,0,19,21,5,25,0,0,20,22,5,23,
-  	0,0,21,20,1,0,0,0,21,22,1,0,0,0,22,23,1,0,0,0,23,170,5,27,0,0,24,25,5,
-  	1,0,0,25,27,5,26,0,0,26,28,5,23,0,0,27,26,1,0,0,0,27,28,1,0,0,0,28,29,
-  	1,0,0,0,29,170,5,27,0,0,30,31,5,2,0,0,31,33,5,27,0,0,32,34,5,23,0,0,33,
-  	32,1,0,0,0,33,34,1,0,0,0,34,35,1,0,0,0,35,170,5,27,0,0,36,37,5,3,0,0,
-  	37,39,5,27,0,0,38,40,5,23,0,0,39,38,1,0,0,0,39,40,1,0,0,0,40,41,1,0,0,
-  	0,41,170,5,27,0,0,42,43,5,4,0,0,43,45,5,27,0,0,44,46,5,23,0,0,45,44,1,
-  	0,0,0,45,46,1,0,0,0,46,47,1,0,0,0,47,52,5,27,0,0,48,50,5,23,0,0,49,48,
-  	1,0,0,0,49,50,1,0,0,0,50,51,1,0,0,0,51,53,5,27,0,0,52,49,1,0,0,0,52,53,
-  	1,0,0,0,53,170,1,0,0,0,54,55,5,5,0,0,55,60,5,27,0,0,56,58,5,23,0,0,57,
-  	56,1,0,0,0,57,58,1,0,0,0,58,59,1,0,0,0,59,61,5,27,0,0,60,57,1,0,0,0,60,
-  	61,1,0,0,0,61,170,1,0,0,0,62,63,5,6,0,0,63,65,5,27,0,0,64,66,5,23,0,0,
-  	65,64,1,0,0,0,65,66,1,0,0,0,66,67,1,0,0,0,67,72,5,27,0,0,68,70,5,23,0,
-  	0,69,68,1,0,0,0,69,70,1,0,0,0,70,71,1,0,0,0,71,73,5,27,0,0,72,69,1,0,
-  	0,0,72,73,1,0,0,0,73,170,1,0,0,0,74,75,5,7,0,0,75,77,5,27,0,0,76,78,5,
-  	23,0,0,77,76,1,0,0,0,77,78,1,0,0,0,78,79,1,0,0,0,79,84,5,27,0,0,80,82,
-  	5,23,0,0,81,80,1,0,0,0,81,82,1,0,0,0,82,83,1,0,0,0,83,85,5,27,0,0,84,
-  	81,1,0,0,0,84,85,1,0,0,0,85,170,1,0,0,0,86,87,5,8,0,0,87,89,5,27,0,0,
-  	88,90,5,23,0,0,89,88,1,0,0,0,89,90,1,0,0,0,90,91,1,0,0,0,91,96,5,27,0,
-  	0,92,94,5,23,0,0,93,92,1,0,0,0,93,94,1,0,0,0,94,95,1,0,0,0,95,97,5,27,
-  	0,0,96,93,1,0,0,0,96,97,1,0,0,0,97,170,1,0,0,0,98,99,5,9,0,0,99,101,5,
-  	27,0,0,100,102,5,23,0,0,101,100,1,0,0,0,101,102,1,0,0,0,102,103,1,0,0,
-  	0,103,108,5,27,0,0,104,106,5,23,0,0,105,104,1,0,0,0,105,106,1,0,0,0,106,
-  	107,1,0,0,0,107,109,5,27,0,0,108,105,1,0,0,0,108,109,1,0,0,0,109,170,
-  	1,0,0,0,110,111,5,10,0,0,111,116,5,27,0,0,112,114,5,23,0,0,113,112,1,
-  	0,0,0,113,114,1,0,0,0,114,115,1,0,0,0,115,117,5,27,0,0,116,113,1,0,0,
-  	0,116,117,1,0,0,0,117,170,1,0,0,0,118,119,5,11,0,0,119,124,5,27,0,0,120,
-  	122,5,23,0,0,121,120,1,0,0,0,121,122,1,0,0,0,122,123,1,0,0,0,123,125,
-  	5,27,0,0,124,121,1,0,0,0,124,125,1,0,0,0,125,170,1,0,0,0,126,127,5,12,
-  	0,0,127,132,5,27,0,0,128,130,5,23,0,0,129,128,1,0,0,0,129,130,1,0,0,0,
-  	130,131,1,0,0,0,131,133,5,27,0,0,132,129,1,0,0,0,132,133,1,0,0,0,133,
-  	170,1,0,0,0,134,135,5,13,0,0,135,170,5,27,0,0,136,137,5,14,0,0,137,170,
-  	5,27,0,0,138,139,5,15,0,0,139,170,5,27,0,0,140,170,5,16,0,0,141,142,5,
-  	17,0,0,142,170,5,27,0,0,143,144,5,18,0,0,144,146,5,27,0,0,145,147,5,23,
-  	0,0,146,145,1,0,0,0,146,147,1,0,0,0,147,148,1,0,0,0,148,170,5,27,0,0,
-  	149,150,5,19,0,0,150,152,5,27,0,0,151,153,5,23,0,0,152,151,1,0,0,0,152,
-  	153,1,0,0,0,153,154,1,0,0,0,154,170,5,27,0,0,155,156,5,20,0,0,156,158,
-  	5,27,0,0,157,159,5,23,0,0,158,157,1,0,0,0,158,159,1,0,0,0,159,160,1,0,
-  	0,0,160,170,5,27,0,0,161,162,5,21,0,0,162,164,5,27,0,0,163,165,5,23,0,
-  	0,164,163,1,0,0,0,164,165,1,0,0,0,165,166,1,0,0,0,166,170,5,27,0,0,167,
-  	170,5,24,0,0,168,170,5,22,0,0,169,12,1,0,0,0,169,18,1,0,0,0,169,24,1,
-  	0,0,0,169,30,1,0,0,0,169,36,1,0,0,0,169,42,1,0,0,0,169,54,1,0,0,0,169,
-  	62,1,0,0,0,169,74,1,0,0,0,169,86,1,0,0,0,169,98,1,0,0,0,169,110,1,0,0,
-  	0,169,118,1,0,0,0,169,126,1,0,0,0,169,134,1,0,0,0,169,136,1,0,0,0,169,
-  	138,1,0,0,0,169,140,1,0,0,0,169,141,1,0,0,0,169,143,1,0,0,0,169,149,1,
-  	0,0,0,169,155,1,0,0,0,169,161,1,0,0,0,169,167,1,0,0,0,169,168,1,0,0,0,
-  	170,3,1,0,0,0,34,7,15,21,27,33,39,45,49,52,57,60,65,69,72,77,81,84,89,
-  	93,96,101,105,108,113,116,121,124,129,132,146,152,158,164,169
+  	1,1,3,1,46,8,1,1,1,1,1,1,1,1,1,3,1,52,8,1,1,1,1,1,3,1,56,8,1,1,1,3,1,
+  	59,8,1,1,1,1,1,1,1,3,1,64,8,1,1,1,3,1,67,8,1,1,1,1,1,1,1,3,1,72,8,1,1,
+  	1,1,1,3,1,76,8,1,1,1,3,1,79,8,1,1,1,1,1,1,1,3,1,84,8,1,1,1,1,1,3,1,88,
+  	8,1,1,1,3,1,91,8,1,1,1,1,1,1,1,3,1,96,8,1,1,1,1,1,3,1,100,8,1,1,1,3,1,
+  	103,8,1,1,1,1,1,1,1,3,1,108,8,1,1,1,1,1,3,1,112,8,1,1,1,3,1,115,8,1,1,
+  	1,1,1,1,1,3,1,120,8,1,1,1,3,1,123,8,1,1,1,1,1,1,1,3,1,128,8,1,1,1,3,1,
+  	131,8,1,1,1,1,1,1,1,3,1,136,8,1,1,1,3,1,139,8,1,1,1,1,1,1,1,1,1,1,1,1,
+  	1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,153,8,1,1,1,1,1,1,1,1,1,3,1,159,8,1,1,1,
+  	1,1,1,1,1,1,3,1,165,8,1,1,1,1,1,1,1,1,1,3,1,171,8,1,1,1,1,1,1,1,3,1,176,
+  	8,1,1,1,0,0,2,0,2,0,0,234,0,7,1,0,0,0,2,175,1,0,0,0,4,6,3,2,1,0,5,4,1,
+  	0,0,0,6,9,1,0,0,0,7,5,1,0,0,0,7,8,1,0,0,0,8,10,1,0,0,0,9,7,1,0,0,0,10,
+  	11,5,0,0,1,11,1,1,0,0,0,12,13,5,1,0,0,13,15,5,28,0,0,14,16,5,22,0,0,15,
+  	14,1,0,0,0,15,16,1,0,0,0,16,17,1,0,0,0,17,176,5,28,0,0,18,19,5,1,0,0,
+  	19,21,5,23,0,0,20,22,5,22,0,0,21,20,1,0,0,0,21,22,1,0,0,0,22,23,1,0,0,
+  	0,23,176,5,28,0,0,24,25,5,1,0,0,25,27,5,26,0,0,26,28,5,22,0,0,27,26,1,
+  	0,0,0,27,28,1,0,0,0,28,29,1,0,0,0,29,176,5,28,0,0,30,31,5,1,0,0,31,33,
+  	5,27,0,0,32,34,5,22,0,0,33,32,1,0,0,0,33,34,1,0,0,0,34,35,1,0,0,0,35,
+  	176,5,28,0,0,36,37,5,2,0,0,37,39,5,28,0,0,38,40,5,22,0,0,39,38,1,0,0,
+  	0,39,40,1,0,0,0,40,41,1,0,0,0,41,176,5,28,0,0,42,43,5,3,0,0,43,45,5,28,
+  	0,0,44,46,5,22,0,0,45,44,1,0,0,0,45,46,1,0,0,0,46,47,1,0,0,0,47,176,5,
+  	28,0,0,48,49,5,4,0,0,49,51,5,28,0,0,50,52,5,22,0,0,51,50,1,0,0,0,51,52,
+  	1,0,0,0,52,53,1,0,0,0,53,58,5,28,0,0,54,56,5,22,0,0,55,54,1,0,0,0,55,
+  	56,1,0,0,0,56,57,1,0,0,0,57,59,5,28,0,0,58,55,1,0,0,0,58,59,1,0,0,0,59,
+  	176,1,0,0,0,60,61,5,5,0,0,61,66,5,28,0,0,62,64,5,22,0,0,63,62,1,0,0,0,
+  	63,64,1,0,0,0,64,65,1,0,0,0,65,67,5,28,0,0,66,63,1,0,0,0,66,67,1,0,0,
+  	0,67,176,1,0,0,0,68,69,5,6,0,0,69,71,5,28,0,0,70,72,5,22,0,0,71,70,1,
+  	0,0,0,71,72,1,0,0,0,72,73,1,0,0,0,73,78,5,28,0,0,74,76,5,22,0,0,75,74,
+  	1,0,0,0,75,76,1,0,0,0,76,77,1,0,0,0,77,79,5,28,0,0,78,75,1,0,0,0,78,79,
+  	1,0,0,0,79,176,1,0,0,0,80,81,5,7,0,0,81,83,5,28,0,0,82,84,5,22,0,0,83,
+  	82,1,0,0,0,83,84,1,0,0,0,84,85,1,0,0,0,85,90,5,28,0,0,86,88,5,22,0,0,
+  	87,86,1,0,0,0,87,88,1,0,0,0,88,89,1,0,0,0,89,91,5,28,0,0,90,87,1,0,0,
+  	0,90,91,1,0,0,0,91,176,1,0,0,0,92,93,5,8,0,0,93,95,5,28,0,0,94,96,5,22,
+  	0,0,95,94,1,0,0,0,95,96,1,0,0,0,96,97,1,0,0,0,97,102,5,28,0,0,98,100,
+  	5,22,0,0,99,98,1,0,0,0,99,100,1,0,0,0,100,101,1,0,0,0,101,103,5,28,0,
+  	0,102,99,1,0,0,0,102,103,1,0,0,0,103,176,1,0,0,0,104,105,5,9,0,0,105,
+  	107,5,28,0,0,106,108,5,22,0,0,107,106,1,0,0,0,107,108,1,0,0,0,108,109,
+  	1,0,0,0,109,114,5,28,0,0,110,112,5,22,0,0,111,110,1,0,0,0,111,112,1,0,
+  	0,0,112,113,1,0,0,0,113,115,5,28,0,0,114,111,1,0,0,0,114,115,1,0,0,0,
+  	115,176,1,0,0,0,116,117,5,10,0,0,117,122,5,28,0,0,118,120,5,22,0,0,119,
+  	118,1,0,0,0,119,120,1,0,0,0,120,121,1,0,0,0,121,123,5,28,0,0,122,119,
+  	1,0,0,0,122,123,1,0,0,0,123,176,1,0,0,0,124,125,5,11,0,0,125,130,5,28,
+  	0,0,126,128,5,22,0,0,127,126,1,0,0,0,127,128,1,0,0,0,128,129,1,0,0,0,
+  	129,131,5,28,0,0,130,127,1,0,0,0,130,131,1,0,0,0,131,176,1,0,0,0,132,
+  	133,5,12,0,0,133,138,5,28,0,0,134,136,5,22,0,0,135,134,1,0,0,0,135,136,
+  	1,0,0,0,136,137,1,0,0,0,137,139,5,28,0,0,138,135,1,0,0,0,138,139,1,0,
+  	0,0,139,176,1,0,0,0,140,141,5,13,0,0,141,176,5,28,0,0,142,143,5,14,0,
+  	0,143,176,5,28,0,0,144,145,5,15,0,0,145,176,5,28,0,0,146,176,5,16,0,0,
+  	147,148,5,17,0,0,148,176,5,28,0,0,149,150,5,18,0,0,150,152,5,28,0,0,151,
+  	153,5,22,0,0,152,151,1,0,0,0,152,153,1,0,0,0,153,154,1,0,0,0,154,176,
+  	5,28,0,0,155,156,5,19,0,0,156,158,5,28,0,0,157,159,5,22,0,0,158,157,1,
+  	0,0,0,158,159,1,0,0,0,159,160,1,0,0,0,160,176,5,28,0,0,161,162,5,20,0,
+  	0,162,164,5,28,0,0,163,165,5,22,0,0,164,163,1,0,0,0,164,165,1,0,0,0,165,
+  	166,1,0,0,0,166,176,5,28,0,0,167,168,5,21,0,0,168,170,5,28,0,0,169,171,
+  	5,22,0,0,170,169,1,0,0,0,170,171,1,0,0,0,171,172,1,0,0,0,172,176,5,28,
+  	0,0,173,176,5,25,0,0,174,176,5,24,0,0,175,12,1,0,0,0,175,18,1,0,0,0,175,
+  	24,1,0,0,0,175,30,1,0,0,0,175,36,1,0,0,0,175,42,1,0,0,0,175,48,1,0,0,
+  	0,175,60,1,0,0,0,175,68,1,0,0,0,175,80,1,0,0,0,175,92,1,0,0,0,175,104,
+  	1,0,0,0,175,116,1,0,0,0,175,124,1,0,0,0,175,132,1,0,0,0,175,140,1,0,0,
+  	0,175,142,1,0,0,0,175,144,1,0,0,0,175,146,1,0,0,0,175,147,1,0,0,0,175,
+  	149,1,0,0,0,175,155,1,0,0,0,175,161,1,0,0,0,175,167,1,0,0,0,175,173,1,
+  	0,0,0,175,174,1,0,0,0,176,3,1,0,0,0,35,7,15,21,27,33,39,45,51,55,58,63,
+  	66,71,75,78,83,87,90,95,99,102,107,111,114,119,122,127,130,135,138,152,
+  	158,164,170,175
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -230,7 +234,7 @@ romASMParser::ProgramContext* romASMParser::program() {
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 25165822) != 0)) {
+      ((1ULL << _la) & 54525950) != 0)) {
       setState(4);
       expr();
       setState(9);
@@ -274,6 +278,10 @@ std::vector<tree::TerminalNode *> romASMParser::ExprContext::COMMA() {
 
 tree::TerminalNode* romASMParser::ExprContext::COMMA(size_t i) {
   return getToken(romASMParser::COMMA, i);
+}
+
+tree::TerminalNode* romASMParser::ExprContext::LABELID() {
+  return getToken(romASMParser::LABELID, 0);
 }
 
 tree::TerminalNode* romASMParser::ExprContext::IMM() {
@@ -402,9 +410,9 @@ romASMParser::ExprContext* romASMParser::expr() {
     exitRule();
   });
   try {
-    setState(169);
+    setState(175);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 33, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 34, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
       setState(12);
@@ -429,7 +437,7 @@ romASMParser::ExprContext* romASMParser::expr() {
       setState(18);
       match(romASMParser::MOV);
       setState(19);
-      match(romASMParser::IMM);
+      match(romASMParser::LABELID);
       setState(21);
       _errHandler->sync(this);
 
@@ -448,7 +456,7 @@ romASMParser::ExprContext* romASMParser::expr() {
       setState(24);
       match(romASMParser::MOV);
       setState(25);
-      match(romASMParser::HEX);
+      match(romASMParser::IMM);
       setState(27);
       _errHandler->sync(this);
 
@@ -465,9 +473,9 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 4: {
       enterOuterAlt(_localctx, 4);
       setState(30);
-      match(romASMParser::STR);
+      match(romASMParser::MOV);
       setState(31);
-      match(romASMParser::REG);
+      match(romASMParser::HEX);
       setState(33);
       _errHandler->sync(this);
 
@@ -484,7 +492,7 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 5: {
       enterOuterAlt(_localctx, 5);
       setState(36);
-      match(romASMParser::LDA);
+      match(romASMParser::STR);
       setState(37);
       match(romASMParser::REG);
       setState(39);
@@ -503,7 +511,7 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 6: {
       enterOuterAlt(_localctx, 6);
       setState(42);
-      match(romASMParser::OR);
+      match(romASMParser::LDA);
       setState(43);
       match(romASMParser::REG);
       setState(45);
@@ -516,49 +524,41 @@ romASMParser::ExprContext* romASMParser::expr() {
       }
       setState(47);
       match(romASMParser::REG);
-      setState(52);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == romASMParser::COMMA
-
-      || _la == romASMParser::REG) {
-        setState(49);
-        _errHandler->sync(this);
-
-        _la = _input->LA(1);
-        if (_la == romASMParser::COMMA) {
-          setState(48);
-          match(romASMParser::COMMA);
-        }
-        setState(51);
-        match(romASMParser::REG);
-      }
       break;
     }
 
     case 7: {
       enterOuterAlt(_localctx, 7);
-      setState(54);
-      match(romASMParser::INV);
-      setState(55);
+      setState(48);
+      match(romASMParser::OR);
+      setState(49);
       match(romASMParser::REG);
-      setState(60);
+      setState(51);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == romASMParser::COMMA) {
+        setState(50);
+        match(romASMParser::COMMA);
+      }
+      setState(53);
+      match(romASMParser::REG);
+      setState(58);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(57);
+        setState(55);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(56);
+          setState(54);
           match(romASMParser::COMMA);
         }
-        setState(59);
+        setState(57);
         match(romASMParser::REG);
       }
       break;
@@ -566,36 +566,26 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 8: {
       enterOuterAlt(_localctx, 8);
-      setState(62);
-      match(romASMParser::AND);
-      setState(63);
+      setState(60);
+      match(romASMParser::INV);
+      setState(61);
       match(romASMParser::REG);
-      setState(65);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == romASMParser::COMMA) {
-        setState(64);
-        match(romASMParser::COMMA);
-      }
-      setState(67);
-      match(romASMParser::REG);
-      setState(72);
+      setState(66);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(69);
+        setState(63);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(68);
+          setState(62);
           match(romASMParser::COMMA);
         }
-        setState(71);
+        setState(65);
         match(romASMParser::REG);
       }
       break;
@@ -603,36 +593,36 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 9: {
       enterOuterAlt(_localctx, 9);
-      setState(74);
-      match(romASMParser::XOR);
-      setState(75);
+      setState(68);
+      match(romASMParser::AND);
+      setState(69);
       match(romASMParser::REG);
-      setState(77);
+      setState(71);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA) {
-        setState(76);
+        setState(70);
         match(romASMParser::COMMA);
       }
-      setState(79);
+      setState(73);
       match(romASMParser::REG);
-      setState(84);
+      setState(78);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(81);
+        setState(75);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(80);
+          setState(74);
           match(romASMParser::COMMA);
         }
-        setState(83);
+        setState(77);
         match(romASMParser::REG);
       }
       break;
@@ -640,36 +630,36 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 10: {
       enterOuterAlt(_localctx, 10);
-      setState(86);
-      match(romASMParser::ADD);
-      setState(87);
+      setState(80);
+      match(romASMParser::XOR);
+      setState(81);
       match(romASMParser::REG);
-      setState(89);
+      setState(83);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA) {
-        setState(88);
+        setState(82);
         match(romASMParser::COMMA);
       }
-      setState(91);
+      setState(85);
       match(romASMParser::REG);
-      setState(96);
+      setState(90);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(93);
+        setState(87);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(92);
+          setState(86);
           match(romASMParser::COMMA);
         }
-        setState(95);
+        setState(89);
         match(romASMParser::REG);
       }
       break;
@@ -677,36 +667,36 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 11: {
       enterOuterAlt(_localctx, 11);
-      setState(98);
-      match(romASMParser::SUB);
-      setState(99);
+      setState(92);
+      match(romASMParser::ADD);
+      setState(93);
       match(romASMParser::REG);
-      setState(101);
+      setState(95);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA) {
-        setState(100);
+        setState(94);
         match(romASMParser::COMMA);
       }
-      setState(103);
+      setState(97);
       match(romASMParser::REG);
-      setState(108);
+      setState(102);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(105);
+        setState(99);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(104);
+          setState(98);
           match(romASMParser::COMMA);
         }
-        setState(107);
+        setState(101);
         match(romASMParser::REG);
       }
       break;
@@ -714,26 +704,36 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 12: {
       enterOuterAlt(_localctx, 12);
-      setState(110);
-      match(romASMParser::NOT);
-      setState(111);
+      setState(104);
+      match(romASMParser::SUB);
+      setState(105);
       match(romASMParser::REG);
-      setState(116);
+      setState(107);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == romASMParser::COMMA) {
+        setState(106);
+        match(romASMParser::COMMA);
+      }
+      setState(109);
+      match(romASMParser::REG);
+      setState(114);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(113);
+        setState(111);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(112);
+          setState(110);
           match(romASMParser::COMMA);
         }
-        setState(115);
+        setState(113);
         match(romASMParser::REG);
       }
       break;
@@ -741,26 +741,26 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 13: {
       enterOuterAlt(_localctx, 13);
-      setState(118);
-      match(romASMParser::SHR);
-      setState(119);
+      setState(116);
+      match(romASMParser::NOT);
+      setState(117);
       match(romASMParser::REG);
-      setState(124);
+      setState(122);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(121);
+        setState(119);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(120);
+          setState(118);
           match(romASMParser::COMMA);
         }
-        setState(123);
+        setState(121);
         match(romASMParser::REG);
       }
       break;
@@ -768,26 +768,26 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 14: {
       enterOuterAlt(_localctx, 14);
-      setState(126);
-      match(romASMParser::SHL);
-      setState(127);
+      setState(124);
+      match(romASMParser::SHR);
+      setState(125);
       match(romASMParser::REG);
-      setState(132);
+      setState(130);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == romASMParser::COMMA
 
       || _la == romASMParser::REG) {
-        setState(129);
+        setState(127);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == romASMParser::COMMA) {
-          setState(128);
+          setState(126);
           match(romASMParser::COMMA);
         }
-        setState(131);
+        setState(129);
         match(romASMParser::REG);
       }
       break;
@@ -795,61 +795,69 @@ romASMParser::ExprContext* romASMParser::expr() {
 
     case 15: {
       enterOuterAlt(_localctx, 15);
-      setState(134);
-      match(romASMParser::PUSH);
-      setState(135);
+      setState(132);
+      match(romASMParser::SHL);
+      setState(133);
       match(romASMParser::REG);
+      setState(138);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == romASMParser::COMMA
+
+      || _la == romASMParser::REG) {
+        setState(135);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if (_la == romASMParser::COMMA) {
+          setState(134);
+          match(romASMParser::COMMA);
+        }
+        setState(137);
+        match(romASMParser::REG);
+      }
       break;
     }
 
     case 16: {
       enterOuterAlt(_localctx, 16);
-      setState(136);
-      match(romASMParser::CALL);
-      setState(137);
+      setState(140);
+      match(romASMParser::PUSH);
+      setState(141);
       match(romASMParser::REG);
       break;
     }
 
     case 17: {
       enterOuterAlt(_localctx, 17);
-      setState(138);
-      match(romASMParser::POP);
-      setState(139);
+      setState(142);
+      match(romASMParser::CALL);
+      setState(143);
       match(romASMParser::REG);
       break;
     }
 
     case 18: {
       enterOuterAlt(_localctx, 18);
-      setState(140);
-      match(romASMParser::RET);
+      setState(144);
+      match(romASMParser::POP);
+      setState(145);
+      match(romASMParser::REG);
       break;
     }
 
     case 19: {
       enterOuterAlt(_localctx, 19);
-      setState(141);
-      match(romASMParser::JMP);
-      setState(142);
-      match(romASMParser::REG);
+      setState(146);
+      match(romASMParser::RET);
       break;
     }
 
     case 20: {
       enterOuterAlt(_localctx, 20);
-      setState(143);
-      match(romASMParser::JEZ);
-      setState(144);
-      match(romASMParser::REG);
-      setState(146);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == romASMParser::COMMA) {
-        setState(145);
-        match(romASMParser::COMMA);
-      }
+      setState(147);
+      match(romASMParser::JMP);
       setState(148);
       match(romASMParser::REG);
       break;
@@ -858,7 +866,7 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 21: {
       enterOuterAlt(_localctx, 21);
       setState(149);
-      match(romASMParser::JNZ);
+      match(romASMParser::JEZ);
       setState(150);
       match(romASMParser::REG);
       setState(152);
@@ -877,7 +885,7 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 22: {
       enterOuterAlt(_localctx, 22);
       setState(155);
-      match(romASMParser::JGZ);
+      match(romASMParser::JNZ);
       setState(156);
       match(romASMParser::REG);
       setState(158);
@@ -896,7 +904,7 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 23: {
       enterOuterAlt(_localctx, 23);
       setState(161);
-      match(romASMParser::JLZ);
+      match(romASMParser::JGZ);
       setState(162);
       match(romASMParser::REG);
       setState(164);
@@ -915,13 +923,32 @@ romASMParser::ExprContext* romASMParser::expr() {
     case 24: {
       enterOuterAlt(_localctx, 24);
       setState(167);
-      match(romASMParser::COMMENT);
+      match(romASMParser::JLZ);
+      setState(168);
+      match(romASMParser::REG);
+      setState(170);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == romASMParser::COMMA) {
+        setState(169);
+        match(romASMParser::COMMA);
+      }
+      setState(172);
+      match(romASMParser::REG);
       break;
     }
 
     case 25: {
       enterOuterAlt(_localctx, 25);
-      setState(168);
+      setState(173);
+      match(romASMParser::COMMENT);
+      break;
+    }
+
+    case 26: {
+      enterOuterAlt(_localctx, 26);
+      setState(174);
       match(romASMParser::LABEL);
       break;
     }

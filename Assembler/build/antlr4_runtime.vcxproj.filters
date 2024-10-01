@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\e52b3c4d699a4495cef843b925eb77a8\antlr4_runtime-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\c1e40735a9ae240b532f2bb690a13c4d\antlr4_runtime-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\502b4606c6bfe3db9f71a43730301cff\antlr4_runtime.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\gusbr\Desktop\CodingShit\Romulus-I\Assembler\build\CMakeFiles\antlr4_runtime" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{27FC251C-5096-37E1-B51B-E09C2F529B75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

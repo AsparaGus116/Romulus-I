@@ -1,5 +1,0 @@
-mov r0 r1
-MOV R1 r2
-mov r2, R3
-mov 100 r4
-mov 120, r5

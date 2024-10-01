@@ -1,6 +1,0 @@
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/cmake/CMakeFiles/antlr4_runtime.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/cmake/CMakeFiles/antlr4_runtime-build_static.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/cmake/CMakeFiles/antlr4_runtime-build_shared.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/cmake/CMakeFiles/demo.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/cmake/CMakeFiles/edit_cache.dir
-/c/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/cmake/CMakeFiles/rebuild_cache.dir

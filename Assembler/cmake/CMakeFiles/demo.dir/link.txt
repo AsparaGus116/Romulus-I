@@ -1,1 +1,0 @@
-/usr/bin/c++.exe -Wl,--enable-auto-import CMakeFiles/demo.dir/main.cpp.o CMakeFiles/demo.dir/antlr4cpp_generated_src/TLexer/TLexer.cpp.o CMakeFiles/demo.dir/antlr4cpp_generated_src/TParser/TParser.cpp.o -o demo.exe -Wl,--out-implib,libdemo.dll.a -Wl,--major-image-version,0,--minor-image-version,0  antlr4_runtime/src/antlr4_runtime/runtime/Cpp/runtime/libantlr4-runtime.a

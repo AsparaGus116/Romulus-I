@@ -108,7 +108,54 @@
 		{
 			if(ctx->LABEL())
 			{
-				
+				std::string label =  ctx->LABEL()->getText();
+				std::string labelID = label.substr(0, label.size() - 1);
+				if (labelMap.find(labelID) != labelMap.end())
+				{
+					std::cout << "Err: Label " << labelID << " already used. Ignoring all repeat occurrences.\n";
+				}
+				else
+				{
+					labelMap.insert({ labelID, curAddr });
+				}
+			}
+			else if (
+				ctx->STR() ||
+				ctx->LDA() ||
+				ctx->OR() ||
+				ctx->INV() ||
+				ctx->AND() ||
+				ctx->XOR() ||
+				ctx->ADD() ||
+				ctx->SUB() ||
+				ctx->NOT() ||
+				ctx->SHR() ||
+				ctx->SHL() ||
+				ctx->PUSH() ||
+				ctx->POP() ||
+				ctx->RET() ||
+				ctx->JMP() ||
+				ctx->JEZ() ||
+				ctx->JNZ() ||
+				ctx->JGZ() ||
+				ctx->JLZ())
+			{
+				curAddr++;
+			}
+			else if (ctx->MOV())
+			{
+				if (regs.size() == 2)
+				{
+					curAddr++;
+				}
+				else
+				{
+					curAddr += 2;
+				}
+			}
+			else if (ctx->CALL())
+			{
+				curAddr += 2;
 			}
 		}
 		else
@@ -116,7 +163,6 @@
 			
 			if(ctx->MOV())
 			{
-				std::cout << "Triggered MOV instruction:\n";
 				
 				int imm = 0;
 				if(regs.size() == 2)
@@ -126,7 +172,7 @@
 					rY = parseReg(regs[1]);
 					
 				}
-				else
+				else if(ctx->IMM() || ctx->HEX())
 				{
 					op = 1;
 					rY = parseReg(regs[0]);
@@ -143,10 +189,21 @@
 					}
 					
 				}
-				std::cout << "Opcode: " << op << '\n';
-				std::cout << "rA: " << rA << '\n';
-				std::cout << "rB: " << rB << '\n';
-				std::cout << "rY: " << rY << '\n';
+				else if (ctx->LABELID())
+				{
+					op = 1;
+					rY = parseReg(regs[0]);
+					std::string labelID = ctx->LABELID()->getText();
+					if (labelMap.find(labelID) == labelMap.end())
+					{
+						std::cout << "Error: Label " << labelID << " not found. Exiting...";
+						std::exit(-1);
+					}
+					else
+					{
+						imm = labelMap[labelID];
+					}
+				}
 				output(op, rA, rB, rY);
 				if(op == 1)
 				{
@@ -178,7 +235,7 @@
 				}
 				else
 				{
-					rY = rA;
+					rY = rB;
 				}
 				output(op, rA, rB, rY);
 			}
@@ -207,7 +264,7 @@
 				}
 				else
 				{
-					rY = rA;
+					rY = rB;
 				}
 				output(op, rA, rB, rY);
 			}
@@ -222,7 +279,7 @@
 				}
 				else
 				{
-					rY = rA;
+					rY = rB;
 				}
 				output(op, rA, rB, rY);
 			}
@@ -237,7 +294,7 @@
 				}
 				else
 				{
-					rY = rA;
+					rY = rB;
 				}
 				output(op, rA, rB, rY);
 			}
@@ -252,7 +309,7 @@
 				}
 				else
 				{
-					rY = rA;
+					rY = rB;
 				}
 				output(op, rA, rB, rY);
 			}
@@ -280,7 +337,7 @@
 				}
 				else
 				{
-					rY = rA; 
+					rY = rB; 
 				}
 				output(op, rA, rB, rY);
 			}
@@ -361,7 +418,6 @@
 	{
 	  std::string text = node->getText();
 	  text = text.substr(1, text.size() - 1);
-	  std::cout << std::stoi(text) << '\n';
 	  return std::stoi(text);
 	}
 	

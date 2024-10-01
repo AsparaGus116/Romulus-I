@@ -7,6 +7,7 @@ program
     
 expr
     : MOV REG ','? REG
+    | MOV LABELID ','? REG
     | MOV IMM ','? REG
     | MOV HEX ','? REG
     | STR REG ','? REG
