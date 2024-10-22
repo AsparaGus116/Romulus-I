@@ -1,0 +1,42 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeFindJavaCommon.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/PatchInfo.txt.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/RepositoryInfo.txt.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/UpdateInfo.txt.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/cfgcmd.txt.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/gitclone.cmake.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/gitupdate.cmake.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/mkdirs.cmake.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/ExternalProject/shared_internal_commands.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/FindGit.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/FindJava.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/CMakeLists.txt
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/3.30.5/CMakeCCompiler.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/3.30.5/CMakeRCCompiler.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/3.30.5/CMakeSystem.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/antlr4_runtime/tmp/antlr4_runtime-mkdirs.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/cmake/ExternalAntlr4Cpp.cmake
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/cmake/FindANTLR.cmake

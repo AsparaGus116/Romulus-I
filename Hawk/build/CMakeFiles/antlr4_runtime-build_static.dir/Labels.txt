@@ -1,0 +1,6 @@
+# Target labels
+ antlr4_runtime
+# Source files and their labels
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/antlr4_runtime-build_static
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/ee9de33d35f3b71a463f599b51346c1d/antlr4_runtime-build_static.rule
+C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/7c2b3b80ba5d0e23b098759712de4f02/antlr4_runtime-build_static.rule
