@@ -396,6 +396,8 @@ FodyWeavers.xsd
 *.sln.iml
 
 ArduinoDemo/
-Assembler/cmake/*
+Assembler/cmake/.
 !Assembler/cmake/*.in
 !Assembler/cmake/*.cmake
+Assembler/build/.
+Assembler/runtime/.

@@ -1,5 +1,0 @@
-if(EXISTS "/mnt/c/users/gusbr/desktop/codingshit/romulus-I/Assembler/runtime/build/runtime/antlr4_tests[1]_tests.cmake")
-  include("/mnt/c/users/gusbr/desktop/codingshit/romulus-I/Assembler/runtime/build/runtime/antlr4_tests[1]_tests.cmake")
-else()
-  add_test(antlr4_tests_NOT_BUILT antlr4_tests_NOT_BUILT)
-endif()

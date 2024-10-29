@@ -1,4 +1,0 @@
-
-set(CMAKE_BUILD_TYPE "" CACHE STRING "Initial cache" FORCE)
-set(WITH_STATIC_CRT "OFF" CACHE BOOL "Initial cache" FORCE)
-set(DISABLE_WARNINGS "ON" CACHE BOOL "Initial cache" FORCE)
