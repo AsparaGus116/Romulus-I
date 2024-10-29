@@ -1,3 +1,0 @@
-module SN74LS573(input OE, input[7:0] D, input LE, output[7:0] Q);
-	
-endmodule
