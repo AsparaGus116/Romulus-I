@@ -44,27 +44,46 @@ std::ifstream file;
 
 int main(int argc, char* argv[])
 {
-	for (int i = 0; i < argc; i++)
+	if (argc == 2)
 	{
-		std::string str = argv[i];
-		for (auto c : str)
-		{
-			str[i] = tolower(str[i]);
-		}
-		if (str.compare("-h") == 0 ||
-			str.compare("-help") == 0 ||
-			str.compare("--help") == 0
-			)
+		std::string x = argv[1];
+		if (x.compare("-h") == 0 ||
+			x.compare("-help") == 0 ||
+			x.compare("--help") == 0)
 		{
 			printHelpMenu();
 			return 0;
 		}
-		if (str.compare("-f") == 0)
+		else
 		{
-			filename = argv[i + 1];
+			filename = argv[1];
 		}
-
 	}
+	else
+	{
+		for (int i = 0; i < argc; i++)
+		{
+			std::string str = argv[i];
+			for (auto c : str)
+			{
+				str[i] = tolower(str[i]);
+			}
+			if (str.compare("-h") == 0 ||
+				str.compare("-help") == 0 ||
+				str.compare("--help") == 0
+				)
+			{
+				printHelpMenu();
+				return 0;
+			}
+			if (str.compare("-f") == 0)
+			{
+				filename = argv[i + 1];
+			}
+
+		}
+	}
+	
 
 	//utils::clearTerminal();
 
@@ -354,7 +373,11 @@ int main(int argc, char* argv[])
 				}
 				break;
 			}
-			printState();
+			if (i == steps - 1)
+			{
+				printState();
+			}
+			
 		}
 		}
 		
@@ -615,9 +638,9 @@ void highlightStack(int curPtr)
 void printHelpMenu()
 {
 #if defined(__linux__)
-	std::cout << "SYNTAX: ./rom_sim [-f input.txt]\n";
+	std::cout << "SYNTAX: ./rom_sim [input.txt]\n";
 #elif _WIN32
-	std::cout << "SYNTAX: rom_sim.exe [-f input.txt]\n";
+	std::cout << "SYNTAX: rom_sim.exe [input.txt]\n";
 #endif
 	std::cout << "-f: Specify input file\n";
 	//std::cout << "--dbg: enable step-through mode\n";

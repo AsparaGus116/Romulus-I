@@ -1,0 +1,84 @@
+1003 0064 // r3: n = 100 (Find primes up to 100)
+100A 0001 // r10 = 1
+
+
+// =-= DECLARING primes LIST =-=
+1006 0000 // r6: primes starts at 0x0000
+1007 0000 // r7 = primes end pointer
+
+// Store 2 and 3 in primes
+1000 0002
+2070 // Put r0 into M[r7]
+87A7 // r7++
+1001 0003
+2170 // Put r1 into M[r7]
+87A7 // r7++
+
+100B 0004 // r11 = 4 (number to be checked for primeness)
+1000 0001 // r0: isPrime = True
+
+
+C080 DOOF // =-= BEGIN OUTER LOOP =-=
+C080 D00E // =-= BEGIN INNER LOOP =-=
+360C // r12 = M[r6] (r6 is the index for primes)
+1001 003A // Function location
+C080 // Push PC+2
+E100 // Jump to mod function. r13 now has r11 % r12 in it
+
+// Set up jump for if statement
+1008 0004 // r8 = 4
+C080 D002 // r2 = PC+2
+8282 // r2 = PC below "isPrime = false"
+
+F2D2 // Skip the following line if r11 % r12 != 0
+1000 0000 // r0: isPrime = False
+
+86A6 // r6++
+9769 // r9 = r7 - r6
+FE92 // Jump if r7 - r6 != 0 (If r6 has not reached the end of primes yet)
+// =-= END INNER LOOP =-=
+
+// Set up jump for if statement
+1008 0004 // r8 = 4
+C080 D002 // r2 = PC+2
+8282 // r2 = PC below "r7++"
+
+F201 // If isPrime == 0, skip the following 2 lines
+2B70 // Put r11 into M[r7]
+87A7 // r7++
+
+1000 0001 // Reset r0: isPrime = True
+1006 0000 // Reset r6 (j) back to 0x0000
+
+8BAB // r11++
+93B9 // r9 = r3 - r11
+FF92 // Jump if r3 - r11 != 0 (If r11 has not reached n yet)
+// =-= END OUTER LOOP =-=
+
+C080 D002 E200 // HALT
+
+
+
+
+
+
+
+
+// =-= MOD FUNCTION: r13 = r11 % r12 =-=
+// Parameters: r11 and r12; Output: r13
+C000 C100 C200 C300 C400 C500 C600 C700 C800 C900 CA00 CB00 CC00 CE00 CF00 // Save all registers but r13
+
+// code
+C080 D00F // Set up if statement jump
+9BCB // r11 = r11 - r12
+FFB8 FFB1 // Jump if r11 >= 0
+8BCD // r11 = r11 + r12 
+
+
+D00F D00E D00C D00B D00A D009 D008 D007 D006 D005 D004 D003 D002 D001 D000 // Restore all registers
+D080 // Return
+
+
+
+
+
