@@ -1,6 +1,0 @@
-C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/antlr4_runtime.dir
-C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/antlr4_runtime-build_static.dir
-C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/antlr4_runtime-build_shared.dir
-C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/hawk.dir
-C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build/CMakeFiles/ZERO_CHECK.dir
