@@ -12,23 +12,6 @@ type
     | KVOID '*'*
     ;
 
-op
-    :  KADD
-    |  KSUB
-    |  KMUL
-    |  KDIV
-    |  KMOD
-    |  KBAND
-    |  KBOR
-    |  KBNOT
-    |  KNOT
-    |  KXOR
-    |  KOR
-    |  KAND
-    |  KSHL
-    |  KSHR
-    ;
-
 assignOp
     : KASSIGN
     | KADDASSIGN
@@ -79,17 +62,32 @@ trueStmt
     ;
 
 expr
-    : expr op expr #arithmeticExpr
-    | expr cond expr #relationalExpr
-    | expr '?' expr ':' expr #ternaryExpr
-    | '*'expr #derefExpr
-    | '(' expr ')' # parenExpr
-    | type? ID('[' number? ']')? #varExpr
-    | number #numExpr
-    | '&' expr #addrExpr
+    : '(' expr ')' # parenExpr
+    | name=expr op=('++'|'--') #postfixExpr
+    | name=ID '(' (ID (',' ID)*)? ')' #funcCallExpr
+    | left=expr '['num=number']' #subscriptExpr
     | expr '.' ID #accessExpr
-    | expr '->' ID #ptrAccessExpr
+    | expr '->' ID #ptrAccessExpr // END PRECEDENCE 1
+    | <assoc=right> op=('++'|'--') name=expr #prefixExpr
+    | <assoc=right> op=('+'|'-') name=expr #unaryExpr
+    | <assoc=right> left=expr op=('!'|'~') right=expr #notExpr
+    | <assoc=right> '&' expr #addrExpr 
+    | <assoc=right> '*'expr #derefExpr // END PRECEDENCE 2
+    | left=expr op=('*'|'/'|'%') right=expr #mulDivExpr // END PRECEDENCE 3
+    | left=expr op=('+'|'-') right=expr #addSubExpr // END PRECEDENCE 4
+    | left=expr op=('<<'|'>>') right=expr #shiftExpr // END PRECEDENCE 5
+    | left=expr op=('<'|'<='|'>'|'>=') right=expr #relExpr // END PRECEDENCE 6
+    | left=expr op=('=='|'!=') right=expr #eqExpr // END PRECEDENCE 7
+    | left=expr op='&' right=expr #bitAndExpr // END PRECEDENCE 8
+    | left=expr op='^' right=expr #xorExpr // END PRECEDENCE 9
+    | left=expr op='|' right=expr #bitOrExpr // END PRECEDENCE 10
+    | left=expr op='&&' right=expr #lAndExpr // END PRECEDENCE 11
+    | left=expr op='||' right=expr #lOrExpr // END PRECEDENCE 12
+    | <assoc=right> expr '?' expr ':' expr #ternaryExpr // END PRECEDENCE 13
+    | <assoc=right> expr cond expr #relationalExpr // END PRECEDENCE 14
+    | type? ID('[' number? ']')? #varExpr
     | '{' (expr (',' expr)*)? '}' #braceExpr
+    | number #numExpr
     ;
 
 functionStmt

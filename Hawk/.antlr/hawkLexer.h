@@ -1,5 +1,5 @@
 
-// Generated from hawkLexer.g4 by ANTLR 4.13.2
+// Generated from c:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/hawkLexer.g4 by ANTLR 4.13.1
 
 #pragma once
 
@@ -7,7 +7,6 @@
 #include "antlr4-runtime.h"
 
 
-namespace hawk {
 
 
 class  hawkLexer : public antlr4::Lexer {
@@ -59,4 +58,3 @@ private:
 
 };
 
-}  // namespace hawk

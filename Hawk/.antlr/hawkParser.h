@@ -1,5 +1,5 @@
 
-// Generated from hawkParser.g4 by ANTLR 4.13.2
+// Generated from c:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/hawkParser.g4 by ANTLR 4.13.1
 
 #pragma once
 
@@ -7,7 +7,6 @@
 #include "antlr4-runtime.h"
 
 
-namespace hawk {
 
 
 class  hawkParser : public antlr4::Parser {
@@ -79,8 +78,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -97,8 +94,6 @@ public:
     antlr4::tree::TerminalNode *KCHAR();
     antlr4::tree::TerminalNode *KVOID();
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -121,8 +116,6 @@ public:
     antlr4::tree::TerminalNode *KSHLASSIGN();
     antlr4::tree::TerminalNode *KSHRASSIGN();
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -136,8 +129,6 @@ public:
     antlr4::tree::TerminalNode *HEX();
     antlr4::tree::TerminalNode *BIN();
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -154,8 +145,6 @@ public:
     antlr4::tree::TerminalNode *KGE();
     antlr4::tree::TerminalNode *KLE();
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -175,8 +164,6 @@ public:
     TrueStmtContext *trueStmt();
     antlr4::tree::TerminalNode *SEMICOLON();
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -204,8 +191,6 @@ public:
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -234,8 +219,6 @@ public:
     antlr4::tree::TerminalNode *RBRACKET();
     ExprContext *expr();
     NumberContext *number();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  FuncCallExprContext : public ExprContext {
@@ -249,8 +232,6 @@ public:
     antlr4::tree::TerminalNode* ID(size_t i);
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  AddrExprContext : public ExprContext {
@@ -259,8 +240,6 @@ public:
 
     antlr4::tree::TerminalNode *KBAND();
     ExprContext *expr();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  XorExprContext : public ExprContext {
@@ -273,8 +252,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KXOR();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  ParenExprContext : public ExprContext {
@@ -284,8 +261,6 @@ public:
     antlr4::tree::TerminalNode *LPAREN();
     ExprContext *expr();
     antlr4::tree::TerminalNode *RPAREN();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  UnaryExprContext : public ExprContext {
@@ -297,8 +272,6 @@ public:
     ExprContext *expr();
     antlr4::tree::TerminalNode *KADD();
     antlr4::tree::TerminalNode *KSUB();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  LOrExprContext : public ExprContext {
@@ -311,8 +284,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KOR();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  TernaryExprContext : public ExprContext {
@@ -323,8 +294,6 @@ public:
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KQUESTION();
     antlr4::tree::TerminalNode *KCOLON();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  PostfixExprContext : public ExprContext {
@@ -336,8 +305,6 @@ public:
     ExprContext *expr();
     antlr4::tree::TerminalNode *KINC();
     antlr4::tree::TerminalNode *KDEC();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  RelExprContext : public ExprContext {
@@ -353,8 +320,6 @@ public:
     antlr4::tree::TerminalNode *KLE();
     antlr4::tree::TerminalNode *KG();
     antlr4::tree::TerminalNode *KGE();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  BitAndExprContext : public ExprContext {
@@ -367,8 +332,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KBAND();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  BraceExprContext : public ExprContext {
@@ -381,8 +344,6 @@ public:
     ExprContext* expr(size_t i);
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  AccessExprContext : public ExprContext {
@@ -392,8 +353,6 @@ public:
     ExprContext *expr();
     antlr4::tree::TerminalNode *DOT();
     antlr4::tree::TerminalNode *ID();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  AddSubExprContext : public ExprContext {
@@ -407,8 +366,6 @@ public:
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KADD();
     antlr4::tree::TerminalNode *KSUB();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  PtrAccessExprContext : public ExprContext {
@@ -418,8 +375,6 @@ public:
     ExprContext *expr();
     antlr4::tree::TerminalNode *ARROW();
     antlr4::tree::TerminalNode *ID();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  LAndExprContext : public ExprContext {
@@ -432,8 +387,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KAND();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  RelationalExprContext : public ExprContext {
@@ -443,8 +396,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     CondContext *cond();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NumExprContext : public ExprContext {
@@ -452,8 +403,6 @@ public:
     NumExprContext(ExprContext *ctx);
 
     NumberContext *number();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  ShiftExprContext : public ExprContext {
@@ -467,8 +416,6 @@ public:
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KSHL();
     antlr4::tree::TerminalNode *KSHR();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  PrefixExprContext : public ExprContext {
@@ -480,8 +427,6 @@ public:
     ExprContext *expr();
     antlr4::tree::TerminalNode *KINC();
     antlr4::tree::TerminalNode *KDEC();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  VarExprContext : public ExprContext {
@@ -493,8 +438,6 @@ public:
     antlr4::tree::TerminalNode *LBRACKET();
     antlr4::tree::TerminalNode *RBRACKET();
     NumberContext *number();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  EqExprContext : public ExprContext {
@@ -508,8 +451,6 @@ public:
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KEQ();
     antlr4::tree::TerminalNode *KNE();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  BitOrExprContext : public ExprContext {
@@ -522,8 +463,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KBOR();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NotExprContext : public ExprContext {
@@ -537,8 +476,6 @@ public:
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *KNOT();
     antlr4::tree::TerminalNode *KBNOT();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  DerefExprContext : public ExprContext {
@@ -547,8 +484,6 @@ public:
 
     antlr4::tree::TerminalNode *KMUL();
     ExprContext *expr();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MulDivExprContext : public ExprContext {
@@ -563,8 +498,6 @@ public:
     antlr4::tree::TerminalNode *KMUL();
     antlr4::tree::TerminalNode *KDIV();
     antlr4::tree::TerminalNode *KMOD();
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   ExprContext* expr();
@@ -589,8 +522,6 @@ public:
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -605,8 +536,6 @@ public:
     ElifBlockContext* elifBlock(size_t i);
     ElseBlockContext *elseBlock();
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -625,8 +554,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -646,8 +573,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -663,8 +588,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -683,8 +606,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -710,8 +631,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -736,8 +655,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -758,8 +675,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -777,8 +692,6 @@ public:
     std::vector<StmtContext *> stmt();
     StmtContext* stmt(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -797,4 +710,3 @@ public:
 private:
 };
 
-}  // namespace hawk

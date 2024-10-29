@@ -1,5 +1,5 @@
 
-// Generated from hawkLexer.g4 by ANTLR 4.13.2
+// Generated from c:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/hawkLexer.g4 by ANTLR 4.13.1
 
 
 #include "hawkLexer.h"
@@ -7,7 +7,6 @@
 
 using namespace antlr4;
 
-using namespace hawk;
 
 
 using namespace antlr4;
@@ -46,7 +45,7 @@ struct HawkLexerStaticData final {
 #if ANTLR4_USE_THREAD_LOCAL_CACHE
 static thread_local
 #endif
-std::unique_ptr<HawkLexerStaticData> hawklexerLexerStaticData = nullptr;
+HawkLexerStaticData *hawklexerLexerStaticData = nullptr;
 
 void hawklexerLexerInitialize() {
 #if ANTLR4_USE_THREAD_LOCAL_CACHE
@@ -227,7 +226,7 @@ void hawklexerLexerInitialize() {
   for (size_t i = 0; i < count; i++) { 
     staticData->decisionToDFA.emplace_back(staticData->atn->getDecisionState(i), i);
   }
-  hawklexerLexerStaticData = std::move(staticData);
+  hawklexerLexerStaticData = staticData.release();
 }
 
 }

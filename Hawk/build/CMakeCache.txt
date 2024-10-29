@@ -192,22 +192,22 @@ GIT_EXECUTABLE:FILEPATH=C:/Program Files/Git/cmd/git.exe
 Java_IDLJ_EXECUTABLE:FILEPATH=Java_IDLJ_EXECUTABLE-NOTFOUND
 
 //Path to a program.
-Java_JARSIGNER_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-18.0.1.1/bin/jarsigner.exe
+Java_JARSIGNER_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-17.0.2/bin/jarsigner.exe
 
 //Path to a program.
-Java_JAR_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-18.0.1.1/bin/jar.exe
+Java_JAR_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-17.0.2/bin/jar.exe
 
 //Path to a program.
-Java_JAVAC_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-18.0.1.1/bin/javac.exe
+Java_JAVAC_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-17.0.2/bin/javac.exe
 
 //Path to a program.
-Java_JAVADOC_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-18.0.1.1/bin/javadoc.exe
+Java_JAVADOC_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-17.0.2/bin/javadoc.exe
 
 //Path to a program.
 Java_JAVAH_EXECUTABLE:FILEPATH=Java_JAVAH_EXECUTABLE-NOTFOUND
 
 //Path to a program.
-Java_JAVA_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-18.0.1.1/bin/java.exe
+Java_JAVA_EXECUTABLE:FILEPATH=C:/Program Files/Java/jdk-17.0.2/bin/java.exe
 
 //Value Computed by CMake
 Project_BINARY_DIR:STATIC=C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/build
@@ -232,7 +232,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=30
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=5
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=C:/Program Files/CMake/bin/cmake.exe
 //Path to cpack program executable.
@@ -350,7 +350,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding ANTLR
-FIND_PACKAGE_MESSAGE_DETAILS_ANTLR:INTERNAL=[C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/antlr-4.13.2-complete.jar][C:/Program Files/Java/jdk-18.0.1.1/bin/java.exe][v4.13.2()]
+FIND_PACKAGE_MESSAGE_DETAILS_ANTLR:INTERNAL=[C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/antlr-4.13.2-complete.jar][C:/Program Files/Java/jdk-17.0.2/bin/java.exe][v4.13.2()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Java_IDLJ_EXECUTABLE

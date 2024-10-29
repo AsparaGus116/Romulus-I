@@ -1,14 +1,12 @@
 
-// Generated from hawkParser.g4 by ANTLR 4.13.2
+// Generated from c:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/hawkParser.g4 by ANTLR 4.13.1
 
 
-#include "hawkParserVisitor.h"
 
 #include "hawkParser.h"
 
 
 using namespace antlrcpp;
-using namespace hawk;
 
 using namespace antlr4;
 
@@ -41,7 +39,7 @@ struct HawkParserStaticData final {
 #if ANTLR4_USE_THREAD_LOCAL_CACHE
 static thread_local
 #endif
-std::unique_ptr<HawkParserStaticData> hawkparserParserStaticData = nullptr;
+HawkParserStaticData *hawkparserParserStaticData = nullptr;
 
 void hawkparserParserInitialize() {
 #if ANTLR4_USE_THREAD_LOCAL_CACHE
@@ -237,7 +235,7 @@ void hawkparserParserInitialize() {
   for (size_t i = 0; i < count; i++) { 
     staticData->decisionToDFA.emplace_back(staticData->atn->getDecisionState(i), i);
   }
-  hawkparserParserStaticData = std::move(staticData);
+  hawkparserParserStaticData = staticData.release();
 }
 
 }
@@ -297,13 +295,6 @@ size_t hawkParser::ProgramContext::getRuleIndex() const {
   return hawkParser::RuleProgram;
 }
 
-
-std::any hawkParser::ProgramContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitProgram(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::ProgramContext* hawkParser::program() {
   ProgramContext *_localctx = _tracker.createInstance<ProgramContext>(_ctx, getState());
@@ -378,13 +369,6 @@ size_t hawkParser::TypeContext::getRuleIndex() const {
   return hawkParser::RuleType;
 }
 
-
-std::any hawkParser::TypeContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitType(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::TypeContext* hawkParser::type() {
   TypeContext *_localctx = _tracker.createInstance<TypeContext>(_ctx, getState());
@@ -544,13 +528,6 @@ size_t hawkParser::AssignOpContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::AssignOpContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitAssignOp(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::AssignOpContext* hawkParser::assignOp() {
   AssignOpContext *_localctx = _tracker.createInstance<AssignOpContext>(_ctx, getState());
   enterRule(_localctx, 4, hawkParser::RuleAssignOp);
@@ -609,13 +586,6 @@ size_t hawkParser::NumberContext::getRuleIndex() const {
   return hawkParser::RuleNumber;
 }
 
-
-std::any hawkParser::NumberContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitNumber(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::NumberContext* hawkParser::number() {
   NumberContext *_localctx = _tracker.createInstance<NumberContext>(_ctx, getState());
@@ -687,13 +657,6 @@ size_t hawkParser::CondContext::getRuleIndex() const {
   return hawkParser::RuleCond;
 }
 
-
-std::any hawkParser::CondContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitCond(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::CondContext* hawkParser::cond() {
   CondContext *_localctx = _tracker.createInstance<CondContext>(_ctx, getState());
@@ -777,13 +740,6 @@ size_t hawkParser::StmtContext::getRuleIndex() const {
   return hawkParser::RuleStmt;
 }
 
-
-std::any hawkParser::StmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::StmtContext* hawkParser::stmt() {
   StmtContext *_localctx = _tracker.createInstance<StmtContext>(_ctx, getState());
@@ -947,13 +903,6 @@ size_t hawkParser::TrueStmtContext::getRuleIndex() const {
   return hawkParser::RuleTrueStmt;
 }
 
-
-std::any hawkParser::TrueStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitTrueStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::TrueStmtContext* hawkParser::trueStmt() {
   TrueStmtContext *_localctx = _tracker.createInstance<TrueStmtContext>(_ctx, getState());
@@ -1153,12 +1102,6 @@ hawkParser::NumberContext* hawkParser::SubscriptExprContext::number() {
 hawkParser::SubscriptExprContext::SubscriptExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::SubscriptExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitSubscriptExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- FuncCallExprContext ------------------------------------------------------------------
 
 tree::TerminalNode* hawkParser::FuncCallExprContext::LPAREN() {
@@ -1188,12 +1131,6 @@ tree::TerminalNode* hawkParser::FuncCallExprContext::COMMA(size_t i) {
 hawkParser::FuncCallExprContext::FuncCallExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::FuncCallExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitFuncCallExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- AddrExprContext ------------------------------------------------------------------
 
 tree::TerminalNode* hawkParser::AddrExprContext::KBAND() {
@@ -1207,12 +1144,6 @@ hawkParser::ExprContext* hawkParser::AddrExprContext::expr() {
 hawkParser::AddrExprContext::AddrExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::AddrExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitAddrExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- XorExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::XorExprContext::expr() {
@@ -1230,12 +1161,6 @@ tree::TerminalNode* hawkParser::XorExprContext::KXOR() {
 hawkParser::XorExprContext::XorExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::XorExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitXorExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- ParenExprContext ------------------------------------------------------------------
 
 tree::TerminalNode* hawkParser::ParenExprContext::LPAREN() {
@@ -1253,12 +1178,6 @@ tree::TerminalNode* hawkParser::ParenExprContext::RPAREN() {
 hawkParser::ParenExprContext::ParenExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::ParenExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitParenExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- UnaryExprContext ------------------------------------------------------------------
 
 hawkParser::ExprContext* hawkParser::UnaryExprContext::expr() {
@@ -1276,12 +1195,6 @@ tree::TerminalNode* hawkParser::UnaryExprContext::KSUB() {
 hawkParser::UnaryExprContext::UnaryExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::UnaryExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitUnaryExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- LOrExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::LOrExprContext::expr() {
@@ -1299,12 +1212,6 @@ tree::TerminalNode* hawkParser::LOrExprContext::KOR() {
 hawkParser::LOrExprContext::LOrExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::LOrExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitLOrExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- TernaryExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::TernaryExprContext::expr() {
@@ -1326,12 +1233,6 @@ tree::TerminalNode* hawkParser::TernaryExprContext::KCOLON() {
 hawkParser::TernaryExprContext::TernaryExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::TernaryExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitTernaryExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- PostfixExprContext ------------------------------------------------------------------
 
 hawkParser::ExprContext* hawkParser::PostfixExprContext::expr() {
@@ -1349,12 +1250,6 @@ tree::TerminalNode* hawkParser::PostfixExprContext::KDEC() {
 hawkParser::PostfixExprContext::PostfixExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::PostfixExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitPostfixExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- RelExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::RelExprContext::expr() {
@@ -1384,12 +1279,6 @@ tree::TerminalNode* hawkParser::RelExprContext::KGE() {
 hawkParser::RelExprContext::RelExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::RelExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitRelExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- BitAndExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::BitAndExprContext::expr() {
@@ -1407,12 +1296,6 @@ tree::TerminalNode* hawkParser::BitAndExprContext::KBAND() {
 hawkParser::BitAndExprContext::BitAndExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::BitAndExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitBitAndExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- BraceExprContext ------------------------------------------------------------------
 
 tree::TerminalNode* hawkParser::BraceExprContext::LBRACE() {
@@ -1442,12 +1325,6 @@ tree::TerminalNode* hawkParser::BraceExprContext::COMMA(size_t i) {
 hawkParser::BraceExprContext::BraceExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::BraceExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitBraceExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- AccessExprContext ------------------------------------------------------------------
 
 hawkParser::ExprContext* hawkParser::AccessExprContext::expr() {
@@ -1465,12 +1342,6 @@ tree::TerminalNode* hawkParser::AccessExprContext::ID() {
 hawkParser::AccessExprContext::AccessExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::AccessExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitAccessExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- AddSubExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::AddSubExprContext::expr() {
@@ -1492,12 +1363,6 @@ tree::TerminalNode* hawkParser::AddSubExprContext::KSUB() {
 hawkParser::AddSubExprContext::AddSubExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::AddSubExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitAddSubExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- PtrAccessExprContext ------------------------------------------------------------------
 
 hawkParser::ExprContext* hawkParser::PtrAccessExprContext::expr() {
@@ -1515,12 +1380,6 @@ tree::TerminalNode* hawkParser::PtrAccessExprContext::ID() {
 hawkParser::PtrAccessExprContext::PtrAccessExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::PtrAccessExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitPtrAccessExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- LAndExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::LAndExprContext::expr() {
@@ -1538,12 +1397,6 @@ tree::TerminalNode* hawkParser::LAndExprContext::KAND() {
 hawkParser::LAndExprContext::LAndExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::LAndExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitLAndExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- RelationalExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::RelationalExprContext::expr() {
@@ -1561,12 +1414,6 @@ hawkParser::CondContext* hawkParser::RelationalExprContext::cond() {
 hawkParser::RelationalExprContext::RelationalExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::RelationalExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitRelationalExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- NumExprContext ------------------------------------------------------------------
 
 hawkParser::NumberContext* hawkParser::NumExprContext::number() {
@@ -1576,12 +1423,6 @@ hawkParser::NumberContext* hawkParser::NumExprContext::number() {
 hawkParser::NumExprContext::NumExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::NumExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitNumExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- ShiftExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::ShiftExprContext::expr() {
@@ -1603,12 +1444,6 @@ tree::TerminalNode* hawkParser::ShiftExprContext::KSHR() {
 hawkParser::ShiftExprContext::ShiftExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::ShiftExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitShiftExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- PrefixExprContext ------------------------------------------------------------------
 
 hawkParser::ExprContext* hawkParser::PrefixExprContext::expr() {
@@ -1626,12 +1461,6 @@ tree::TerminalNode* hawkParser::PrefixExprContext::KDEC() {
 hawkParser::PrefixExprContext::PrefixExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::PrefixExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitPrefixExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- VarExprContext ------------------------------------------------------------------
 
 tree::TerminalNode* hawkParser::VarExprContext::ID() {
@@ -1657,12 +1486,6 @@ hawkParser::NumberContext* hawkParser::VarExprContext::number() {
 hawkParser::VarExprContext::VarExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::VarExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitVarExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- EqExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::EqExprContext::expr() {
@@ -1684,12 +1507,6 @@ tree::TerminalNode* hawkParser::EqExprContext::KNE() {
 hawkParser::EqExprContext::EqExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::EqExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitEqExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- BitOrExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::BitOrExprContext::expr() {
@@ -1707,12 +1524,6 @@ tree::TerminalNode* hawkParser::BitOrExprContext::KBOR() {
 hawkParser::BitOrExprContext::BitOrExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::BitOrExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitBitOrExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- NotExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::NotExprContext::expr() {
@@ -1734,12 +1545,6 @@ tree::TerminalNode* hawkParser::NotExprContext::KBNOT() {
 hawkParser::NotExprContext::NotExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::NotExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitNotExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- DerefExprContext ------------------------------------------------------------------
 
 tree::TerminalNode* hawkParser::DerefExprContext::KMUL() {
@@ -1753,12 +1558,6 @@ hawkParser::ExprContext* hawkParser::DerefExprContext::expr() {
 hawkParser::DerefExprContext::DerefExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::DerefExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitDerefExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- MulDivExprContext ------------------------------------------------------------------
 
 std::vector<hawkParser::ExprContext *> hawkParser::MulDivExprContext::expr() {
@@ -1784,12 +1583,6 @@ tree::TerminalNode* hawkParser::MulDivExprContext::KMOD() {
 hawkParser::MulDivExprContext::MulDivExprContext(ExprContext *ctx) { copyFrom(ctx); }
 
 
-std::any hawkParser::MulDivExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitMulDivExpr(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::ExprContext* hawkParser::expr() {
    return expr(0);
@@ -2436,13 +2229,6 @@ size_t hawkParser::FunctionStmtContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::FunctionStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitFunctionStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::FunctionStmtContext* hawkParser::functionStmt() {
   FunctionStmtContext *_localctx = _tracker.createInstance<FunctionStmtContext>(_ctx, getState());
   enterRule(_localctx, 16, hawkParser::RuleFunctionStmt);
@@ -2568,13 +2354,6 @@ size_t hawkParser::IfStmtContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::IfStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitIfStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::IfStmtContext* hawkParser::ifStmt() {
   IfStmtContext *_localctx = _tracker.createInstance<IfStmtContext>(_ctx, getState());
   enterRule(_localctx, 18, hawkParser::RuleIfStmt);
@@ -2670,13 +2449,6 @@ size_t hawkParser::IfBlockContext::getRuleIndex() const {
   return hawkParser::RuleIfBlock;
 }
 
-
-std::any hawkParser::IfBlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitIfBlock(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::IfBlockContext* hawkParser::ifBlock() {
   IfBlockContext *_localctx = _tracker.createInstance<IfBlockContext>(_ctx, getState());
@@ -2799,13 +2571,6 @@ size_t hawkParser::ElifBlockContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::ElifBlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitElifBlock(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::ElifBlockContext* hawkParser::elifBlock() {
   ElifBlockContext *_localctx = _tracker.createInstance<ElifBlockContext>(_ctx, getState());
   enterRule(_localctx, 22, hawkParser::RuleElifBlock);
@@ -2915,13 +2680,6 @@ size_t hawkParser::ElseBlockContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::ElseBlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitElseBlock(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::ElseBlockContext* hawkParser::elseBlock() {
   ElseBlockContext *_localctx = _tracker.createInstance<ElseBlockContext>(_ctx, getState());
   enterRule(_localctx, 24, hawkParser::RuleElseBlock);
@@ -3026,13 +2784,6 @@ size_t hawkParser::WhileStmtContext::getRuleIndex() const {
   return hawkParser::RuleWhileStmt;
 }
 
-
-std::any hawkParser::WhileStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitWhileStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::WhileStmtContext* hawkParser::whileStmt() {
   WhileStmtContext *_localctx = _tracker.createInstance<WhileStmtContext>(_ctx, getState());
@@ -3141,13 +2892,6 @@ size_t hawkParser::ForRangeStmtContext::getRuleIndex() const {
   return hawkParser::RuleForRangeStmt;
 }
 
-
-std::any hawkParser::ForRangeStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitForRangeStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::ForRangeStmtContext* hawkParser::forRangeStmt() {
   ForRangeStmtContext *_localctx = _tracker.createInstance<ForRangeStmtContext>(_ctx, getState());
@@ -3265,13 +3009,6 @@ size_t hawkParser::ForEachStmtContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::ForEachStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitForEachStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::ForEachStmtContext* hawkParser::forEachStmt() {
   ForEachStmtContext *_localctx = _tracker.createInstance<ForEachStmtContext>(_ctx, getState());
   enterRule(_localctx, 30, hawkParser::RuleForEachStmt);
@@ -3386,13 +3123,6 @@ size_t hawkParser::DoWhileStmtContext::getRuleIndex() const {
 }
 
 
-std::any hawkParser::DoWhileStmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitDoWhileStmt(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 hawkParser::DoWhileStmtContext* hawkParser::doWhileStmt() {
   DoWhileStmtContext *_localctx = _tracker.createInstance<DoWhileStmtContext>(_ctx, getState());
   enterRule(_localctx, 32, hawkParser::RuleDoWhileStmt);
@@ -3484,13 +3214,6 @@ size_t hawkParser::StructContext::getRuleIndex() const {
   return hawkParser::RuleStruct;
 }
 
-
-std::any hawkParser::StructContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<hawkParserVisitor*>(visitor))
-    return parserVisitor->visitStruct(this);
-  else
-    return visitor->visitChildren(this);
-}
 
 hawkParser::StructContext* hawkParser::struct_() {
   StructContext *_localctx = _tracker.createInstance<StructContext>(_ctx, getState());
