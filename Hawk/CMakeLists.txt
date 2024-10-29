@@ -26,16 +26,16 @@ include_directories(${ANTLR4_INCLUDE_DIRS})
 
 # set variable pointing to the antlr tool that supports C++
 # this is not required if the jar file can be found under PATH environment
-set(ANTLR_EXECUTABLE C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Hawk/antlr-4.13.2-complete.jar)
+set(ANTLR_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/antlr/bin/antlr-4.13.2-complete.jar)
 # add macros to generate ANTLR Cpp code from grammar
 find_package(ANTLR REQUIRED)
 
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
 
 # Call macro to add lexer and grammar to your build dependencies.
-antlr_target(hawkLexer hawkLexer.g4 LEXER
+antlr_target(hawkLexer antlr/hawkLexer.g4 LEXER
              PACKAGE hawk)
-antlr_target(hawkParser hawkParser.g4 PARSER
+antlr_target(hawkParser antlr/hawkParser.g4 PARSER
              PACKAGE hawk
              DEPENDS_ANTLR hawkLexer
              COMPILE_FLAGS -lib ${ANTLR_hawkLexer_OUTPUT_DIR} -visitor)
@@ -50,7 +50,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MD")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MD")
 
 # add generated grammar to demo binary target
-add_executable(hawk main.cpp
+add_executable(hawk src/main.cpp
                ${ANTLR_hawkLexer_CXX_OUTPUTS}
                ${ANTLR_hawkParser_CXX_OUTPUTS})
 target_link_libraries(hawk antlr4_static)
