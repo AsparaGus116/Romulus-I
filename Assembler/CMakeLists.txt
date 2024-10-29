@@ -26,16 +26,16 @@ include_directories(${ANTLR4_INCLUDE_DIRS})
 
 # set variable pointing to the antlr tool that supports C++
 # this is not required if the jar file can be found under PATH environment
-set(ANTLR_EXECUTABLE C:/Users/gusbr/Desktop/CodingShit/Romulus-I/Assembler/antlr-4.13.2-complete.jar)
+set(ANTLR_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/antlr/bin/antlr-4.13.2-complete.jar)
 # add macros to generate ANTLR Cpp code from grammar
 find_package(ANTLR REQUIRED)
 
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
 
 # Call macro to add lexer and grammar to your build dependencies.
-antlr_target(romASMLexer romASMLexer.g4 LEXER
+antlr_target(romASMLexer antlr/romASMLexer.g4 LEXER
              PACKAGE romASM)
-antlr_target(romASMParser romASMParser.g4 PARSER
+antlr_target(romASMParser antlr/romASMParser.g4 PARSER
              PACKAGE romASM
              DEPENDS_ANTLR romASMLexer
              COMPILE_FLAGS -lib ${ANTLR_romASMLexer_OUTPUT_DIR} -listener)
@@ -50,10 +50,10 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MT")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MT")
 
 # add generated grammar to demo binary target
-add_executable(romASM main.cpp Listener.h Listener.cpp
+add_executable(romASM src/main.cpp src/Listener.h src/Listener.cpp
                ${ANTLR_romASMLexer_CXX_OUTPUTS}
                ${ANTLR_romASMParser_CXX_OUTPUTS})
 target_link_libraries(romASM antlr4_static)
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MT")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
