@@ -34,6 +34,8 @@ uint16_t mar = 0;
 bool dataUpdated = false;
 bool stackUpdated = false;
 
+int viewAmt = 0;
+
 int raUsed = -1;
 int rbUsed = -1;
 int ryUsed = -1;
@@ -79,6 +81,11 @@ int main(int argc, char* argv[])
 			if (str.compare("-f") == 0)
 			{
 				filename = argv[i + 1];
+			}
+			if (str.compare("-v") == 0)
+			{
+				viewAmt = std::stoi(argv[i + 1]);
+				
 			}
 
 		}
@@ -499,45 +506,61 @@ void printState()
 	std::cout << "Data RAM: \n";
 	std::cout << "       |  0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xA  0xB  0xC  0xD  0xE  0xF\n";
 	std::cout << "-------+--------------------------------------------------------------------------------\n";
-
-	if (mar >= 0x0010)
+	if (viewAmt == 0)
 	{
-		int start = (mar - 16 & 0xfff0);
-		std::cout << utils::toHex((start), 4, true) << " | ";
-		for (int i = 0; i < 16; i++)
+		if (mar >= 0x0010)
 		{
-			highlightData(start + i);
-			std::cout << utils::toHex(data[start + i], 4, false);
-			format::resetTextColor();
-			std::cout << " ";
+			int start = (mar - 16 & 0xfff0);
+			std::cout << utils::toHex((start), 4, true) << " | ";
+			for (int i = 0; i < 16; i++)
+			{
+				highlightData(start + i);
+				std::cout << utils::toHex(data[start + i], 4, false);
+				format::resetTextColor();
+				std::cout << " ";
+			}
+			std::cout << "\n";
+			//print first line 
 		}
-		std::cout << "\n";
-		//print first line 
-	}
-	start = mar & 0xfff0;
-	std::cout << utils::toHex((start), 4, true) << " | ";
-	for (int i = 0; i < 16; i++)
-	{
-		highlightData(start + i);
-
-		std::cout << utils::toHex(data[start + i], 4, false);
-		format::resetTextColor();
-		std::cout << " ";
-	}
-	std::cout << '\n';
-	//always print second line
-	if (mar < 0xfff0)
-	{
-		int start = (mar + 16) & 0xfff0;
+		start = mar & 0xfff0;
 		std::cout << utils::toHex((start), 4, true) << " | ";
 		for (int i = 0; i < 16; i++)
 		{
 			highlightData(start + i);
+
 			std::cout << utils::toHex(data[start + i], 4, false);
 			format::resetTextColor();
 			std::cout << " ";
 		}
 		std::cout << '\n';
+		//always print second line
+		if (mar < 0xfff0)
+		{
+			int start = (mar + 16) & 0xfff0;
+			std::cout << utils::toHex((start), 4, true) << " | ";
+			for (int i = 0; i < 16; i++)
+			{
+				highlightData(start + i);
+				std::cout << utils::toHex(data[start + i], 4, false);
+				format::resetTextColor();
+				std::cout << " ";
+			}
+			std::cout << '\n';
+		}
+	}
+	else
+	{
+		for (int j = 0; j < viewAmt; j++)
+		{
+			std::cout << utils::toHex((16 * j), 4, true) << " | ";
+			for (int i = 0; i < 16; i++)
+			{
+				int start = 0;
+				std::cout << utils::toHex(data[16 * j + (start + i)], 4, false);
+				std::cout << " ";
+			}
+			std::cout << '\n';
+		}
 	}
 	std::cout << "\n\n";
 
