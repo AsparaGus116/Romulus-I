@@ -401,3 +401,6 @@ Assembler/cmake/
 !Assembler/cmake/*.cmake
 Assembler/build/
 Assembler/runtime/
+Hawk/build/
+Hawk/.antlr/
+Hawk/.vscode/
