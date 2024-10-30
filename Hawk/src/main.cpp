@@ -2,7 +2,11 @@
 #include "hawkLexer.h"
 #include "hawkParser.h"
 
-int main()
+#include <iostream>
+#include <string>
+
+int main(int argc, char* argv[])
 {
+    std::cout << argv[1] << '\n';
     return 0;
 }
