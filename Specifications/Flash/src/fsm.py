@@ -6,7 +6,7 @@ def main():
 	bits = 0xFFFF
 
 	# Define the order of inputs and outputs.
-	inputMap = ["op3","op2","op1","op0","sub2","sub1","sub0","op2.0","reset","interrupt","jcmp"]
+	inputMap = ["reset","jcmp","op2.0","interrupt","op3","op2","op1","op0","nil","sub2","sub1", "sub0"]
 	outputMap = ["Cir","Cmar","Edip","Cpc","Epc","Cdata","Edata","Cp_0","Cp_1","Ealu","Cr_all","Cr_x","Er_x","sel0","sel1","csp++","csp--","Einstr","Cstack","Estack","Ccmp","setsub","pcinc"]
 	#outs = findOuts(inputMap,outputMap,test)
 
@@ -15,11 +15,11 @@ def main():
 	#print(format(bits2bytes(test),bits2bytes(outs)))
 
 	#"""
-	file0 = open("fsm0.hex",'w')
-	file1 = open("fsm1.hex",'w')
-	file2 = open("fsm2.hex",'w')
-	for ins in range(0,2**11):
-		outs = findOuts(inputMap,outputMap,bytes2bits(ins,11))
+	file0 = open("../hex_files/fsm0.hex",'w')
+	file1 = open("../hex_files/fsm1.hex",'w')
+	file2 = open("../hex_files/fsm2.hex",'w')
+	for ins in range(0,2**12):
+		outs = findOuts(inputMap,outputMap,bytes2bits(ins,12))
 		file0.write(format(ins,bits2bytes(outs),0))
 		file1.write(format(ins,bits2bytes(outs),1))
 		file2.write(format(ins,bits2bytes(outs),2))
