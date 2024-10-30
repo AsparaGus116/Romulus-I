@@ -27,7 +27,6 @@ using namespace romASM;
 using namespace antlr4;
 
 int main(int argc, const char * argv[]) {
-
   std::string outfname = "a.txt";
 
   std::ifstream file;

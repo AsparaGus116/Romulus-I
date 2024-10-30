@@ -49,7 +49,6 @@
 	{
 		int res = 0;
 		str = toLower(str);
-		std::cout << "STR: " << str << '\n';
 		for(int i = 0; i < str.size(); i++)
 		{
 			res <<= 4;
@@ -60,7 +59,6 @@
 			else if(str[i] >= 'a' && str[i] <= 'f')
 			{
 				res |= str[i] - 'a' + 10;
-				std::cout << str[i] - 'a' + 10 << '\n';
 			}
 			else
 			{
@@ -69,7 +67,6 @@
 			
 			
 		}
-		std::cout << "RES: " << res << '\n';
 		return res;
 	}
 
