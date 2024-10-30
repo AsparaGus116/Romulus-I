@@ -33,6 +33,6 @@ LABEL : LABELID(':') ;
 COMMENT : ('//'|'#')(.)*?('\n'|EOF) -> skip;
 
 IMM : [0-9]+ ;
-HEX : '0x'[0-9a-fA-F]+ ;
+HEX : '0x'([0-9a-fA-F])+ ;
 REG : ('r'|'R')[0-9][0-9]? ;
 WS: [ \t\n\r\f]+ -> skip ;
