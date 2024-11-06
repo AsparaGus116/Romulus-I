@@ -2,14 +2,14 @@ import math
 import typing
 
 outputRom = True
+outputHex = True
 
 def main():
-	test = [0,0,0,1, 1,1,0, 1, 1, 0, 1]
-	bits = 0xFFFF
-
 	# Define the order of inputs and outputs.
 	inputMap = ["reset","jcmp","op2.0","interrupt","op3","op2","op1","op0","nil","sub2","sub1", "sub0"]
-	outputMap = ["Cir","Cmar","Edip","Cpc","Epc","Cdata","Edata","Cp_0","Cp_1","Ealu","Cr_all","Cr_x","Er_x","sel0","sel1","csp++","csp--","Einstr","Cstack","Estack","Ccmp","setsub","pcinc"] # first 8: U2, then U3, then U4
+	
+	outputMap = ["Cmar", "Cdata", "Er_x", "Epc", "Edip", "Cpc", "Cr_x", "Edata", "csp++", "csp--", "pcdec", "Cstack", "nil", "Estack", "Einstr", "pcinc",
+	"Cir", "Cp_1", "Ealu", "sel0", "nil", "setsub", "sel1", "Cp_0"] # first 8: U2, then U3, then U4
 	#outs = findOuts(inputMap,outputMap,test)
 
 	#print(test)
@@ -18,29 +18,30 @@ def main():
 
 	#"""
 	if outputRom:
-		file0 = open("../hex_files/FSM0.ROM",'wb') #U2
-		file1 = open("../hex_files/FSM1.ROM",'wb') #U3
-		file2 = open("../hex_files/FSM2.ROM",'wb') #U4
-	else:
-		file0 = open("../hex_files/fsm0.hex",'w') #U2
-		file1 = open("../hex_files/fsm1.hex",'w') #U3
-		file2 = open("../hex_files/fsm2.hex",'w') #U4
+		file0 = open("../rom_files/FSM_U2.ROM",'wb') #U2
+		file1 = open("../rom_files/FSM_U3.ROM",'wb') #U3
+		file2 = open("../rom_files/FSM_U4.ROM",'wb') #U4
+	if outputHex:
+		file00 = open("../hex_files/fsm_U2.hex",'w') #U2
+		file01 = open("../hex_files/fsm_U3.hex",'w') #U3
+		file02 = open("../hex_files/fsm_U4.hex",'w') #U4
 	
 	for ins in range(0,2**12):
 		outs = findOuts(inputMap,outputMap,bytes2bits(ins,12))
-		if(not outputRom):
-			file0.write(format(ins,bits2bytes(outs),0))
-			file1.write(format(ins,bits2bytes(outs),1))
-			file2.write(format(ins,bits2bytes(outs),2))
-		else:
+		#print(outs)
+		if(outputHex):
+			file00.write(format(ins,bits2bytes(outs),0))
+			file01.write(format(ins,bits2bytes(outs),1))
+			file02.write(format(ins,bits2bytes(outs),2))
+		if outputRom:
 			#print(bytes([generateByte(outs, 0)]))
 			file0.write(bytes([generateByte(outs, 0)]));
 			file1.write(bytes([generateByte(outs, 1)]));
 			file2.write(bytes([generateByte(outs, 2)]));
-	if not outputRom:	
-		file0.write(":00000001FF")
-		file1.write(":00000001FF")
-		file2.write(":00000001FF")
+	if outputHex:	
+		file00.write(":00000001FF")
+		file01.write(":00000001FF")
+		file02.write(":00000001FF")
 	#"""
 
 def generateByte(arr: list[int], val: int) -> int:
@@ -70,241 +71,235 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	subclock = sub2*4 + sub1*2 + sub0
 
 	# Set all output signals to 0 to start
-	Cir = 0
-	Cmar = 0
-	Edip = 0
-	Cpc = 0
-	Epc = 0
-	Cdata = 0
-	Edata = 0
-	Cp_0 = 0
-	Cp_1 = 0
-	Ealu = 0
-	Cr_all = 0
-	Cr_x = 0
-	Er_x = 0
+	Cir = 1
+	Cmar = 1
+	Edip = 1
+	Cpc = 1
+	Epc = 1
+	Cdata = 1
+	Edata = 1
+	Cp_0 = 1
+	Cp_1 = 1
+	Ealu = 1
+	#Cr_all = 1
+	Cr_x = 1
+	Er_x = 1
 	sel0 = 0
 	sel1 = 0
-	cspInc = 0
-	cspDec = 0
-	Einstr = 0
-	Cstack = 0
-	Estack = 0
-	Ccmp = 0
-	setsub = 0
-	pcinc = 0
+	cspInc = 1
+	cspDec = 1
+	Einstr = 1
+	Cstack = 1
+	Estack = 1
+	#Ccmp = 1
+	setsub = 1
+	pcinc = 1
+	pcdec = 1
 
 	# Logic to assign outputs based on inputs
 	if (reset == 1):
-		match subclock:
-			case 0:
-				Cir = 1
-				Cmar = 1
-				Cpc = 1
-				Cr_all = 1
-			case 1:
-				setsub = 1
+		pass # make sure all pins are high
 	elif (interrupt == 1):
 		match subclock:
 			case 0:
-				Epc = 1
-				Cstack = 1
+				Epc = (not Epc) & 1
+				Cstack = (not Cstack) & 1
 			case 1:
-				cspInc = 1
+				cspInc = (not cspInc) & 1
 			case 2:
-				Edip = 1
-				Cpc = 1
+				Edip = (not Edip) & 1
+				Cpc = (not Cpc) & 1
 			case 3:
-				setsub = 1
+				setsub = (not setsub) & 1
 	else:
 		match opcode:
 			case 0: # opcode = 0 (register to register)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						Er_x = 1
-						Cp_0 = 1
+						Er_x = (not Er_x) & 1
+						Cp_0 = (not Cp_0) & 1
 					case 2:
-						Ealu = 1
-						Cr_x = 1
-						sel1 = 1
+						Ealu = (not Ealu) & 1
+						Cr_x = (not Cr_x) & 1
+						sel1 = (not sel1) & 1
 					case 3:
-						pcinc = 1
-						setsub = 1
+						pcinc = (not pcinc) & 1
+						setsub = (not setsub) & 1
 			case 1: # opcode = 1 (immediate to register)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						pcinc = 1
+						pcinc = (not pcinc) & 1
 					case 2:
-						Einstr = 1
-						Cr_x = 1
-						sel1 = 1
+						Einstr = (not Einstr) & 1
+						Cr_x = (not Cr_x) & 1
+						sel1 = (not sel1) & 1
 					case 3:
-						pcinc = 1
-						setsub = 1
+						pcinc = (not pcinc) & 1
+						setsub = (not setsub) & 1
 			case 2: # opcode = 2 (register to memory)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						Er_x = 1
-						sel0 = 1
-						Cmar = 1
+						Er_x = (not Er_x) & 1
+						sel0 = (not sel0) & 1
+						Cmar = (not Cmar) & 1
 					case 2:
-						Er_x = 1
-						Cdata = 1
+						Er_x = (not Er_x) & 1
+						Cdata = (not Cdata) & 1
 					case 3:
-						pcinc = 1
-						setsub = 1
+						pcinc = (not pcinc) & 1
+						setsub = (not setsub) & 1
 			case 3: # opcode = 3 (memory to register)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						Er_x = 1
-						Cmar = 1
+						Er_x = (not Er_x) & 1
+						Cmar = (not Cmar) & 1
 					case 2:
-						Edata = 1
-						Cr_x = 1
-						sel1 = 1
+						Edata = (not Edata) & 1
+						Cr_x = (not Cr_x) & 1
+						sel1 = (not sel1) & 1
 					case 3:
-						pcinc = 1
-						setsub = 1
+						pcinc = (not pcinc) & 1
+						setsub = (not setsub) & 1
 			case 4 | 6 | 7 | 8 | 9: # opcode = 4, 6, 7, 8, or 9 (ALU binary operations)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						Er_x = 1
-						Cp_0 = 1
+						Er_x = (not Er_x) & 1
+						Cp_0 = (not Cp_0) & 1
 					case 2:
-						Er_x = 1
-						sel0 = 1
-						Cp_1 = 1
+						Er_x = (not Er_x) & 1
+						sel0 = (not sel0) & 1
+						Cp_1 = (not Cp_1) & 1
 					case 3:
-						Ealu = 1
-						Cr_x = 1
-						sel1 = 1
+						Ealu = (not Ealu) & 1
+						Cr_x = (not Cr_x) & 1
+						sel1 = (not sel1) & 1
 					case 4:
-						pcinc = 1
-						setsub = 1
+						pcinc = (not pcinc) & 1
+						setsub = (not setsub) & 1
 			case 5 | 10 | 11: # opcode = 5, A, or B (ALU unary operations)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						Er_x = 1
-						Cp_0 = 1
+						Er_x = (not Er_x) & 1
+						Cp_0 = (not Cp_0) & 1
 					case 2:
-						Ealu = 1
-						Cr_x = 1
-						sel1 = 1
+						Ealu = (not Ealu) & 1
+						Cr_x = (not Cr_x) & 1
+						sel1 = (not sel1) & 1
 					case 3:
-						pcinc = 1
-						setsub = 1
+						pcinc = (not pcinc) & 1
+						setsub = (not setsub) & 1
 			case 12: # opcode = C (push)
 				match opTwo:
 					case 0: # op2.0 = 0 (push Ra to stack)
 						match subclock:
 							case 0:
-								Einstr = 1
-								Cir = 1
+								Einstr = (not Einstr) & 1
+								Cir = (not Cir) & 1
 							case 1:
-								Er_x = 1
-								Cstack = 1
+								Er_x = (not Er_x) & 1
+								Cstack = (not Cstack) & 1
 							case 2:
-								cspInc = 1
+								cspInc = (not cspInc) & 1
 							case 3:
-								pcinc = 1
-								setsub = 1
+								pcinc = (not pcinc) & 1
+								setsub = (not setsub) & 1
 					case 1: # op2.0 = 1 (puch PC to stack)
 						match subclock:
 							case 0:
-								Einstr = 1
-								Cir = 1
+								Einstr = (not Einstr) & 1
+								Cir = (not Cir) & 1
 							case 1:
-								Epc = 1
-								Cstack = 1
+								Epc = (not Epc) & 1
+								Cstack = (not Cstack) & 1
 							case 2:
-								cspInc = 1
+								cspInc = (not cspInc) & 1
 							case 3:
-								pcinc = 1
-								setsub = 1
+								pcinc = (not pcinc) & 1
+								setsub = (not setsub) & 1
 			case 13: # opcode = D (pop)
 				match opTwo:
 					case 0: # op2.0 = 0 (pop into Ry)
 						match subclock:
 							case 0:
-								Einstr = 1
-								Cir = 1
+								Einstr = (not Einstr) & 1
+								Cir = (not Cir) & 1
 							case 1:
-								cspDec = 1
+								cspDec = (not cspDec) & 1
 							case 2:
-								Estack = 1
-								Cr_x = 1
-								sel1 = 1
+								Estack = (not Estack) & 1
+								Cr_x = (not Cr_x) & 1
+								sel1 = (not sel1) & 1
 							case 3:
-								pcinc = 1
-								setsub = 1
+								pcinc = (not pcinc) & 1
+								setsub = (not setsub) & 1
 					case 1: # op2.0 = 1 (pop into PC)
 						match subclock:
 							case 0:
-								Einstr = 1
-								Cir = 1
+								Einstr = (not Einstr) & 1
+								Cir = (not Cir) & 1
 							case 1:
-								cspDec = 1
+								cspDec = (not cspDec) & 1
 							case 2:
-								Estack = 1
-								Cpc = 1
+								Estack = (not Estack) & 1
+								Cpc = (not Cpc) & 1
 							case 3:
-								setsub = 1
+								setsub = (not setsub) & 1
 			case 14: # opcode = E (unconditional jump)
 				match subclock:
 					case 0:
-						Einstr = 1
-						Cir = 1
+						Einstr = (not Einstr) & 1
+						Cir = (not Cir) & 1
 					case 1:
-						Er_x = 1
-						Cpc = 1
+						Er_x = (not Er_x) & 1
+						Cpc = (not Cpc) & 1
 					case 2:
-						setsub = 1
+						setsub = (not setsub) & 1
 			case 15: # opcode = F (jump compare)
 				match jcmp:
 					case 0: # jcmp = 0 (condition not met, do not jump)
 						match subclock:
 							case 0:
-								Einstr = 1
-								Cir = 1
+								Einstr = (not Einstr) & 1
+								Cir = (not Cir) & 1
 							case 1:
-								Er_x = 1
-								sel0 = 1
-								Ccmp = 1
+								Er_x = (not Er_x) & 1
+								sel0 = (not sel0) & 1
+								#Ccmp = (not Ccmp) & 1
 							case 2:
-								pcinc = 1
-								setsub = 1
+								pcinc = (not pcinc) & 1
+								setsub = (not setsub) & 1
 					case 1: # jcmp = 1 (condition met, jump to Ra)
 						match subclock:
 							case 0:
-								Einstr = 1
-								Cir = 1
+								Einstr = (not Einstr) & 1
+								Cir = (not Cir) & 1
 							case 1:
-								Er_x = 1
-								sel0 = 1
-								Ccmp = 1
+								Er_x = (not Er_x) & 1
+								sel0 = (not sel0) & 1
+								#Ccmp = (not Ccmp) & 1
 							case 2:
-								Er_x = 1
-								Cpc = 1
+								Er_x = (not Er_x) & 1
+								Cpc = (not Cpc) & 1
 							case 3:
-								setsub = 1
+								setsub = (not setsub) & 1
 			case _:
 				print("This message should not appear.")
 	
@@ -325,7 +320,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	outs[outputMap.index("Cp_0")] = Cp_0
 	outs[outputMap.index("Cp_1")] = Cp_1
 	outs[outputMap.index("Ealu")] = Ealu
-	outs[outputMap.index("Cr_all")] = Cr_all
+	#outs[outputMap.index("Cr_all")] = Cr_all
 	outs[outputMap.index("Cr_x")] = Cr_x
 	outs[outputMap.index("Er_x")] = Er_x
 	outs[outputMap.index("sel0")] = sel0
@@ -335,13 +330,13 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	outs[outputMap.index("Einstr")] = Einstr
 	outs[outputMap.index("Cstack")] = Cstack
 	outs[outputMap.index("Estack")] = Estack
-	outs[outputMap.index("Ccmp")] = Ccmp
+	#outs[outputMap.index("Ccmp")] = Ccmp
 	outs[outputMap.index("setsub")] = setsub
 	outs[outputMap.index("pcinc")] = pcinc
-	outs[23] = 0
-
+	outs[outputMap.index("pcdec")] = pcdec
+	outs[12] = 0
+	outs[20] = 0
 	return outs
-	
 
 
 # Converts an integer to an array of single bits
