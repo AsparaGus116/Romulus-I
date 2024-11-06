@@ -211,8 +211,8 @@
 			else if(ctx->STR())
 			{
 				op = 2;
-				rA = parseReg(regs[0]);
-				rB = parseReg(regs[1]);
+				rA = parseReg(regs[1]);
+				rB = parseReg(regs[0]);
 				output(op, rA, rB, rY);
 			}
 			else if(ctx->LDA())

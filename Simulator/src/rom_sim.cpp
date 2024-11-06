@@ -260,9 +260,8 @@ int main(int argc, char* argv[])
 				regs[rY] = data[regs[rA]];
 				dataUpdated = true;
 				raUsed = rA;
-				rbUsed = rB;
 				ryUpdated = rY;
-				mar = regs[rB];
+				mar = regs[rA];
 				++pc;
 				break;
 			case 0x4: // Bitwise OR
