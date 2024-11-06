@@ -7,7 +7,6 @@ digraph G {
     I2 -> I3;
     
     START -> R0[label="res=1"]
-    R0 -> I3;
     
     //These take the form n{opcode of first appearance},
     //{Clock cycle of first appearance} 
@@ -46,12 +45,11 @@ digraph G {
     n00 -> ne1[label="op=E"]
     ne1 -> I3;
     
-    n00 -> nf1;
-    nf1 -> n03[label="op=F,cmp=0"];
-    n00 -> nf1;
-    nf1 -> ne1[label="op=F,cmp=1"];
+    n00 -> nf1[label="op=F"];
+    nf1 -> n03[label="cmp=0"];
+    nf1 -> ne1[label="cmp=1"];
     
-    n00[label="Einstr\nCir"]
+    n00[label="Einstr\nCir", shape=circle, width=1.25]
     n01[label="Erx\nCp0"]
     n02[label="Ealu\nCrx\nSel1"]
     n03[label="Pcinc\nSetsub"]
@@ -61,7 +59,7 @@ digraph G {
     I2[label="Edip\nCpc"]
     I3[label="Setsub"]
     
-    R0[label="Cir\nCmar\nCpc\nCcpall\nCrall"]
+    R0[label="All signals off"]
     
     n11[label="Pcinc"]
     n12[label="Einstr\nCrx\nSel1"]
@@ -86,5 +84,5 @@ digraph G {
     
     nf1[label="Erx\nSel0\nCcmp"]
     
-    //STATES[label="SIGNALS\nCir\nCmar\nCpc\nCdata\nCcpall\nCp0\nCp1\nCrx\nCsp++\nCsp--\nCstack\nCcmp\nEdip\nEpc\nEdata\nEalu\nErx\nEinstr\nEstack\nSel0\nSel1\nSetsub\nPcinc"]
+    //STATES[label="SIGNALS\nCir\nCmar\nCpc\nCdata\nCp0\nCp1\nCrx\nCsp++\nCsp--\nCstack\nEdip\nEpc\nEdata\nEalu\nErx\nEinstr\nEstack\nSel0\nSel1\nSetsub\nPcinc"]
 }
