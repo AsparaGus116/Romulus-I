@@ -26,13 +26,15 @@ JLZ : 'jlz' | 'JLZ' ;
 
 
 COMMA : ',' ;
+REG : ('r'|'R')[0-9][0-9]? ;
+IMM : [0-9]+ ;
+HEX : '0x'([0-9a-fA-F])+ ;
 
-LABELID : ([rR]([A-Za-z_][A-Za-z0-9_]*)?) | ([A-QS-Za-qs-z_][A-QS-Za-qs-z0-9_]*);
+LABELID : ([a-zA-Z0-9_])+;
 LABEL : LABELID(':') ;
 
 COMMENT : ('//'|'#')(.)*?('\n'|EOF) -> skip;
 
-IMM : [0-9]+ ;
-HEX : '0x'([0-9a-fA-F])+ ;
-REG : ('r'|'R')[0-9][0-9]? ;
+
+
 WS: [ \t\n\r\f]+ -> skip ;
