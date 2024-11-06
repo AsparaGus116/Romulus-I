@@ -2,8 +2,8 @@
 #include <SD.h>
 #include <DIO2.h>
 
-//#define SST_39SF010
-#define SST_39SF020
+#define SST_39SF010
+//#define SST_39SF020
 //#define SST_39SF040
 
 
@@ -60,7 +60,7 @@
 
 File file;
 
-const char* filename = "HEX.ROM";
+const char* filename = "FSM_U4.ROM";
 
 
 int addresses[] = 
@@ -130,6 +130,7 @@ void setup() {
   Serial.begin(9600);
 
   SD.begin();
+  
 
   for(uint32_t i = 0; i < addr_size; i++)
   {
@@ -142,6 +143,14 @@ void setup() {
   digitalWrite2(_CE, LOW);
   digitalWrite2(_OE, HIGH);
   digitalWrite2(_WE, HIGH);
+
+  setWrite();
+  if(getHWID() != chip_id)
+  {
+    Serial.println("ERR: Cannot read flash (invalid model or not inserted)");
+    Serial.println((int)getHWID());
+    return;
+  }
 
   eraseChip();
 
@@ -161,7 +170,7 @@ void setup() {
       char c = file.read();
       //Serial.println((int)c);
       uint8_t byte = 0;
-      while(byte != c)
+      while(byte != (uint8_t)c)
       {
         digitalWrite2(_OE, HIGH);
         digitalWrite2(_WE, HIGH);
@@ -174,12 +183,12 @@ void setup() {
         writeAddress(i);
         byte = readByte();
 
-        if(byte != c)
+        if(byte != (uint8_t)c)
         {
           Serial.println("------------");
           Serial.println(byte);
           Serial.println(readByte());
-          Serial.println((uint32_t)c);
+          Serial.println((uint8_t)c);
           Serial.println(addr);
           Serial.println(i);
           Serial.println("------------");
@@ -211,8 +220,6 @@ void setup() {
     writeAddress(i);
     Serial.println((uint32_t)readByte());
   }
-  writeAddress(1 << 18);
-  Serial.println(((uint32_t)1 << 17));
   
 
 
@@ -303,7 +310,7 @@ void eraseChip()
 
 }
 
-void getHWID()
+uint8_t getHWID()
 {
   setWrite();
 
