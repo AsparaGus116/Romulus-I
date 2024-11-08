@@ -6,7 +6,7 @@ outputHex = True
 
 def main():
 	# Define the order of inputs and outputs.
-	inputMap = ["reset","jcmp","op2.0","interrupt","op3","op2","op1","op0","nil","sub2","sub1", "sub0"]
+	inputMap = ["reset","jcmp","op2.0","interrupt","op3","op2","op1","op0","sub3","sub2","sub1", "sub0"]
 	
 	outputMap = ["Cmar", "Cdata", "Er_x", "Epc", "Edip", "Cpc", "Cr_x", "Edata", "csp++", "csp--", "pcdec", "Cstack", "nil", "Estack", "Einstr", "pcinc",
 	"Cir", "Cp_1", "Ealu", "sel0", "nil", "setsub", "sel1", "Cp_0"] # first 8: U2, then U3, then U4
@@ -58,6 +58,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	op2 = val[inputMap.index("op2")]
 	op1 = val[inputMap.index("op1")]
 	op0 = val[inputMap.index("op0")]
+	sub3 = val[inputMap.index("sub2")]
 	sub2 = val[inputMap.index("sub2")]
 	sub1 = val[inputMap.index("sub1")]
 	sub0 = val[inputMap.index("sub0")]
@@ -68,7 +69,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 
 	# Simplify multi-bit signals
 	opcode = op3*8 + op2*4 + op1*2 + op0
-	subclock = sub2*4 + sub1*2 + sub0
+	subclock = sub3 * 8 + sub2*4 + sub1*2 + sub0
 
 	# Set all output signals to 0 to start
 	Cir = 1

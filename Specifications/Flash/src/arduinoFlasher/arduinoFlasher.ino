@@ -60,7 +60,7 @@
 
 File file;
 
-const char* filename = "FSM_U4.ROM";
+char filename[256];// = "FSM_U4.ROM";
 
 
 int addresses[] = 
@@ -144,6 +144,16 @@ void setup() {
   digitalWrite2(_OE, HIGH);
   digitalWrite2(_WE, HIGH);
 
+  Serial.print("Enter filename: ");
+  while (Serial.available() == 0)
+  {
+
+  }
+  String fname = Serial.readString();
+  Serial.println(fname);
+  fname.trim();
+  fname.toCharArray(filename, 256);
+
   setWrite();
   if(getHWID() != chip_id)
   {
@@ -160,9 +170,13 @@ void setup() {
     Serial.print("READING FILE ");
     Serial.println(filename);
     uint32_t x = file.size();
-    Serial.println(x);
+    Serial.print("FILE SIZE: ");
+    Serial.print(x);
+    Serial.println(" bytes");
 
     uint32_t addr = 0;
+    uint8_t oldPct = 0;
+    progressBar(oldPct);
     //char initial = file.read();
 
     for(uint32_t i = 0; i < min(((uint32_t)1 << addr_size), file.size()); i++)
@@ -199,9 +213,11 @@ void setup() {
         
       }
       ++addr;
-      if(addr % 1000 == 0)
+      uint8_t newPct = addr * 100 / file.size();
+      if(newPct != oldPct)
       {
-        Serial.println(addr);
+        oldPct = newPct;
+        progressBar(oldPct);
       }
     }
     
@@ -212,15 +228,17 @@ void setup() {
   else
   {
     Serial.println("ERR: INVALID FILENAME");
+    Serial.println(filename);
   }
 
+/*
   setRead();
   for(uint32_t i = (uint32_t)1 << 17; i < ((uint32_t)1 << 17) + 10; i++)
   {
     writeAddress(i);
     Serial.println((uint32_t)readByte());
   }
-  
+*/
 
 
   
@@ -239,6 +257,25 @@ void setup() {
 */
 
 
+}
+
+void progressBar(uint8_t pct)
+{
+  Serial.print('[');
+  int complete = pct / 4;
+  int todo = 25 - complete;
+  for(int i = 0; i < complete; i++)
+  {
+    Serial.print('#');
+  }
+  for(int i = 0; i < todo; i++)
+  {
+    Serial.print('.');
+  }
+  Serial.print(']');
+  Serial.print(" (");
+  Serial.print((int)pct);
+  Serial.println("%)");
 }
 
 void writeAddress(uint32_t address)
