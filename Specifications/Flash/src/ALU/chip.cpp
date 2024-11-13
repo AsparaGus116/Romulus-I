@@ -40,6 +40,8 @@ Chip::Chip(int m_id):
 
 uint8_t Chip::compute()
 {
+	pinVals[CARRY_OUT] = false;
+	pinVals[BORROW_OUT] = false;
 	switch (opcode)
 	{
 	case 0x0:
