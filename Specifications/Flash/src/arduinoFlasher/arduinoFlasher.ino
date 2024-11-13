@@ -127,8 +127,7 @@ void setWrite()
 }
 
 void setup() {
-  Serial.begin(9600);
-
+  Serial.begin(57600);
   SD.begin();
   
 
@@ -178,13 +177,12 @@ void setup() {
     uint8_t oldPct = 0;
     progressBar(oldPct);
     //char initial = file.read();
-
     for(uint32_t i = 0; i < min(((uint32_t)1 << addr_size), file.size()); i++)
     {
       char c = file.read();
       //Serial.println((int)c);
       uint8_t byte = 0;
-      while(byte != (uint8_t)c)
+      do
       {
         digitalWrite2(_OE, HIGH);
         digitalWrite2(_WE, HIGH);
@@ -196,22 +194,8 @@ void setup() {
         digitalWrite2(_OE, LOW);
         writeAddress(i);
         byte = readByte();
-
-        if(byte != (uint8_t)c)
-        {
-          Serial.println("------------");
-          Serial.println(byte);
-          Serial.println(readByte());
-          Serial.println((uint8_t)c);
-          Serial.println(addr);
-          Serial.println(i);
-          Serial.println("------------");
-        }
-        
-        //Serial.println(byte);
-        //Serial.println(readByte());
-        
       }
+      while(byte != (uint8_t)c);
       ++addr;
       uint8_t newPct = addr * 100 / file.size();
       if(newPct != oldPct)
