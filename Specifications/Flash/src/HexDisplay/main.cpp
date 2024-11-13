@@ -39,10 +39,10 @@ int main()
 			data = (digits[(i >> 0) & 0xF]);
 			break;
 		case 1:
-			data = (digits[(i >> 4) & 0xF]);
+			data = (digits[(i >> 8) & 0xF]);
 			break;
 		case 2:
-			data = (digits[(i >> 8) & 0xF]);
+			data = (digits[(i >> 4) & 0xF]);
 			break;
 		case 3:
 			data = (digits[(i >> 12) & 0xF]);
