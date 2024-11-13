@@ -9,7 +9,7 @@ def main():
 	inputMap = ["reset","jcmp","op2.0","interrupt","op3","op2","op1","op0","sub3","sub2","sub1", "sub0"]
 	
 	outputMap = ["Cmar", "Cdata", "Er_x", "Epc", "Edip", "Cpc", "Cr_x", "Edata", "csp++", "csp--", "pcdec", "Cstack", "nil", "Estack", "Einstr", "pcinc",
-	"Cir", "Cp_1", "Ealu", "sel0", "nil", "setsub", "sel1", "Cp_0"] # first 8: U2, then U3, then U4
+	"Cir", "Cp_1", "Ealu", "sel0", "Ccmp", "setsub", "sel1", "Cp_0"] # first 8: U2, then U3, then U4
 	#outs = findOuts(inputMap,outputMap,test)
 
 	#print(test)
@@ -27,7 +27,9 @@ def main():
 		file02 = open("../hex_files/fsm_U4.hex",'w') #U4
 	
 	for ins in range(0,2**12):
+
 		outs = findOuts(inputMap,outputMap,bytes2bits(ins,12))
+		
 		#print(outs)
 		if(outputHex):
 			file00.write(format(ins,bits2bytes(outs),0))
@@ -58,7 +60,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	op2 = val[inputMap.index("op2")]
 	op1 = val[inputMap.index("op1")]
 	op0 = val[inputMap.index("op0")]
-	sub3 = val[inputMap.index("sub2")]
+	sub3 = val[inputMap.index("sub3")]
 	sub2 = val[inputMap.index("sub2")]
 	sub1 = val[inputMap.index("sub1")]
 	sub0 = val[inputMap.index("sub0")]
@@ -92,7 +94,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	Einstr = 1
 	Cstack = 1
 	Estack = 1
-	#Ccmp = 1
+	Ccmp = 1
 	setsub = 1
 	pcinc = 1
 	pcdec = 1
@@ -128,6 +130,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 						sel1 = (not sel1) & 1
 					case 3:
 						pcinc = (not pcinc) & 1
+					case 4:
 						setsub = (not setsub) & 1
 			case 1: # opcode = 1 (immediate to register)
 				match subclock:
@@ -142,6 +145,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 						sel1 = (not sel1) & 1
 					case 3:
 						pcinc = (not pcinc) & 1
+					case 4:
 						setsub = (not setsub) & 1
 			case 2: # opcode = 2 (register to memory)
 				match subclock:
@@ -157,6 +161,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 						Cdata = (not Cdata) & 1
 					case 3:
 						pcinc = (not pcinc) & 1
+					case 4:
 						setsub = (not setsub) & 1
 			case 3: # opcode = 3 (memory to register)
 				match subclock:
@@ -172,6 +177,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 						sel1 = (not sel1) & 1
 					case 3:
 						pcinc = (not pcinc) & 1
+					case 4:
 						setsub = (not setsub) & 1
 			case 4 | 6 | 7 | 8 | 9: # opcode = 4, 6, 7, 8, or 9 (ALU binary operations)
 				match subclock:
@@ -191,6 +197,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 						sel1 = (not sel1) & 1
 					case 4:
 						pcinc = (not pcinc) & 1
+					case 5:
 						setsub = (not setsub) & 1
 			case 5 | 10 | 11: # opcode = 5, A, or B (ALU unary operations)
 				match subclock:
@@ -206,6 +213,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 						sel1 = (not sel1) & 1
 					case 3:
 						pcinc = (not pcinc) & 1
+					case 4:
 						setsub = (not setsub) & 1
 			case 12: # opcode = C (push)
 				match opTwo:
@@ -221,6 +229,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 								cspInc = (not cspInc) & 1
 							case 3:
 								pcinc = (not pcinc) & 1
+							case 4:
 								setsub = (not setsub) & 1
 					case 1: # op2.0 = 1 (puch PC to stack)
 						match subclock:
@@ -234,6 +243,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 								cspInc = (not cspInc) & 1
 							case 3:
 								pcinc = (not pcinc) & 1
+							case 4:
 								setsub = (not setsub) & 1
 			case 13: # opcode = D (pop)
 				match opTwo:
@@ -250,6 +260,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 								sel1 = (not sel1) & 1
 							case 3:
 								pcinc = (not pcinc) & 1
+							case 4:
 								setsub = (not setsub) & 1
 					case 1: # op2.0 = 1 (pop into PC)
 						match subclock:
@@ -274,7 +285,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 					case 2:
 						setsub = (not setsub) & 1
 			case 15: # opcode = F (jump compare)
-				match jcmp:
+				match jcmp: # active HIGH
 					case 0: # jcmp = 0 (condition not met, do not jump)
 						match subclock:
 							case 0:
@@ -283,9 +294,10 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 							case 1:
 								Er_x = (not Er_x) & 1
 								sel0 = (not sel0) & 1
-								#Ccmp = (not Ccmp) & 1
+								Ccmp = (not Ccmp) & 1
 							case 2:
 								pcinc = (not pcinc) & 1
+							case 3:
 								setsub = (not setsub) & 1
 					case 1: # jcmp = 1 (condition met, jump to Ra)
 						match subclock:
@@ -295,7 +307,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 							case 1:
 								Er_x = (not Er_x) & 1
 								sel0 = (not sel0) & 1
-								#Ccmp = (not Ccmp) & 1
+								Ccmp = (not Ccmp) & 1
 							case 2:
 								Er_x = (not Er_x) & 1
 								Cpc = (not Cpc) & 1
@@ -331,12 +343,11 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	outs[outputMap.index("Einstr")] = Einstr
 	outs[outputMap.index("Cstack")] = Cstack
 	outs[outputMap.index("Estack")] = Estack
-	#outs[outputMap.index("Ccmp")] = Ccmp
+	outs[outputMap.index("Ccmp")] = Ccmp
 	outs[outputMap.index("setsub")] = setsub
 	outs[outputMap.index("pcinc")] = pcinc
 	outs[outputMap.index("pcdec")] = pcdec
 	outs[12] = 0
-	outs[20] = 0
 	return outs
 
 
