@@ -8,7 +8,7 @@ def main():
 	# Define the order of inputs and outputs.
 	inputMap = ["reset","jcmp","op2.0","interrupt","op3","op2","op1","op0","sub3","sub2","sub1", "sub0"]
 	
-	outputMap = ["Cmar", "Cdata", "Er_x", "Epc", "Edip", "Cpc", "Cr_x", "Edata", "csp++", "csp--", "pcdec", "Cstack", "nil", "Estack", "Einstr", "pcinc",
+	outputMap = ["Cmar", "Cdata", "Er_x", "Epc", "Edip", "Cpc", "Cr_x", "Edata", "csp++", "csp--", "pcdec", "Cstack", "Intres", "Estack", "Einstr", "pcinc",
 	"Cir", "Cp_1", "Ealu", "sel0", "Ccmp", "setsub", "sel1", "Cp_0"] # first 8: U2, then U3, then U4
 	#outs = findOuts(inputMap,outputMap,test)
 
@@ -98,6 +98,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	setsub = 1
 	pcinc = 1
 	pcdec = 1
+	Intres = 1
 
 	# Logic to assign outputs based on inputs
 	if (reset == 1):
@@ -113,6 +114,8 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 				Edip = (not Edip) & 1
 				Cpc = (not Cpc) & 1
 			case 3:
+				Intres = (not Intres) & 1
+			case 4:
 				setsub = (not setsub) & 1
 	else:
 		match opcode:
@@ -347,7 +350,7 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	outs[outputMap.index("setsub")] = setsub
 	outs[outputMap.index("pcinc")] = pcinc
 	outs[outputMap.index("pcdec")] = pcdec
-	outs[12] = 0
+	outs[outputMap.index("Intres")] = Intres
 	return outs
 
 
