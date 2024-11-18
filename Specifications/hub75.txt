@@ -1,0 +1,27 @@
+DOWN:
+
+R1 G1
+B1 GND
+R2 G2
+B2 E
+A  B
+C  D
+CLK LAT
+OE GND
+
+
+UP:
+
+G1 R1
+GND B1
+G2 R2
+E B2
+B  A
+D  C
+LAT CLK
+GND OE
+
+E B
+A D
+C LAT
+CLK OE
