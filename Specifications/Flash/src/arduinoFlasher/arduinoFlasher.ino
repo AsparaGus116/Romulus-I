@@ -1,6 +1,8 @@
 #include <SPI.h>
-#include <SD.h>
+#include <SdFat.h>
 #include <DIO2.h>
+
+SdFat SD;
 
 #define SST_39SF010
 //#define SST_39SF020

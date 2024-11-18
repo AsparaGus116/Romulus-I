@@ -101,6 +101,8 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 	Intres = 1
 
 	# Logic to assign outputs based on inputs
+	if subclock == 7:
+		setsub = (not setsub) & 1
 	if (reset == 1):
 		pass # make sure all pins are high
 	elif (interrupt == 1):
@@ -113,10 +115,8 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 			case 2:
 				Edip = (not Edip) & 1
 				Cpc = (not Cpc) & 1
-			case 3:
+			case 6:
 				Intres = (not Intres) & 1
-			case 4:
-				setsub = (not setsub) & 1
 	else:
 		match opcode:
 			case 0: # opcode = 0 (register to register)
@@ -240,13 +240,16 @@ def findOuts(inputMap: list[str],outputMap: list[str],val: list[int]) -> list[in
 								Einstr = (not Einstr) & 1
 								Cir = (not Cir) & 1
 							case 1:
+								pcinc = (not pcinc) & 1
+							case 2:
+								pcinc = (not pcinc) & 1
+							case 3:
 								Epc = (not Epc) & 1
 								Cstack = (not Cstack) & 1
-							case 2:
-								cspInc = (not cspInc) & 1
-							case 3:
-								pcinc = (not pcinc) & 1
 							case 4:
+								cspInc = (not cspInc) & 1
+								pcdec = (not pcdec) & 1
+							case 5:
 								setsub = (not setsub) & 1
 			case 13: # opcode = D (pop)
 				match opTwo:

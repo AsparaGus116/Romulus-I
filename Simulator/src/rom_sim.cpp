@@ -177,10 +177,10 @@ int main(int argc, char* argv[])
 	while (1)
 	{
 		std::string menuStr = "";
-		int steps = 0;
+		uint64_t steps = 0;
 		std::cout << "Type a number to step that many times, (v) to view the CPU's state, (r) to restart, or (q) to quit.\n>> ";
 		std::getline(std::cin, menuStr);
-		for (int i = 0; i < menuStr.size(); i++)
+		for (uint64_t i = 0; i < menuStr.size(); i++)
 		{
 			menuStr[i] = tolower(menuStr[i]);
 		}
@@ -228,7 +228,7 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		for (int i = 0; i < steps; i++)
+		for (uint64_t i = 0; i < steps; i++)
 		{
 			uint16_t instr = instructions[pc];
 			int opcode = (instr & 0xf000) >> 12;

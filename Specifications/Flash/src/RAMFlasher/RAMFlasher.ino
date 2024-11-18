@@ -1,6 +1,9 @@
 #include <SPI.h>
-#include <SD.h>
+#include <SdFat.h>
 #include <DIO2.h>
+
+
+SdFat SD;
 
 #define _WE 23 
 #define _OE 21 
@@ -144,7 +147,8 @@ void setup() {
     String fname = Serial.readString();
     fname.trim();
     Serial.println(fname);
-    fname.toCharArray(filename, 256);
+    fname.toCharArray(filename, 4096);
+
     uint32_t addr = 0;
 
     if(SD.exists(filename))
@@ -214,7 +218,6 @@ void setup() {
     {
       Serial.println("ERR: INVALID FILENAME");
       Serial.println(filename);
-      return;
     }
   }
 }
