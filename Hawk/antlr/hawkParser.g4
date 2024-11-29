@@ -53,12 +53,16 @@ stmt
     | trueStmt ';'
     ;
 
+parameter
+	: KCONST? type ID
+	;
+
 trueStmt
-    : KSTATIC? KCONST? expr assignOp expr
-    | ID (KINC | KDEC)
-    | KCONST? type ret=ID '(' (KCONST? type ID (',' KCONST? type ID)*)? ')'
-    | (KINC | KDEC) ID
-    | expr
+    : KSTATIC? KCONST? expr assignOp expr #assignStmt
+    | ID postfix=(KINC | KDEC) #postfixStmt
+    | KCONST? type ret=ID '(' (parameter (',' parameter)*)? ')' #funcDeclStmt
+    | prefix=(KINC | KDEC) ID #prefixStmt
+    | expr #exprStmt
     ;
 
 expr
@@ -91,7 +95,7 @@ expr
     ;
 
 functionStmt
-    : KCONST? type ret=ID '(' (KCONST? type ID (',' KCONST? type ID)*)? ')'
+    : KCONST? type ret=ID '(' (parameter (',' parameter)*)? ')'
     '{' stmt* '}'
     ;
 

@@ -49,10 +49,15 @@ include_directories(${ANTLR_hawkParser_OUTPUT_DIR})
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MD")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MD")
 
+file(GLOB SOURCES "src/*.cpp")
+file(GLOB HEADERS "src/*.h")
+
 # add generated grammar to demo binary target
-add_executable(hawk src/main.cpp
-               ${ANTLR_hawkLexer_CXX_OUTPUTS}
-               ${ANTLR_hawkParser_CXX_OUTPUTS})
+add_executable(hawk 
+		${SOURCES}
+		${HEADERS}
+        ${ANTLR_hawkLexer_CXX_OUTPUTS}
+        ${ANTLR_hawkParser_CXX_OUTPUTS})
 target_link_libraries(hawk antlr4_static)
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
