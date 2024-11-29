@@ -5,7 +5,7 @@
 //#define SST_39SF020
 //#define SST_39SF040
 
-int id = 1; // 0 for keys, 1 for shift code
+int id = 0; // 0 for keys, 1 for shift code
 
 #define SECTOR_SIZE   4096    /* Must be 4096 bytes for 39SF040 */
 #define SST_ID        0xBF    /* SST Manufacturer's ID code   */
@@ -60,6 +60,26 @@ int id = 1; // 0 for keys, 1 for shift code
 
 char filename[256];// = "FSM_U4.ROM";
 
+uint8_t locations[] = {97, 98, 99, 100, 101, 102, 103, 104, 
+105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 
+117, 118, 119, 120, 121, 122, 65, 66, 67, 68, 69, 70, 71, 
+72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 
+86, 87, 88, 89, 90, 48, 49, 50, 51, 52, 53, 54, 55, 56, 
+57, 33, 64, 35, 36, 37, 162, 38, 42, 40, 41, 45, 95, 
+61, 43, 91, 93, 58, 59, 39, 34, 46, 44, 47, 63, 60, 
+62, 167, 182, 178, 179, 8, 32, 10};
+
+bool inList(uint8_t num)
+{
+  for(auto elem : locations)
+  {
+    if(elem == num)
+    {
+      return true;
+    }
+  }
+  return false;
+}
 
 int addresses[] = 
   {
@@ -124,10 +144,23 @@ void setWrite()
   }
 }
 
+void writeVerify(uint32_t address, uint8_t data)
+{
+  do
+  {
+    setWrite();
+    writeByte(address, data);
+    setRead();
+    Serial.println((int)readByte(address));
+    Serial.println((int)data);
+    Serial.println("-------");
+  } while(readByte(address) != data);
+}
+
 void setup() {
   Serial.begin(57600);
   
-
+  
   for(uint32_t i = 0; i < addr_size; i++)
   {
     pinMode2(addresses[i], OUTPUT);
@@ -162,7 +195,14 @@ void setup() {
   progressBar(oldPct);
   for(uint32_t i = 0; i < (uint32_t)1 << 17; i++)
   {
-    writeByte(i, 0);
+    if(id != 2)
+    {
+      //if(!inList(i))
+      {
+        writeByte(i, 0);
+      }
+      
+    }
     int newPct = i * 100 / ((uint32_t)1 << 17);
     if(oldPct != newPct)
     {
@@ -170,201 +210,209 @@ void setup() {
       progressBar(newPct);
     }
   }
+  setRead();
+  writeAddress(0x61);
+  /*
   if(id == 0)
   {
-    writeByte(0x61, 0x41);
-    writeByte(0x62, 0x42);
-    writeByte(0x63, 0x43);
-    writeByte(0x64, 0x44);
-    writeByte(0x65, 0x45);
-    writeByte(0x66, 0x46);
-    writeByte(0x67, 0x47);
-    writeByte(0x68, 0x48);
-    writeByte(0x69, 0x49);
-    writeByte(0x6A, 0x4A);
-    writeByte(0x6B, 0x4B);
-    writeByte(0x6C, 0x4C);
-    writeByte(0x6D, 0x4D);
-    writeByte(0x6E, 0x4E);
-    writeByte(0x6F, 0x4F);
-    writeByte(0x70, 0x50);
-    writeByte(0x71, 0x51);
-    writeByte(0x72, 0x52);
-    writeByte(0x73, 0x53);
-    writeByte(0x74, 0x54);
-    writeByte(0x75, 0x55);
-    writeByte(0x76, 0x56);
-    writeByte(0x77, 0x57);
-    writeByte(0x78, 0x58);
-    writeByte(0x79, 0x59);
-    writeByte(0x7A, 0x5A);
-    writeByte(0x41, 0x41);
-    writeByte(0x42, 0x42);
-    writeByte(0x43, 0x43);
-    writeByte(0x44, 0x44);
-    writeByte(0x45, 0x45);
-    writeByte(0x46, 0x46);
-    writeByte(0x47, 0x47);
-    writeByte(0x48, 0x48);
-    writeByte(0x49, 0x49);
-    writeByte(0x4A, 0x4A);
-    writeByte(0x4B, 0x4B);
-    writeByte(0x4C, 0x4C);
-    writeByte(0x4D, 0x4D);
-    writeByte(0x4E, 0x4E);
-    writeByte(0x4F, 0x4F);
-    writeByte(0x50, 0x50);
-    writeByte(0x51, 0x51);
-    writeByte(0x52, 0x52);
-    writeByte(0x53, 0x53);
-    writeByte(0x54, 0x54);
-    writeByte(0x55, 0x55);
-    writeByte(0x56, 0x56);
-    writeByte(0x57, 0x57);
-    writeByte(0x58, 0x58);
-    writeByte(0x59, 0x59);
-    writeByte(0x5A, 0x5A);
-    writeByte(0x30, 0x30);
-    writeByte(0x31, 0x31);
-    writeByte(0x32, 0x32);
-    writeByte(0x33, 0x33);
-    writeByte(0x34, 0x34);
-    writeByte(0x35, 0x35);
-    writeByte(0x36, 0x36);
-    writeByte(0x37, 0x37);
-    writeByte(0x38, 0x38);
-    writeByte(0x39, 0x39);
-    writeByte(0x21, 0x31);
-    writeByte(0x40, 0x32);
-    writeByte(0x23, 0x33);
-    writeByte(0x24, 0x34);
-    writeByte(0x25, 0x35);
-    writeByte(0xA2, 0x36);
-    writeByte(0x26, 0x37);
-    writeByte(0x2A, 0x38);
-    writeByte(0x28, 0x39);
-    writeByte(0x29, 0x30);
-    writeByte(0x2D, 0x2D);
-    writeByte(0x5F, 0x2D);
-    writeByte(0x3D, 0x3D);
-    writeByte(0x2B, 0x3D);
-    writeByte(0x5B, 0x5B);
-    writeByte(0x5D, 0x5B);
-    writeByte(0x3A, 0x3B);
-    writeByte(0x3B, 0x3B);
-    writeByte(0x27, 0x27);
-    writeByte(0x22, 0x27);
-    writeByte(0x2E, 0x2E);
-    writeByte(0x2C, 0x2C);
-    writeByte(0x2F, 0x2F);
-    writeByte(0x3F, 0x2F);
-    writeByte(0x3C, 0x57);
-    writeByte(0x3E, 0x55);
-    writeByte(0xA7, 0x5A);
-    writeByte(0xB6, 0x59);
-    writeByte(0xB2, 0x58);
-    writeByte(0xB3, 0x56);
-    writeByte(0x08, 0x08);
-    writeByte(0x20, 0x20);
-    writeByte(0x0A, 0x0A);
+    writeVerify(0x61, 0x41);
+    writeVerify(0x62, 0x42);
+    writeVerify(0x63, 0x43);
+    writeVerify(0x64, 0x44);
+    writeVerify(0x65, 0x45);
+    writeVerify(0x66, 0x46);
+    writeVerify(0x67, 0x47);
+    writeVerify(0x68, 0x48);
+    writeVerify(0x69, 0x49);
+    writeVerify(0x6A, 0x4A);
+    writeVerify(0x6B, 0x4B);
+    writeVerify(0x6C, 0x4C);
+    writeVerify(0x6D, 0x4D);
+    writeVerify(0x6E, 0x4E);
+    writeVerify(0x6F, 0x4F);
+    writeVerify(0x70, 0x50);
+    writeVerify(0x71, 0x51);
+    writeVerify(0x72, 0x52);
+    writeVerify(0x73, 0x53);
+    writeVerify(0x74, 0x54);
+    writeVerify(0x75, 0x55);
+    writeVerify(0x76, 0x56);
+    writeVerify(0x77, 0x57);
+    writeVerify(0x78, 0x58);
+    writeVerify(0x79, 0x59);
+    writeVerify(0x7A, 0x5A);
+    writeVerify(0x41, 0x41);
+    writeVerify(0x42, 0x42);
+    writeVerify(0x43, 0x43);
+    writeVerify(0x44, 0x44);
+    writeVerify(0x45, 0x45);
+    writeVerify(0x46, 0x46);
+    writeVerify(0x47, 0x47);
+    writeVerify(0x48, 0x48);
+    writeVerify(0x49, 0x49);
+    writeVerify(0x4A, 0x4A);
+    writeVerify(0x4B, 0x4B);
+    writeVerify(0x4C, 0x4C);
+    writeVerify(0x4D, 0x4D);
+    writeVerify(0x4E, 0x4E);
+    writeVerify(0x4F, 0x4F);
+    writeVerify(0x50, 0x50);
+    writeVerify(0x51, 0x51);
+    writeVerify(0x52, 0x52);
+    writeVerify(0x53, 0x53);
+    writeVerify(0x54, 0x54);
+    writeVerify(0x55, 0x55);
+    writeVerify(0x56, 0x56);
+    writeVerify(0x57, 0x57);
+    writeVerify(0x58, 0x58);
+    writeVerify(0x59, 0x59);
+    writeVerify(0x5A, 0x5A);
+    writeVerify(0x30, 0x30);
+    writeVerify(0x31, 0x31);
+    writeVerify(0x32, 0x32);
+    writeVerify(0x33, 0x33);
+    writeVerify(0x34, 0x34);
+    writeVerify(0x35, 0x35);
+    writeVerify(0x36, 0x36);
+    writeVerify(0x37, 0x37);
+    writeVerify(0x38, 0x38);
+    writeVerify(0x39, 0x39);
+    writeVerify(0x21, 0x31);
+    writeVerify(0x40, 0x32);
+    writeVerify(0x23, 0x33);
+    writeVerify(0x24, 0x34);
+    writeVerify(0x25, 0x35);
+    writeVerify(0xA2, 0x36);
+    writeVerify(0x26, 0x37);
+    writeVerify(0x2A, 0x38);
+    writeVerify(0x28, 0x39);
+    writeVerify(0x29, 0x30);
+    writeVerify(0x2D, 0x2D);
+    writeVerify(0x5F, 0x2D);
+    writeVerify(0x3D, 0x3D);
+    writeVerify(0x2B, 0x3D);
+    writeVerify(0x5B, 0x5B);
+    writeVerify(0x5D, 0x5B);
+    writeVerify(0x3A, 0x3B);
+    writeVerify(0x3B, 0x3B);
+    writeVerify(0x27, 0x27);
+    writeVerify(0x22, 0x27);
+    writeVerify(0x2E, 0x2E);
+    writeVerify(0x2C, 0x2C);
+    writeVerify(0x2F, 0x2F);
+    writeVerify(0x3F, 0x2F);
+    writeVerify(0x3C, 0x57);
+    writeVerify(0x3E, 0x55);
+    writeVerify(0xA7, 0x5A);
+    writeVerify(0xB6, 0x59);
+    writeVerify(0xB2, 0x58);
+    writeVerify(0xB3, 0x56);
+    writeVerify(0x08, 0x08);
+    writeVerify(0x20, 0x20);
+    writeVerify(0x0A, 0x0A);
   }
+  */
   if(id == 1)
   {
-    writeByte(0x61, 0b00);
-    writeByte(0x62, 0b00);
-    writeByte(0x63, 0b00);
-    writeByte(0x64, 0b00);
-    writeByte(0x65, 0b00);
-    writeByte(0x66, 0b00);
-    writeByte(0x67, 0b00);
-    writeByte(0x68, 0b00);
-    writeByte(0x69, 0b00);
-    writeByte(0x6A, 0b00);
-    writeByte(0x6B, 0b00);
-    writeByte(0x6C, 0b00);
-    writeByte(0x6D, 0b00);
-    writeByte(0x6E, 0b00);
-    writeByte(0x6F, 0b00);
-    writeByte(0x70, 0b00);
-    writeByte(0x71, 0b00);
-    writeByte(0x72, 0b00);
-    writeByte(0x73, 0b00);
-    writeByte(0x74, 0b00);
-    writeByte(0x75, 0b00);
-    writeByte(0x76, 0b00);
-    writeByte(0x77, 0b00);
-    writeByte(0x78, 0b00);
-    writeByte(0x79, 0b00);
-    writeByte(0x7A, 0b00);
-    writeByte(0x41, 0b01);
-    writeByte(0x42, 0b01);
-    writeByte(0x43, 0b01);
-    writeByte(0x44, 0b01);
-    writeByte(0x45, 0b01);
-    writeByte(0x46, 0b01);
-    writeByte(0x47, 0b01);
-    writeByte(0x48, 0b01);
-    writeByte(0x49, 0b01);
-    writeByte(0x4A, 0b01);
-    writeByte(0x4B, 0b01);
-    writeByte(0x4C, 0b01);
-    writeByte(0x4D, 0b01);
-    writeByte(0x4E, 0b01);
-    writeByte(0x4F, 0b01);
-    writeByte(0x50, 0b01);
-    writeByte(0x51, 0b01);
-    writeByte(0x52, 0b01);
-    writeByte(0x53, 0b01);
-    writeByte(0x54, 0b01);
-    writeByte(0x55, 0b01);
-    writeByte(0x56, 0b01);
-    writeByte(0x57, 0b01);
-    writeByte(0x58, 0b01);
-    writeByte(0x59, 0b01);
-    writeByte(0x5A, 0b01);
-    writeByte(0x30, 0b00);
-    writeByte(0x31, 0b00);
-    writeByte(0x32, 0b00);
-    writeByte(0x33, 0b00);
-    writeByte(0x34, 0b00);
-    writeByte(0x35, 0b00);
-    writeByte(0x36, 0b00);
-    writeByte(0x37, 0b00);
-    writeByte(0x38, 0b00);
-    writeByte(0x39, 0b00);
-    writeByte(0x21, 0b01);
-    writeByte(0x40, 0b01);
-    writeByte(0x23, 0b01);
-    writeByte(0x24, 0b01);
-    writeByte(0x25, 0b01);
-    writeByte(0xA2, 0b01);
-    writeByte(0x26, 0b01);
-    writeByte(0x2A, 0b01);
-    writeByte(0x28, 0b01);
-    writeByte(0x29, 0b01);
-    writeByte(0x2D, 0b00);
-    writeByte(0x5F, 0b01);
-    writeByte(0x3D, 0b00);
-    writeByte(0x2B, 0b01);
-    writeByte(0x5B, 0b00);
-    writeByte(0x5D, 0b01);
-    writeByte(0x3A, 0b01);
-    writeByte(0x3B, 0b00);
-    writeByte(0x27, 0b00);
-    writeByte(0x22, 0b01);
-    writeByte(0x2E, 0b00);
-    writeByte(0x2C, 0b00);
-    writeByte(0x2F, 0b00);
-    writeByte(0x3F, 0b01);
-    writeByte(0x3C, 0b10);
-    writeByte(0x3E, 0b10);
-    writeByte(0xA7, 0b10);
-    writeByte(0xB6, 0b10);
-    writeByte(0xB2, 0b10);
-    writeByte(0xB3, 0b10);
-    writeByte(0x08, 0b00);
-    writeByte(0x20, 0b00);
-    writeByte(0x0A, 0b00);
+    writeVerify(0x61, 0b00);
+    writeVerify(0x62, 0b00);
+    writeVerify(0x63, 0b00);
+    writeVerify(0x64, 0b00);
+    writeVerify(0x65, 0b00);
+    writeVerify(0x66, 0b00);
+    writeVerify(0x67, 0b00);
+    writeVerify(0x68, 0b00);
+    writeVerify(0x69, 0b00);
+    writeVerify(0x6A, 0b00);
+    writeVerify(0x6B, 0b00);
+    writeVerify(0x6C, 0b00);
+    writeVerify(0x6D, 0b00);
+    writeVerify(0x6E, 0b00);
+    writeVerify(0x6F, 0b00);
+    writeVerify(0x70, 0b00);
+    writeVerify(0x71, 0b00);
+    writeVerify(0x72, 0b00);
+    writeVerify(0x73, 0b00);
+    writeVerify(0x74, 0b00);
+    writeVerify(0x75, 0b00);
+    writeVerify(0x76, 0b00);
+    writeVerify(0x77, 0b00);
+    writeVerify(0x78, 0b00);
+    writeVerify(0x79, 0b00);
+    writeVerify(0x7A, 0b00);
+    writeVerify(0x41, 0b01);
+    writeVerify(0x42, 0b01);
+    writeVerify(0x43, 0b01);
+    writeVerify(0x44, 0b01);
+    writeVerify(0x45, 0b01);
+    writeVerify(0x46, 0b01);
+    writeVerify(0x47, 0b01);
+    writeVerify(0x48, 0b01);
+    writeVerify(0x49, 0b01);
+    writeVerify(0x4A, 0b01);
+    writeVerify(0x4B, 0b01);
+    writeVerify(0x4C, 0b01);
+    writeVerify(0x4D, 0b01);
+    writeVerify(0x4E, 0b01);
+    writeVerify(0x4F, 0b01);
+    writeVerify(0x50, 0b01);
+    writeVerify(0x51, 0b01);
+    writeVerify(0x52, 0b01);
+    writeVerify(0x53, 0b01);
+    writeVerify(0x54, 0b01);
+    writeVerify(0x55, 0b01);
+    writeVerify(0x56, 0b01);
+    writeVerify(0x57, 0b01);
+    writeVerify(0x58, 0b01);
+    writeVerify(0x59, 0b01);
+    writeVerify(0x5A, 0b01);
+    writeVerify(0x30, 0b00);
+    writeVerify(0x31, 0b00);
+    writeVerify(0x32, 0b00);
+    writeVerify(0x33, 0b00);
+    writeVerify(0x34, 0b00);
+    writeVerify(0x35, 0b00);
+    writeVerify(0x36, 0b00);
+    writeVerify(0x37, 0b00);
+    writeVerify(0x38, 0b00);
+    writeVerify(0x39, 0b00);
+    writeVerify(0x21, 0b01);
+    writeVerify(0x40, 0b01);
+    writeVerify(0x23, 0b01);
+    writeVerify(0x24, 0b01);
+    writeVerify(0x25, 0b01);
+    writeVerify(0xA2, 0b01);
+    writeVerify(0x26, 0b01);
+    writeVerify(0x2A, 0b01);
+    writeVerify(0x28, 0b01);
+    writeVerify(0x29, 0b01);
+    writeVerify(0x2D, 0b00);
+    writeVerify(0x5F, 0b01);
+    writeVerify(0x3D, 0b00);
+    writeVerify(0x2B, 0b01);
+    writeVerify(0x5B, 0b00);
+    writeVerify(0x5D, 0b01);
+    writeVerify(0x3A, 0b01);
+    writeVerify(0x3B, 0b00);
+    writeVerify(0x27, 0b00);
+    writeVerify(0x22, 0b01);
+    writeVerify(0x2E, 0b00);
+    writeVerify(0x2C, 0b00);
+    writeVerify(0x2F, 0b00);
+    writeVerify(0x3F, 0b01);
+    writeVerify(0x3C, 0b10);
+    writeVerify(0x3E, 0b10);
+    writeVerify(0xA7, 0b10);
+    writeVerify(0xB6, 0b10);
+    writeVerify(0xB2, 0b10);
+    writeVerify(0xB3, 0b10);
+    writeVerify(0x08, 0b00);
+    writeVerify(0x20, 0b00);
+    writeVerify(0x0A, 0b00);
+  }
+  if(id == 2)
+  {
+    Serial.println((int)readByte(0x61));
   }
 
   Serial.println("Success!!");
@@ -399,11 +447,12 @@ void writeAddress(uint32_t address)
   }
 }
 
-uint8_t readByte()
+uint8_t readByte(uint32_t address)
 {
+
   uint8_t result = 0;
   setRead();
-  
+  writeAddress(address);
   for(uint32_t i = 0; i < 8; i++)
   {
     result <<= 1;
@@ -481,8 +530,7 @@ uint8_t getHWID()
   digitalWrite2(_CE, LOW);
   digitalWrite2(_OE, LOW);
 
-  writeAddress(0x0001);
-  uint8_t byte = readByte();
+  uint8_t byte = readByte(0x0001);
   digitalWrite2(_OE, HIGH);
   /*
   if(byte == chip_id)
