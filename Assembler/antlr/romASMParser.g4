@@ -9,6 +9,7 @@ expr
     : MOV REG ','? REG
     | MOV LABELID ','? REG
     | MOV IMM ','? REG
+	| MOV CHAR ','? REG
     | MOV HEX ','? REG
     | STR REG ','? REG
     | LDA REG ','? REG
@@ -32,4 +33,5 @@ expr
     | JLZ REG ','? REG
     | COMMENT
     | LABEL
+	| NOP
     ;

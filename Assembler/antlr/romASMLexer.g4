@@ -22,11 +22,13 @@ JEZ : 'jez' | 'JEZ' ;
 JNZ : 'jnz' | 'JNZ' ;
 JGZ : 'jgz' | 'JGZ' ;
 JLZ : 'jlz' | 'JLZ' ;
+NOP : 'nop' | 'NOP' ;
 
 
 
 COMMA : ',' ;
 REG : ('r'|'R')[0-9][0-9]? ;
+CHAR : ['][\\]?(.)['] ;
 IMM : [0-9]+ ;
 HEX : '0x'([0-9a-fA-F])+ ;
 

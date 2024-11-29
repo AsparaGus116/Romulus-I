@@ -31,6 +31,9 @@ public:
 	~Listener() = default;
 	
 private:
+
+	void handleEscapeSeq(std::string& str);
+
 	int curAddr = 0;
 	bool firstPass = true;
 	

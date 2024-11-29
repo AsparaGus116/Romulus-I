@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <regex>
 
 	char Listener::toHex(int x)
 	{
@@ -170,7 +171,7 @@
 					rY = parseReg(regs[1]);
 					
 				}
-				else if(ctx->IMM() || ctx->HEX())
+				else if(ctx->IMM() || ctx->HEX() || ctx->CHAR())
 				{
 					op = 1;
 					rY = parseReg(regs[0]);
@@ -184,6 +185,16 @@
 						std::string str = (ctx->HEX())->getText();
 						str = str.substr(2, str.size() - 2);
 						imm = fromHex(str.c_str());
+					}
+					else if (ctx->CHAR())
+					{
+						std::string str = (ctx->CHAR())->getText();
+						str = str.substr(1, str.size() - 2);
+						if (str.size() > 1)
+						{
+							handleEscapeSeq(str);
+						}
+						imm = str[0];
 					}
 					
 				}
@@ -408,8 +419,56 @@
 				}
 				output(op, rA, rB, flags);
 			}
+			else if (ctx->NOP())
+			{
+				output(0, 0, 0, 0); // nop instruction
+			}
 		}
 	
+	}
+
+	void Listener::handleEscapeSeq(std::string& str)
+	{
+		if (str[0] != '\\' || str.size() != 2)
+		{
+			return;
+		}
+		switch (str[1])
+		{
+		case 'a':
+			str = '\a';
+			return;
+		case 'b':
+			str = '\b';
+			return;
+		case 'e':
+			str = '\e';
+			return;
+		case 'f':
+			str = '\f';
+			return;
+		case 'n':
+			str = '\n';
+			return;
+		case 't':
+			str = '\t';
+			return;
+		case 'v':
+			str = '\v';
+			return;
+		case '\\':
+			str = '\\';
+			return;
+		case '\'':
+			str = '\'';
+			return;
+		case '\"':
+			str = '\"';
+			return;
+		case '?':
+			str = '\?';
+			return;
+		}
 	}
 
 	int Listener::parseReg(antlr4::tree::TerminalNode* node)
