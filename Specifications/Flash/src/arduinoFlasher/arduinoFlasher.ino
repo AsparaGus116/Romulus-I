@@ -64,7 +64,6 @@ File file;
 
 char filename[256];// = "FSM_U4.ROM";
 
-
 int addresses[] = 
   {
    ADR0, ADR1, ADR2, ADR3, 
