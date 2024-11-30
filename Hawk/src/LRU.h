@@ -59,8 +59,8 @@ public:
 			if (lru[i].second == val) // reprioritize value already in cache
 			{
 				std::pair<Regs, T> entry{ lru[i].first, lru[i].second };
-				lru.erase(i);
-				lru.insert(0, entry);
+				lru.erase(lru.begin() + i);
+				lru.insert(lru.begin(), entry);
 				return lru[0].first;
 			}
 		}
@@ -72,18 +72,25 @@ public:
 		{
 			usedRegs.push_back(lru[i].first);
 		}
-		std::set_difference(availableRegs.begin(), availableRegs.end(), usedRegs.begin(), usedRegs.end(), usableRegs);
+
+		for (auto reg : availableRegs)
+		{
+			if (std::find(usedRegs.begin(), usedRegs.end(), reg) == usedRegs.end())
+			{
+				usableRegs.push_back(reg);
+			}
+		}
 
 		if (usableRegs.size() > 0)
 		{
-			lru.insert(0, { usableRegs[0], val });
+			lru.insert(lru.begin(), {usableRegs[0], val});
 			return usableRegs[0];
 		}
 		else
 		{
 			Regs reg = lru[lru.size() - 1].first;
 			lru.pop_back();
-			lru.insert(0, { reg, val });
+			lru.insert(lru.begin(), {reg, val});
 			return reg;
 		}
 		return Regs::NIL;

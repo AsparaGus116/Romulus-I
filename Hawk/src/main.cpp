@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
     // Create a visitor and evaluate the parse tree
     Visitor visitor;
-    std::string result = std::any_cast<std::string>(visitor.visitProgram(dynamic_cast<hawkParser::ProgramContext*>(tree)));
+    visitor.visitProgram(dynamic_cast<hawkParser::ProgramContext*>(tree));
 
     if (utils::getTotalErrors() > 0)
     {

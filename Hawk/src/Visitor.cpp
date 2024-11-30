@@ -12,7 +12,9 @@ std::any Visitor::visitProgram(hawkParser::ProgramContext* ctx)
     {
         output += std::any_cast<std::string>(visit(stmt));
     }
-    return output;
+    out << output;
+    out.close();
+    return "";
 }
 
 std::any Visitor::visitStmt(hawkParser::StmtContext* ctx)
@@ -136,25 +138,37 @@ std::any Visitor::visitExprStmt(hawkParser::ExprStmtContext* ctx)
 
 std::any Visitor::visitNumber(hawkParser::NumberContext* ctx)
 {
+    int x;
     if (ctx->INT())
     {
-        int x = std::stoi(ctx->INT()->getText(), nullptr, 10);
-        return x & 0xFFFF;
+        x = std::stoi(ctx->INT()->getText(), nullptr, 10);
     }
     else if (ctx->HEX())
     {
         std::string str = ctx->HEX()->getText().substr(2, ctx->HEX()->getText().size() - 2);
-        int x = std::stoi(str, nullptr, 16);
-        return x & 0xFFFF;
+        x = std::stoi(str, nullptr, 16);
     }
     else if (ctx->BIN())
     {
         std::string str = ctx->BIN()->getText().substr(2, ctx->BIN()->getText().size() - 2);
-        int x = std::stoi(str, nullptr, 2);
-        return x & 0xFFFF;
+        x = std::stoi(str, nullptr, 2);
     }
     else
     {
         return nullptr;
     }
+    Regs reg = immCache.process(x);
+    if (ctx->INT())
+    {
+        out << utils::loadImm(reg, x, Format::DEC);
+    }
+    else if (ctx->HEX())
+    {
+        out << utils::loadImm(reg, x, Format::HEX);
+    }
+    else if (ctx->BIN())
+    {
+        out << utils::loadImm(reg, x, Format::BIN);
+    }
+    return reg;
 }
