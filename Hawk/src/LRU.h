@@ -3,26 +3,8 @@
 #include <vector>
 #include <algorithm>
 
-enum Regs
-{
-	R0,
-	R1,
-	R2,
-	R3,
-	R4,
-	R5,
-	R6,
-	R7,
-	R8,
-	R9,
-	R10,
-	R11,
-	R12,
-	R13,
-	R14,
-	R15,
-	NIL
-};
+#include "utils.h"
+
 
 template <typename T>
 class LRU
@@ -50,6 +32,18 @@ public:
 			}
 		}
 		return -1;
+	}
+
+	T find(Regs reg)
+	{
+		for (int i = 0; i < lru.size(); i++)
+		{
+			if (lru[i].first == reg)
+			{
+				return lru[i].second;
+			}
+		}
+		return nullptr;
 	}
 
 	Regs process(T val)

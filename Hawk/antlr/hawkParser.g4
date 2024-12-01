@@ -21,7 +21,6 @@ assignOp
     | KMODASSIGN
     | KANDASSIGN
     | KORASSIGN
-    | KNOTASSIGN
     | KXORASSIGN
     | KSHLASSIGN
     | KSHRASSIGN

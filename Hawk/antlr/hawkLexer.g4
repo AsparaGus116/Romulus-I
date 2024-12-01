@@ -39,7 +39,6 @@ KDIVASSIGN : '/=';
 KMODASSIGN : '%=';
 KANDASSIGN : '&=';
 KORASSIGN : '|=';
-KNOTASSIGN : '~=';
 KXORASSIGN : '^=';
 KSHLASSIGN : '<<=';
 KSHRASSIGN : '>>=';

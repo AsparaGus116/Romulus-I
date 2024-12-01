@@ -15,7 +15,6 @@ void utils::error(int lineNumber, int columnNumber, std::string message)
 
 std::string utils::loadImm(Regs reg, uint16_t imm, Format f, std::string comment)
 {
-	std::string ret = "MOV ";
 	char buf[64] = { 0 };
 	if (f == Format::DEC)
 	{
@@ -53,14 +52,31 @@ std::string utils::loadImm(Regs reg, uint16_t imm, Format f, std::string comment
 			buf[i] = std::toupper(buf[i]);
 		}
 	}
-	ret += buf;
-	ret += ", " + toString(reg);
+	return output("MOV", buf, toString(reg));
+}
+
+std::string utils::loadReg(Regs left, Regs right, std::string comment)
+{
+	return output("MOV", toString(right), toString(left));
+}
+
+std::string utils::output(std::string command, std::string arg1, std::string arg2, std::string arg3, std::string comment)
+{
+	std::string x = command + ' ' + arg1;
+	if (arg2.size() > 0)
+	{
+		x += ", " + arg2;
+	}
+	if (arg3.size() > 0)
+	{
+		x += ", " + arg3;
+	}
 	if (comment.size() > 0)
 	{
-		ret += " // " + comment;
+		x += " // " + comment;
 	}
-	ret += '\n';
-	return ret;
+	x += '\n';
+	return x;
 }
 
 std::string utils::toString(Regs reg)

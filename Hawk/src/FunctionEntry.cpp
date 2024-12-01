@@ -2,15 +2,15 @@
 
 FunctionEntry::FunctionEntry(ReturnType m_ret, std::string m_name, std::vector<VariableEntry> m_params):
     ret{m_ret},
-    name{m_name},
     params{m_params}
 {
+    identifier = m_name;
 }
 
-FunctionEntry::FunctionEntry(ReturnType m_ret, std::string m_name):
-    ret{m_ret},
-    name{m_name}
+FunctionEntry::FunctionEntry(ReturnType m_ret, std::string m_name) :
+    ret{ m_ret }
 {
+    identifier = m_name;
 }
 
 VariableEntry FunctionEntry::getParam(int index)
@@ -24,7 +24,7 @@ VariableEntry FunctionEntry::getParam(int index)
 
 void FunctionEntry::setName(std::string m_name)
 {
-    name = m_name;
+    identifier = m_name;
 }
 
 void FunctionEntry::setReturnValue(ReturnType m_ret)
@@ -42,7 +42,17 @@ void FunctionEntry::appendParam(const VariableEntry& param)
     params.push_back(param);
 }
 
-EntryType FunctionEntry::getEntryType()
+EntryType FunctionEntry::getEntryType() const
 {
-    return EntryType::FUNCTION;
+    return entryType;
+}
+
+bool FunctionEntry::operator==(const FunctionEntry& other) const
+{
+    return ret == other.ret && params == other.params;
+}
+
+bool FunctionEntry::operator==(const StackEntry& other) const
+{
+    return identifier == other.getIdentifier();
 }

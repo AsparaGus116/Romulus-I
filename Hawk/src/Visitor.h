@@ -10,8 +10,9 @@
 #include "VariableEntry.h"
 #include "utils.h"
 #include "LRU.h"
+#include "Memory.h"
 
-#include <stack>
+#include <deque>
 #include <map>
 
 using namespace antlr4;
@@ -19,16 +20,22 @@ using namespace hawk;
 
 class Visitor : hawkParserBaseVisitor
 {
-	LRU<VariableEntry> varCache{ { Regs::R5, Regs::R6, Regs::R7, Regs::R8, Regs::R9, Regs::R10, Regs::R11 } };
+	LRU<VariableEntry*> varCache{ { Regs::R5, Regs::R6, Regs::R7, Regs::R8, Regs::R9, Regs::R10, Regs::R11 } };
 
 	LRU<uint16_t> immCache{ {Regs::R12, Regs::R13, Regs::R14, Regs::R15} };
 
-	std::stack<StackEntry> stack;
+	uint16_t numLoops = 0;
+
+	std::deque<StackEntry*> stack;
 
 	std::ofstream out;
 
 	std::map<FunctionEntry, std::string> functionOutputs;
 public:
+	LRU<VariableEntry*> getVarCache();
+
+	LRU<uint16_t> getImmCache();
+
 	Visitor();
 
 	std::any visitProgram(hawkParser::ProgramContext* ctx) override;
@@ -42,4 +49,10 @@ public:
 	std::any visitExprStmt(hawkParser::ExprStmtContext* ctx) override;
 
 	std::any visitNumber(hawkParser::NumberContext* ctx) override;
+
+	std::any visitAssignStmt(hawkParser::AssignStmtContext* ctx) override;
+
+	std::any visitVarExpr(hawkParser::VarExprContext* ctx) override;
+
+	std::string loop(int times, std::string block);
 };

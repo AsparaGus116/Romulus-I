@@ -13,10 +13,11 @@ enum class ReturnType
 };
 
 #pragma once
-class FunctionEntry : StackEntry
+class FunctionEntry : public StackEntry
 {	
+private:
 	ReturnType ret;
-	std::string name;
+	const EntryType entryType = EntryType::FUNCTION;
 	std::vector<VariableEntry> params;
 public:
 
@@ -30,6 +31,10 @@ public:
 	void clearParams();
 	void appendParam(const VariableEntry& param);
 
-	EntryType getEntryType();
+	EntryType getEntryType() const override;
+
+	bool operator==(const FunctionEntry& other) const;
+
+	bool operator==(const StackEntry& other) const override;
 };
 

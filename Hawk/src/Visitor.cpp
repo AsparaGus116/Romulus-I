@@ -1,5 +1,15 @@
 #include "Visitor.h"
 
+LRU<VariableEntry*> Visitor::getVarCache()
+{
+    return varCache;
+}
+
+LRU<uint16_t> Visitor::getImmCache()
+{
+    return immCache;
+}
+
 Visitor::Visitor()
 {
     out.open("asm.txt");
@@ -10,11 +20,11 @@ std::any Visitor::visitProgram(hawkParser::ProgramContext* ctx)
     std::string output;
     for (auto stmt : ctx->stmt())
     {
-        output += std::any_cast<std::string>(visit(stmt));
+        visit(stmt);
     }
     out << output;
     out.close();
-    return "";
+    return "EXIT";
 }
 
 std::any Visitor::visitStmt(hawkParser::StmtContext* ctx)
@@ -56,7 +66,7 @@ std::any Visitor::visitStmt(hawkParser::StmtContext* ctx)
     {
         return visit(ctx->trueStmt());
     }
-    return 0;
+    return "HERE";
 }
 
 std::any Visitor::visitFunctionStmt(hawkParser::FunctionStmtContext* ctx)
@@ -171,4 +181,135 @@ std::any Visitor::visitNumber(hawkParser::NumberContext* ctx)
         out << utils::loadImm(reg, x, Format::BIN);
     }
     return reg;
+}
+
+std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
+{
+    VariableEntry* v1 = std::any_cast<VariableEntry*>(visit(ctx->expr(0)));
+    Regs left = varCache.process(v1);
+    v1->setReg(left);
+    Regs right = Regs::NIL;
+    uint16_t value;
+    if (dynamic_cast<hawkParser::NumExprContext*>(ctx->expr(1)))
+    {
+        right = std::any_cast<Regs>(visit(ctx->expr(1)));
+        value = immCache.find(right);
+    }
+    else if (dynamic_cast<hawkParser::VarExprContext*>(ctx->expr(1)))
+    {
+        VariableEntry* v2 = std::any_cast<VariableEntry*>(visit(ctx->expr(1)));
+        right = varCache.process(v2);
+        value = v2->getValue();
+    }
+    if (ctx->assignOp()->KASSIGN())
+    {
+        out << utils::output("MOV", utils::toString(right), utils::toString(left));
+        varCache.find(left)->setValue(value);
+    }
+    else if (ctx->assignOp()->KADDASSIGN())
+    {
+        out << utils::output("ADD", utils::toString(right), utils::toString(left));
+    }
+    else if (ctx->assignOp()->KSUBASSIGN())
+    {
+        out << utils::output("SUB", utils::toString(right), utils::toString(left));
+    }
+    else if (ctx->assignOp()->KMULASSIGN())
+    {
+        
+    }
+    else if (ctx->assignOp()->KDIVASSIGN())
+    {
+
+    }
+    else if (ctx->assignOp()->KMODASSIGN())
+    {
+
+    }
+    else if (ctx->assignOp()->KANDASSIGN())
+    {
+        out << utils::output("AND", utils::toString(right), utils::toString(left));
+    }
+    else if (ctx->assignOp()->KORASSIGN())
+    {
+        out << utils::output("OR", utils::toString(right), utils::toString(left));
+    }
+    else if (ctx->assignOp()->KXORASSIGN())
+    {
+        out << utils::output("XOR", utils::toString(right), utils::toString(left));
+    }
+    else if (ctx->assignOp()->KSHLASSIGN())
+    {
+        utils::loop(value, utils::output("SHL", utils::toString(left)));
+    }
+    else if (ctx->assignOp()->KSHRASSIGN())
+    {
+
+    }
+
+    return "HERE";
+}
+
+std::any Visitor::visitVarExpr(hawkParser::VarExprContext* ctx)
+{
+    int lineNumber = ctx->getStart()->getLine();
+    int columnNumber = ctx->getStart()->getCharPositionInLine();
+    if (ctx->type())
+    {
+        VarType v = VarType::ERROR;
+        auto type = ctx->type()->getText();
+        if (type == "void")
+        {
+            
+            utils::error(lineNumber, columnNumber, "cannot have void variable type");
+        }
+        else if (type == "int")
+        {
+            v =  VarType::INT;
+        }
+        else if (type == "bool")
+        {
+            v = VarType::BOOL;
+        }
+        else if (type == "char")
+        {
+            v = VarType::CHAR;
+        }
+        else if (type.find("*") != -1)
+        {
+            v = VarType::PTR;
+        }
+        for (int i = 0; i < stack.size(); i++)
+        {
+            if (stack[i]->getIdentifier() == ctx->ID()->getText() && stack[i]->getEntryType() == EntryType::VARIABLE)
+            {
+                utils::error(lineNumber, columnNumber, "Variable redefinition; redefining \"" + ctx->ID()->getText() + "\"");
+            }
+        }
+        VariableEntry* var = new VariableEntry{ ctx->ID()->getText(), v };
+        stack.push_back(var);
+        return var;
+    }
+    else
+    {
+        bool found = false;
+        for (int i = 0; i < stack.size(); i++)
+        {
+            if (stack[i]->getIdentifier() == ctx->ID()->getText() && stack[i]->getEntryType() == EntryType::VARIABLE)
+            {
+                return dynamic_cast<VariableEntry*>(stack[i]);
+            }
+        }
+        utils::error(lineNumber, columnNumber, "Referencing undefined variable \"" + ctx->ID()->getText() + "\"");
+        return nullptr;
+    }
+}
+
+std::string Visitor::loop(int times, std::string block)
+{
+    char* intStr;
+    itoa(numLoops, intStr, 10);
+    std::string ret = "LOOP_" + std::string(intStr) + ": \n";
+    ++numLoops;
+    
 }

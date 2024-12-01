@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum class EntryType
 {
 	FUNCTION,
@@ -9,7 +11,15 @@ enum class EntryType
 
 class StackEntry
 {
+protected:
+	std::string identifier;
 public:
-	EntryType getEntryType();
+	virtual EntryType getEntryType() const;
+
+	std::string getIdentifier() const;
+
+	virtual ~StackEntry() = default;
+
+	virtual bool operator==(const StackEntry& other) const = 0;
 };
 
