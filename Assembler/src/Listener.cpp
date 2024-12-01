@@ -346,7 +346,7 @@
 				}
 				else
 				{
-					rY = rB; 
+					rY = rA; 
 				}
 				output(op, rA, rB, rY);
 			}

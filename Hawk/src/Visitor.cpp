@@ -189,22 +189,23 @@ std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
     Regs left = varCache.process(v1);
     v1->setReg(left);
     Regs right = Regs::NIL;
-    uint16_t value;
+    VariableEntry* v2 = {};
+    bool num = false;
+    bool var = false;
     if (dynamic_cast<hawkParser::NumExprContext*>(ctx->expr(1)))
     {
         right = std::any_cast<Regs>(visit(ctx->expr(1)));
-        value = immCache.find(right);
+        num = true;
     }
     else if (dynamic_cast<hawkParser::VarExprContext*>(ctx->expr(1)))
     {
-        VariableEntry* v2 = std::any_cast<VariableEntry*>(visit(ctx->expr(1)));
+        v2 = std::any_cast<VariableEntry*>(visit(ctx->expr(1)));
         right = varCache.process(v2);
-        value = v2->getValue();
+        var = true;
     }
     if (ctx->assignOp()->KASSIGN())
     {
         out << utils::output("MOV", utils::toString(right), utils::toString(left));
-        varCache.find(left)->setValue(value);
     }
     else if (ctx->assignOp()->KADDASSIGN())
     {
@@ -216,7 +217,7 @@ std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
     }
     else if (ctx->assignOp()->KMULASSIGN())
     {
-        
+
     }
     else if (ctx->assignOp()->KDIVASSIGN())
     {
@@ -240,11 +241,19 @@ std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
     }
     else if (ctx->assignOp()->KSHLASSIGN())
     {
-        utils::loop(value, utils::output("SHL", utils::toString(left)));
+        if (num)
+        {
+            out << loopImm(immCache.find(right), utils::output("SHL", utils::toString(left)));
+        }
+        else if (var)
+        {
+            out << loop(v2, utils::output("SHL", utils::toString(left)));
+        }
+        
     }
     else if (ctx->assignOp()->KSHRASSIGN())
     {
-
+        out << loop(v2, utils::output("SHR", utils::toString(left)));
     }
 
     return "HERE";
@@ -305,11 +314,57 @@ std::any Visitor::visitVarExpr(hawkParser::VarExprContext* ctx)
     }
 }
 
-std::string Visitor::loop(int times, std::string block)
+std::string Visitor::loop(VariableEntry* times, std::string block)
 {
-    char* intStr;
-    itoa(numLoops, intStr, 10);
-    std::string ret = "LOOP_" + std::string(intStr) + ": \n";
-    ++numLoops;
+
+    std::string intStr = std::to_string(numLoops);
     
+    std::string ret;
+    Regs reg = varCache.process(times);
+    //ret += utils::loadImm(reg, times);
+    Regs one = immCache.process(1);
+    Regs start = labelCache.process("LOOP_" + intStr);
+    ret += utils::loadImm(one, 1);
+    Regs exit = labelCache.process("LOOP_END_" + intStr);
+    ret += utils::loadLabel(exit, "LOOP_END_" + intStr);
+    ret += utils::loadLabel(start, "LOOP_" + intStr);
+    ret += "LOOP_" + intStr + ": \n";
+    ret += utils::output("JEZ", utils::toString(exit), utils::toString(reg));
+    ret += block;
+    one = immCache.process(1);
+    reg = varCache.process(times);
+    ret += utils::output("SUB", utils::toString(reg), utils::toString(one), utils::toString(reg));
+    
+    ret += utils::output("JMP", utils::toString(start));
+    ret +=  "LOOP_END_" + intStr + ": \n";
+    ++numLoops;
+    return ret;
+
+}
+
+std::string Visitor::loopImm(uint16_t times, std::string block)
+{
+    std::string intStr = std::to_string(numLoops);
+
+    std::string ret;
+    Regs reg = immCache.process(times);
+    //ret += utils::loadImm(reg, times);
+    Regs one = immCache.process(1);
+    Regs start = labelCache.process("LOOP_" + intStr);
+    ret += utils::loadImm(one, 1);
+     Regs exit = labelCache.process("LOOP_END_" + intStr);
+    ret += utils::loadLabel(exit, "LOOP_END_" + intStr);
+    ret += utils::loadLabel(start, "LOOP_" + intStr);
+    ret += "LOOP_" + intStr + ": \n";
+    reg = immCache.process(times);
+    ret += utils::output("JEZ", utils::toString(exit), utils::toString(reg));
+    ret += block;
+    one = immCache.process(1);
+    reg = immCache.process(times);
+    ret += utils::output("SUB", utils::toString(reg), utils::toString(one), utils::toString(reg));
+
+    ret += utils::output("JMP", utils::toString(start));
+    ret += "LOOP_END_" + intStr + ": \n";
+    ++numLoops;
+    return ret;
 }

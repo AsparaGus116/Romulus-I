@@ -55,9 +55,14 @@ std::string utils::loadImm(Regs reg, uint16_t imm, Format f, std::string comment
 	return output("MOV", buf, toString(reg));
 }
 
+std::string utils::loadLabel(Regs reg, std::string label, std::string comment)
+{
+	return output("MOV", label, toString(reg), "", comment);
+}
+
 std::string utils::loadReg(Regs left, Regs right, std::string comment)
 {
-	return output("MOV", toString(right), toString(left));
+	return output("MOV", toString(right), toString(left), "", comment);
 }
 
 std::string utils::output(std::string command, std::string arg1, std::string arg2, std::string arg3, std::string comment)

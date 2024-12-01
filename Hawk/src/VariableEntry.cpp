@@ -39,11 +39,6 @@ VarType VariableEntry::getType() const
     return type;
 }
 
-uint16_t VariableEntry::getValue() const
-{
-    return value;
-}
-
 void VariableEntry::setLocation(uint16_t x)
 {
     location = x;
@@ -57,11 +52,6 @@ void VariableEntry::setReg(Regs reg)
 void VariableEntry::setSize(uint16_t s)
 {
     size = s;
-}
-
-void VariableEntry::setValue(uint16_t x)
-{
-    value = x;
 }
 
 bool VariableEntry::operator==(const VariableEntry& other) const

@@ -46,6 +46,8 @@ public:
 
 	static std::string loadImm(Regs reg, uint16_t imm, Format f = DEC, std::string comment = "");
 
+	static std::string loadLabel(Regs reg, std::string label, std::string comment = "");
+
 	static std::string loadReg(Regs left, Regs right, std::string comment = "");
 
 	static std::string output(std::string command, std::string arg1, std::string arg2 = "", std::string arg3 = "", std::string comment = "");

@@ -43,7 +43,7 @@ public:
 				return lru[i].second;
 			}
 		}
-		return nullptr;
+		return NULL;
 	}
 
 	Regs process(T val)

@@ -23,8 +23,6 @@ class VariableEntry : public StackEntry
 
 	const EntryType entryType = EntryType::VARIABLE;
 
-	uint16_t value = 0;
-
 public:
 	VariableEntry() = default;
 	VariableEntry(std::string m_id, VarType m_type, uint16_t m_size = 1);
@@ -35,12 +33,10 @@ public:
 	Regs getReg() const;
 	uint16_t getSize() const;
 	VarType getType() const;
-	uint16_t getValue() const;
 
 	void setLocation(uint16_t x);
 	void setReg(Regs reg);
 	void setSize(uint16_t s);
-	void setValue (uint16_t x);
 
 	bool operator==(const VariableEntry& other) const;
 

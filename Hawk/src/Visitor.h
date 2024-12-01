@@ -20,9 +20,11 @@ using namespace hawk;
 
 class Visitor : hawkParserBaseVisitor
 {
-	LRU<VariableEntry*> varCache{ { Regs::R5, Regs::R6, Regs::R7, Regs::R8, Regs::R9, Regs::R10, Regs::R11 } };
+	LRU<VariableEntry*> varCache{ { Regs::R5, Regs::R6, Regs::R7, Regs::R8, Regs::R9, Regs::R10 } };
 
-	LRU<uint16_t> immCache{ {Regs::R12, Regs::R13, Regs::R14, Regs::R15} };
+	LRU<std::string> labelCache{ {Regs::R11, Regs::R12} };
+
+	LRU<uint16_t> immCache{ {Regs::R13, Regs::R14, Regs::R15} };
 
 	uint16_t numLoops = 0;
 
@@ -54,5 +56,7 @@ public:
 
 	std::any visitVarExpr(hawkParser::VarExprContext* ctx) override;
 
-	std::string loop(int times, std::string block);
+	std::string loop(VariableEntry* times, std::string block);
+
+	std::string loopImm(uint16_t times, std::string block);
 };
