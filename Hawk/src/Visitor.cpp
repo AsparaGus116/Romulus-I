@@ -143,6 +143,7 @@ std::any Visitor::visitParameter(hawkParser::ParameterContext* ctx)
 
 std::any Visitor::visitExprStmt(hawkParser::ExprStmtContext* ctx)
 {
+    //visit(ctx->expr());
     return "";
 }
 
@@ -181,6 +182,24 @@ std::any Visitor::visitNumber(hawkParser::NumberContext* ctx)
         out << utils::loadImm(reg, x, Format::BIN);
     }
     return reg;
+}
+
+std::any Visitor::visitPrefixExpr(hawkParser::PrefixExprContext* ctx)
+{
+    Regs reg = immCache.process(1);
+    VariableEntry* var = std::any_cast<VariableEntry*>(visit(ctx->expr()));
+    Regs expr = varCache.process(var);
+    out << utils::loadImm(reg, 1);
+    if (ctx->KINC())
+    {
+        out << utils::output("ADD", utils::toString(expr), utils::toString(reg), utils::toString(expr));
+    }
+    else if (ctx->KDEC())
+    {
+        out << utils::output("SUB", utils::toString(expr), utils::toString(reg), utils::toString(expr));
+    }
+    return var;
+    //out << utils::output()
 }
 
 std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
@@ -312,6 +331,24 @@ std::any Visitor::visitVarExpr(hawkParser::VarExprContext* ctx)
         utils::error(lineNumber, columnNumber, "Referencing undefined variable \"" + ctx->ID()->getText() + "\"");
         return nullptr;
     }
+}
+
+std::any Visitor::visitUnaryExpr(hawkParser::UnaryExprContext* ctx)
+{
+    if (ctx->KADD())
+    {
+        return std::any_cast<Regs>(visit(ctx->expr()));
+    }
+    else if(ctx->KSUB())
+    {
+        Regs x = immCache.process(1);
+        VariableEntry* var = std::any_cast<VariableEntry*>(visit(ctx->expr()));
+        Regs expr = varCache.process(var);
+        out << utils::output("INV", utils::toString(expr));
+        out << utils::output("ADD", utils::toString(expr), utils::toString(x), utils::toString(expr));
+        return var;
+    }
+    return nullptr;
 }
 
 std::string Visitor::loop(VariableEntry* times, std::string block)

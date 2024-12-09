@@ -52,9 +52,13 @@ public:
 
 	std::any visitNumber(hawkParser::NumberContext* ctx) override;
 
+	std::any visitPrefixExpr(hawkParser::PrefixExprContext* ctx) override;
+
 	std::any visitAssignStmt(hawkParser::AssignStmtContext* ctx) override;
 
 	std::any visitVarExpr(hawkParser::VarExprContext* ctx) override;
+
+	std::any visitUnaryExpr(hawkParser::UnaryExprContext* ctx) override;
 
 	std::string loop(VariableEntry* times, std::string block);
 
