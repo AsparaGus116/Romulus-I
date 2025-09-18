@@ -1,5 +1,17 @@
 #include "Visitor.h"
 
+VariableEntry* Visitor::findVariable(std::string id)
+{
+    for (int i = 0; i < stack.size(); i++)
+    {
+        if (stack[i]->getIdentifier() == id && stack[i]->getEntryType() == EntryType::VARIABLE)
+        {
+            return dynamic_cast<VariableEntry*>(stack[i]);
+        }
+    }
+    return nullptr;
+}
+
 LRU<VariableEntry*> Visitor::getVarCache()
 {
     return varCache;
@@ -13,6 +25,36 @@ LRU<uint16_t> Visitor::getImmCache()
 Visitor::Visitor()
 {
     out.open("asm.txt");
+}
+
+Regs Visitor::processVar(VariableEntry* v)
+{
+    VariableEntry* evicted = varCache.getEvicted(v);
+    if (evicted)
+    {
+        if (Memory::find(v) == -1)
+        {
+            int location = Memory::storeVariable(*evicted);
+            Regs imm = immCache.process(location);
+            Regs var = varCache.find(evicted);
+            out << utils::loadImm(imm, location, Format::HEX);
+            out << utils::output("STR", utils::toString(imm), utils::toString(var));
+
+        }
+    }
+    if (varCache.find(v) == Regs::NIL && Memory::find(v) != -1) // v not in cache
+    {
+        int location = Memory::find(v);
+        Regs imm = immCache.process(location);
+        Regs var = varCache.process(v);
+        out << utils::loadImm(imm, location, Format::HEX);
+        out << utils::output("LDA", utils::toString(imm), utils::toString(var));
+        return var;
+    }
+    else
+    {
+        return varCache.process(v);
+    }
 }
 
 std::any Visitor::visitProgram(hawkParser::ProgramContext* ctx)
@@ -143,7 +185,7 @@ std::any Visitor::visitParameter(hawkParser::ParameterContext* ctx)
 
 std::any Visitor::visitExprStmt(hawkParser::ExprStmtContext* ctx)
 {
-    //visit(ctx->expr());
+    visit(ctx->expr());
     return "";
 }
 
@@ -163,6 +205,14 @@ std::any Visitor::visitNumber(hawkParser::NumberContext* ctx)
     {
         std::string str = ctx->BIN()->getText().substr(2, ctx->BIN()->getText().size() - 2);
         x = std::stoi(str, nullptr, 2);
+    }
+    else if (ctx->KTRUE())
+    {
+        return 1;
+    }
+    else if (ctx->KFALSE())
+    {
+        return 0;
     }
     else
     {
@@ -188,7 +238,7 @@ std::any Visitor::visitPrefixExpr(hawkParser::PrefixExprContext* ctx)
 {
     Regs reg = immCache.process(1);
     VariableEntry* var = std::any_cast<VariableEntry*>(visit(ctx->expr()));
-    Regs expr = varCache.process(var);
+    Regs expr = processVar(var);
     out << utils::loadImm(reg, 1);
     if (ctx->KINC())
     {
@@ -202,10 +252,44 @@ std::any Visitor::visitPrefixExpr(hawkParser::PrefixExprContext* ctx)
     //out << utils::output()
 }
 
+std::any Visitor::visitPrefixStmt(hawkParser::PrefixStmtContext* ctx)
+{
+    Regs reg = immCache.process(1);
+    VariableEntry* var = findVariable(ctx->ID()->getText());
+    Regs expr = processVar(var);
+    out << utils::loadImm(reg, 1);
+    if (ctx->KINC())
+    {
+        out << utils::output("ADD", utils::toString(expr), utils::toString(reg), utils::toString(expr));
+    }
+    else if (ctx->KDEC())
+    {
+        out << utils::output("SUB", utils::toString(expr), utils::toString(reg), utils::toString(expr));
+    }
+    return var;
+}
+
+std::any Visitor::visitPostfixStmt(hawkParser::PostfixStmtContext* ctx)
+{
+    Regs reg = immCache.process(1);
+    VariableEntry* var = findVariable(ctx->ID()->getText());
+    Regs expr = processVar(var);
+    out << utils::loadImm(reg, 1);
+    if (ctx->KINC())
+    {
+        out << utils::output("ADD", utils::toString(expr), utils::toString(reg), utils::toString(expr));
+    }
+    else if (ctx->KDEC())
+    {
+        out << utils::output("SUB", utils::toString(expr), utils::toString(reg), utils::toString(expr));
+    }
+    return var;
+}
+
 std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
 {
     VariableEntry* v1 = std::any_cast<VariableEntry*>(visit(ctx->expr(0)));
-    Regs left = varCache.process(v1);
+    Regs left = processVar(v1);
     v1->setReg(left);
     Regs right = Regs::NIL;
     VariableEntry* v2 = {};
@@ -219,7 +303,7 @@ std::any Visitor::visitAssignStmt(hawkParser::AssignStmtContext* ctx)
     else if (dynamic_cast<hawkParser::VarExprContext*>(ctx->expr(1)))
     {
         v2 = std::any_cast<VariableEntry*>(visit(ctx->expr(1)));
-        right = varCache.process(v2);
+        right = processVar(v2);
         var = true;
     }
     if (ctx->assignOp()->KASSIGN())
@@ -343,12 +427,22 @@ std::any Visitor::visitUnaryExpr(hawkParser::UnaryExprContext* ctx)
     {
         Regs x = immCache.process(1);
         VariableEntry* var = std::any_cast<VariableEntry*>(visit(ctx->expr()));
-        Regs expr = varCache.process(var);
+        Regs expr = processVar(var);
         out << utils::output("INV", utils::toString(expr));
         out << utils::output("ADD", utils::toString(expr), utils::toString(x), utils::toString(expr));
         return var;
     }
     return nullptr;
+}
+
+std::any Visitor::visitRelationalExpr(hawkParser::RelationalExprContext* ctx)
+{
+    Regs p0 = std::any_cast<Regs>(visit(ctx->expr(0)));
+    Regs p1 = std::any_cast<Regs>(visit(ctx->expr(1)));
+    if (ctx->cond()->getText() == "==")
+    {
+
+    }
 }
 
 std::string Visitor::loop(VariableEntry* times, std::string block)
@@ -357,7 +451,7 @@ std::string Visitor::loop(VariableEntry* times, std::string block)
     std::string intStr = std::to_string(numLoops);
     
     std::string ret;
-    Regs reg = varCache.process(times);
+    Regs reg = processVar(times);
     //ret += utils::loadImm(reg, times);
     Regs one = immCache.process(1);
     Regs start = labelCache.process("LOOP_" + intStr);
@@ -369,7 +463,7 @@ std::string Visitor::loop(VariableEntry* times, std::string block)
     ret += utils::output("JEZ", utils::toString(exit), utils::toString(reg));
     ret += block;
     one = immCache.process(1);
-    reg = varCache.process(times);
+    reg = processVar(times);
     ret += utils::output("SUB", utils::toString(reg), utils::toString(one), utils::toString(reg));
     
     ret += utils::output("JMP", utils::toString(start));

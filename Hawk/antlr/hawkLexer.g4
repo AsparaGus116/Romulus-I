@@ -70,12 +70,16 @@ KDO : 'do';
 
 KFOR : 'for';
 
+KTRUE : 'true';
+KFALSE : 'false';
+
 COMMA : ',';
 SEMICOLON : ';';
 DOT : '.';
 ARROW : '->';
 
 ID : [a-zA-Z_][a-zA-Z0-9_]*;
+CHAR : ['][\\]?(.)['] ;
 INT : [0-9]+;
 HEX : '0x'[0-9A-Fa-f]+;
 BIN : '0b'[01]+;

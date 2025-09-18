@@ -149,7 +149,7 @@ void setup() {
   {
 
   }
-  String fname = Serial.readString();
+  String fname = Serial.readStringUntil('\n');
   Serial.println(fname);
   fname.trim();
   fname.toCharArray(filename, 256);

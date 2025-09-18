@@ -20,6 +20,8 @@ using namespace hawk;
 
 class Visitor : hawkParserBaseVisitor
 {
+	// R4 used to test conditionals
+
 	LRU<VariableEntry*> varCache{ { Regs::R5, Regs::R6, Regs::R7, Regs::R8, Regs::R9, Regs::R10 } };
 
 	LRU<std::string> labelCache{ {Regs::R11, Regs::R12} };
@@ -34,11 +36,16 @@ class Visitor : hawkParserBaseVisitor
 
 	std::map<FunctionEntry, std::string> functionOutputs;
 public:
+
+	VariableEntry* findVariable(std::string id);
+
 	LRU<VariableEntry*> getVarCache();
 
 	LRU<uint16_t> getImmCache();
 
 	Visitor();
+
+	Regs processVar(VariableEntry* v);
 
 	std::any visitProgram(hawkParser::ProgramContext* ctx) override;
 
@@ -54,11 +61,17 @@ public:
 
 	std::any visitPrefixExpr(hawkParser::PrefixExprContext* ctx) override;
 
+	std::any visitPrefixStmt(hawkParser::PrefixStmtContext* ctx) override;
+
+	std::any visitPostfixStmt(hawkParser::PostfixStmtContext* ctx) override;
+
 	std::any visitAssignStmt(hawkParser::AssignStmtContext* ctx) override;
 
 	std::any visitVarExpr(hawkParser::VarExprContext* ctx) override;
 
 	std::any visitUnaryExpr(hawkParser::UnaryExprContext* ctx) override;
+
+	std::any visitRelationalExpr(hawkParser::RelationalExprContext* ctx) override;
 
 	std::string loop(VariableEntry* times, std::string block);
 

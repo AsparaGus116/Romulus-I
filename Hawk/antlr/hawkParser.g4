@@ -30,7 +30,11 @@ number
     : INT
     | HEX
     | BIN
+	| KTRUE
+	| KFALSE
+	| CHAR
     ;
+
 
 cond
     : KEQ

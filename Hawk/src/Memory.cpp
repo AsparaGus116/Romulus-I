@@ -2,9 +2,26 @@
 
 std::array<VariableEntry, (1 << 16) - 4> Memory::mem = {};
 
+int Memory::find(VariableEntry* v)
+{
+	for (int i = 0; i < mem.size(); i++)
+	{
+		if (*v == mem[i])
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+VariableEntry* Memory::get(int idx)
+{
+	return &mem[idx];
+}
+
 int Memory::storeVariable(VariableEntry& v)
 {
-	if (v.getLocation() != -1)
+	if (v.getLocation() != 0xFFFF)
 	{
 		return v.getLocation();
 	}

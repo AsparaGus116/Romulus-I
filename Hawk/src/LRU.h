@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "utils.h"
+#include "Memory.h"
 
 
 template <typename T>
@@ -15,11 +16,23 @@ class LRU
 
 	int max_size;
 
+	bool store;
+
 public:
-	LRU(std::vector<Regs> regs) :
+	LRU(std::vector<Regs> regs, bool m_store = false) :
 		availableRegs{ regs }
 	{
 		max_size = availableRegs.size();
+		store = m_store;
+	}
+
+	T getEvicted(T next)
+	{
+		if (find(next) != Regs::NIL || lru.size() < max_size)
+		{
+			return NULL;
+		}
+		return lru[lru.size() - 1].second;
 	}
 
 	int getPriority(T val)
@@ -44,6 +57,18 @@ public:
 			}
 		}
 		return NULL;
+	}
+
+	Regs find(T entry)
+	{
+		for (int i = 0; i < lru.size(); i++)
+		{
+			if (lru[i].second == entry)
+			{
+				return lru[i].first;
+			}
+		}
+		return Regs::NIL;
 	}
 
 	Regs process(T val)
@@ -83,8 +108,32 @@ public:
 		else
 		{
 			Regs reg = lru[lru.size() - 1].first;
+			if (store)
+			{
+				if constexpr (std::is_same_v<T, VariableEntry*>) {
+					Memory::storeVariable(*lru[lru.size() - 1].second);
+				}
+			}
 			lru.pop_back();
-			lru.insert(lru.begin(), {reg, val});
+			if (store)
+			{
+				if constexpr (std::is_same_v<T, VariableEntry*>) {
+					if (!Memory::find(val))
+					{
+						lru.insert(lru.begin(), { reg, val });
+					}
+					else
+					{
+						lru.insert(lru.begin(), { reg, Memory::get(Memory::find(val)) });
+					}
+				}
+				
+			}
+			else
+			{
+				lru.insert(lru.begin(), { reg, val });
+			}
+			
 			return reg;
 		}
 		return Regs::NIL;

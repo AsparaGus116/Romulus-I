@@ -18,7 +18,7 @@ class VariableEntry : public StackEntry
 	VarType type;
 	uint16_t size; // how many addresses the variable takes up
 
-	uint16_t location;
+	uint16_t location = 0xFFFF;
 	Regs storedRegister;
 
 	const EntryType entryType = EntryType::VARIABLE;
