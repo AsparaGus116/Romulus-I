@@ -1,3 +1,5 @@
+![04E9F81A-9EDE-4E56-B336-F9BF396B815B](https://github.com/user-attachments/assets/072672bf-3a66-461a-ab72-c3be4b17b1c0)
+
 # ROMULUS-I 
 Romulus-I is a 16-bit CPU project with a custom ISA and implementation, to boot with an assembler and compiler.
 
